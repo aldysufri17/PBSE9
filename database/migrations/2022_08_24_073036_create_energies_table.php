@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('energies', function (Blueprint $table) {
-            $table->id('energy_id');
+            $table->id('id');
             $table->string('name');
             $table->string('unit');
             $table->timestamps();

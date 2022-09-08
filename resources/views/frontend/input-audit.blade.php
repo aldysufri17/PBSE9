@@ -29,7 +29,7 @@
                     @foreach ($energi as $e)
                     <div class="input-group hdtuto control-group d-flex justify-content-center">
                         <div class="col-md-3">
-                            <input type="text" placeholder="" name="nama_energi[{{$e->nama}}]" class="myfrm form-control @error('nama_energi[{{$e->nama}}]') is-invalid @enderror" value="{{$e->nama}}"></input>
+                            <input type="text" placeholder="" name="nama_energi[{{$e->nama}}]" class="myfrm form-control @error('nama_energi[{{$e->nama}}]') is-invalid @enderror" value="{{$e->nama}}">
                             @error('nama_energi[{{$e->nama}}]')
                             <span class="text-danger">{{$message}}</span>
                             @enderror

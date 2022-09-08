@@ -35,7 +35,7 @@
                               width="30px"
                               src="{{ asset(auth()->user()->foto ? 'images/profil/'. auth()->user()->foto : 'backend/assets/img/avatar/avatar-1.png') }}"></a>
                       <ul>
-                          <li><a href="{{route('profile.detail')}}">Profile</a></li>
+                          {{-- <li><a href="{{route('profile.detail')}}">Profile</a></li> --}}
                           <li><a class="nav-link scrollto" href="{{ route('logout') }}"
                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                           </li>

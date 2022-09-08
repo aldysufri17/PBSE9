@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id('post_id');
+            $table->id('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('energy_id');
             $table->unsignedBigInteger('blueprint_id');
@@ -24,9 +24,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade'); 
-            $table->foreign('energy_id')->references('energy_id')->on('energies')->onDelete('cascade'); 
-            $table->foreign('blueprint_id')->references('blueprint_id')->on('blueprints')->onDelete('cascade'); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('energy_id')->references('id')->on('energies')->onDelete('cascade');
+            $table->foreign('blueprint_id')->references('id')->on('blueprints')->onDelete('cascade');
         });
     }
 
