@@ -35,12 +35,12 @@
                 <td>
                     <div class="table-actions btn-group">
                         @if ($data->status == 0)
-                        <a href="{{ route('user.status', ['user_id' => encrypt($data->id), 'status' => 1]) }}"
+                        <a href="{{ route('user.status', ['user_id' => encrypt($data->user_id), 'status' => 1]) }}"
                             title="Inactive" class="table-action btn btn-success mr-2" data-toggle="tooltip">
                             <i class="fa fa-check"></i>
                         </a>
                         @else
-                        <a href="{{ route('user.status', ['user_id' => encrypt($data->id), 'status' => 0]) }}"
+                        <a href="{{ route('user.status', ['user_id' => encrypt($data->user_id), 'status' => 0]) }}"
                             title="Active" class="table-action btn btn-danger mr-2" data-toggle="tooltip">
                             <i class="fa fa-ban"></i>
                         </a>
@@ -52,12 +52,12 @@
                         <a href="" class="table-action btn btn-info mr-2" data-toggle="tooltip" title="Lihat">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <a href="{{route('user.edit',$data->id)}}" class="table-action btn btn-primary mr-2"
+                        <a href="{{route('user.edit',$data->user_id)}}" class="table-action btn btn-primary mr-2"
                             data-toggle="tooltip" title="Ubah">
                             <i class="fas fa-edit"></i>
                         </a>
                         <button class="table-action btn btn-danger delete-btn mr-2" data-toggle="tooltip" title="Delete"
-                            value="{{$data->id}}">
+                            value="{{$data->user_id}}">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>

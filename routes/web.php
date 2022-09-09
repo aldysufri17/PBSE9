@@ -25,7 +25,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'indexPengguna'])->name('home');
 
@@ -44,4 +43,5 @@ Route::middleware(['auth'])->group(function () {
     // Frontend
     Route::get('input-audit', [FrontendController::class, 'inputAudit'])->name('audit.input');
     Route::post('input-audit', [FrontendController::class, 'auditStore'])->name('audit.store');
+    Route::get('riwayat-audit', [FrontendController::class, 'auditHistory'])->name('riwayat.audit');
 });

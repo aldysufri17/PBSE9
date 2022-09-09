@@ -16,52 +16,106 @@
 
     </div>
 </section><!-- Breadcrumbs Section -->
-<form action="{{route('audit.store')}}" method="post">
+<form action="{{route('audit.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="container-fluid">
-        <div class="card mt-3">
+        @if ($energi->IsNotEmpty())
+        <div class="card my-3">
             <div class="card-footer bg-white text-center">
-                <b>Masukkan Data Penggunaan Energi</b>
+                <h4 class="fw-bold">Rekap Data Penggunaan Energi Pada Gedung {{auth()->user()->name}}</h4>
             </div>
             <!-- <input type="text" name="ha"> -->
-            <div class="card-body">
-                <div class="my-3">
-                    @foreach ($energi as $e)
-                    <div class="input-group hdtuto control-group d-flex justify-content-center">
-                        <div class="col-md-3">
-                            <input type="text" placeholder="" name="nama_energi[{{$e->nama}}]" class="myfrm form-control @error('nama_energi[{{$e->nama}}]') is-invalid @enderror" value="{{$e->nama}}">
-                            @error('nama_energi[{{$e->nama}}]')
+            <div class="card-body p-3">
+                @foreach ($energi as $key=>$e)
+                <div class="mt-5">
+                    @if ($key != 0)
+                    <hr style="color: red; border:3px solid blue">
+                    @endif
+                    <span class="fw-bold"><span class="text-danger">*</span> Input Penggunaan Energi Jenis
+                        {{$e->name}}</span>
+                    <input type="text" name="energy_id[]" hidden value="{{$e->id}}">
+                    <div class="form-group row">
+                        {{-- Nilai Energi --}}
+                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+                            <span style="color:red;">*</span>Nilai Penggunaan {{$e->name}}</label>
+                            <input required type="number" placeholder="Nilai Penggunaan"
+                                class="form-control form-control-user @error('usage') is-invalid @enderror"
+                                name="usage[]">
+                            @error('usage')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="col-md-3">
-                            <input type="number" placeholder="Nilai Penggunaan" name="nilai_energi[{{$e->nama}}]"
-                                class="myfrm form-control @error('nilai_energi') is-invalid @enderror" value="{{ old('nilai_energi[]') }}">
-                            @error('nilai_energi')
+
+                        {{-- Tanggal Awal Penggunaan --}}
+                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+                            <span style="color:red;">*</span>Tanggal Awal Penggunaan</label>
+                            <input required type="date"
+                                class="form-control form-control-user @error('start_date') is-invalid @enderror"
+                                name="start_date[]">
+                            @error('start_date')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="col-md-3">
-                            <input type="date" placeholder="Waktu Penggunaan" name="date[{{$e->nama}}]" class="myfrm form-control @error('date') is-invalid @enderror">
-                            @error('date')
+
+                        {{-- Tanggal Akhir Penggunaan --}}
+                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+                            <span style="color:red;">*</span>Tanggal Akhir Penggunaan</label>
+                            <input required type="date"
+                                class="form-control form-control-user @error('end_date') is-invalid @enderror"
+                                name="end_date[]">
+                            @error('end_date')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="col-md-3">
-                            <input type="file" placeholder="Gambar Bukti" name="BuktiPembayaran[{{$e->nama}}]" class="myfrm form-control @error('date') is-invalid @enderror">
-                            @error('date')
+
+                        {{-- Tanggal Penggunaan --}}
+                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+                            <span style="color:red;">*</span>Bukti Penggunaan <span class="text-danger">(Max Size
+                                :20 MB, jpeg,png,svg,pdf)</span></label>
+                            <input required type="file"
+                                class="form-control form-control-user @error('invoice') is-invalid @enderror"
+                                name="invoice[]">
+                            @error('invoice')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
                     </div>
-                    @endforeach
-                    <!-- <div class="clone"></div> -->
                 </div>
+                @endforeach
+                <div class="Tambahan">
+                    <hr class="mt-5" style="color: red; border:3px solid blue">
+                    <span class="fw-bold"><span class="text-danger">*</span> Peta Instalasi Energi Gedung <span
+                            class="text-danger">(Max Size:20 MB,pdf)</span></span>
+                    <div class="input-group control-group d-flex justify-content-center">
+                        <input type="file" class="form-control" value="dsds" name="blueprint" @error('blueprint')
+                            is-invalid @enderror>
+                    </div>
+                    @error('blueprint')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="tambahan">
+                    <hr class="mt-5" style="color: red; border:3px solid blue">
+                    <span class="fw-bold"><span class="text-danger">*</span> Berkas Tambahan</span>
+                    <div class="input-group hdtuto control-group d-flex justify-content-center">
+                        <input type="file" class="form-control" name="file[]" @error('file') is-invalid @enderror>
+                        <div class="input-group-btn">
+                            <button class="btn btn-success" type="button"><i
+                                    class="fldemo glyphicon glyphicon-plus"></i>Tambah</button>
+                        </div>
+                    </div>
+                    @error('file')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    <div class="clone"></div>
+                </div>
+                {{$energi->links()}}
             </div>
             <div class="card-footer text-end border-0">
                 <x-tabel-button type="submit" color="primary" title="Simpan"></x-tabel-button>
             </div>
         </div>
+        @endif
     </div>
 </form>
 @endsection
@@ -73,24 +127,16 @@
         $(".btn-success").click(function () {
             $(".clone").append(`
                 <div class="hide mt-3">
-                    <div class="input-group hdtuto control-group lst increment">
-                        <select class="form-control form-control-user @error('user_id') is-invalid @enderror" name="energi_id[]">
-                            <option selected disabled>Pilih Jenis Energi</option>
-                            @foreach ($energi as $data)
-                            <option value="{{$data->id}}">{{$data->nama}}</option>
-                            @endforeach
-                        </select>
-                        <div class="col-md-3">
-                            <input type="number" placeholder="Nilai Penggunaan" name="nilai_energi[]" class="myfrm form-control">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="date" placeholder="Waktu Penggunaan" name="date[]" class="myfrm form-control">
-                        </div>
-                        <div class="input-group-btn">
+                    <div class="input-group hdtuto control-group d-flex justify-content-center">
+                        <input type="file" class="form-control" required name="file[]" @error('file') is-invalid @enderror>
+                            <div class="input-group-btn">
                             <button class="btn btn-danger" id="rmv" type="button"><i
-                                    class="fldemo glyphicon glyphicon-remove"></i> Hapus Form</button>
-                        </div>
+                                    class="fldemo glyphicon glyphicon-remove"></i> Hapus</button>
+                            </div>
                     </div>
+                    @error('file')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
             `)
         });

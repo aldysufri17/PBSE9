@@ -15,8 +15,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function energi()
+    public function energy()
     {
-        return $this->belongsTo(Energi::class);
+        return $this->belongsTo(Energy::class);
     }
 }

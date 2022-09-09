@@ -2,7 +2,7 @@
 @section('title','Edit Pengguna')
 @section('content')
 <x-page-form page='edit' route="user.index" title="Pengguna">
-    <form action="{{route('user.update', $user->id)}}" method="POST">
+    <form action="{{route('user.update', $user->user_id)}}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group row">

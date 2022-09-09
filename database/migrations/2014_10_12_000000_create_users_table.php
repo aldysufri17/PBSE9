@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id('id');
+            $table->id('user_id');
             $table->tinyInteger('role_id');
             $table->string('name');
             $table->string('email')->unique();
@@ -24,6 +24,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedBigInteger('deleted_by');
+            $table->foreign('deleted_by')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 
