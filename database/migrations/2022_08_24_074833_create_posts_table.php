@@ -26,8 +26,8 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('energy_id')->references('id')->on('energies')->onDelete('cascade');
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('energy_id')->references('energy_id')->on('energies')->onDelete('cascade');
             // $table->foreign('blueprint_id')->references('id')->on('blueprints')->onDelete('cascade');
         });
     }
