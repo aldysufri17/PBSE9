@@ -18,9 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $id_user = Auth::user()->id;
-        $user = User::where('id', '!=', $id_user)
-            ->get();
+        $auth = Auth::user()->user_id;
+        $user = User::where('user_id', '!=', $auth)->get();
         return view('backend.users.index', compact('user'));
     }
 
@@ -45,7 +44,7 @@ class UserController extends Controller
         // Validations
         $request->validate([
             'name'          => 'required',
-            'email'         => 'required|unique:users,email',
+            'email'         => 'required|unique:users,email|email:strict',
             'status'        =>  'required|numeric|in:0,1',
             'role'          =>  'required|numeric',
         ]);
@@ -81,9 +80,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user_id)
     {
-        $user = User::whereId($id)->first();
+        //dd($id);
+        $user = User::whereId($user_id)->first();
         return view('backend.users.edit', compact('user'));
     }
 
@@ -151,7 +151,7 @@ class UserController extends Controller
     public function reset(Request $request)
     {
         $id = $request->reset_id;
-        User::whereId($id)->update(['password' => bcrypt('password')]);
+        User::whereuser_id($id)->update(['password' => bcrypt('password')]);
         return redirect()->back()->with('success', 'Password Berhasil direset!.');
     }
 
@@ -161,13 +161,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, Request $request)
+    public function destroy(Request $request)
     {
-        $delete = User::whereId($request->delete_id)->delete();
-        if ($delete) {
-            return redirect()->route('user.index')->with('success', 'Pengguna Berhasil dihapus!.');
-        } else {
+        $auth = Auth::user()->user_id;
+        if($request->delete_id === $auth){
             return redirect()->back()->with('error', 'Pengguna Gagal dihapus!.');
         }
+        $delete = User::whereuser_id($request->delete_id)->delete();
+        if ($delete) {
+            return redirect()->route('user.index')->with('success', 'Pengguna Berhasil dihapus!.');
+        }
+        return redirect()->back()->with('error', 'Pengguna Gagal dihapus!.');
     }
 }

@@ -25,7 +25,7 @@ class FrontendController extends Controller
             'date' => 'required|array',
             "date.*" => 'required',
         ]);
-        $user_id = Auth::user()->id;
+        $user_id = Auth::user()->user_id;
         $energi_id = $request->energi_id;
         $nilai_energi = $request->nilai_energi;
         $date = $request->date;

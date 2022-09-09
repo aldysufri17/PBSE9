@@ -25,7 +25,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'indexPengguna'])->name('home');
 
