@@ -32,7 +32,6 @@ class FrontendController extends Controller
             "invoice.*" => 'required|mimes:jpeg,png,svg,pdf|max:20000',
             "blueprint" => 'required|mimes:pdf|max:20000'
         ]);
-<<<<<<< HEAD
 
         $user_id = Auth::user()->id;
         $energy_id = $request->energy_id;
@@ -98,19 +97,6 @@ class FrontendController extends Controller
                     'invoice' => $invoice_name,
                 ]);
             }
-=======
-        $user_id = Auth::user()->user_id;
-        $energi_id = $request->energi_id;
-        $nilai_energi = $request->nilai_energi;
-        $date = $request->date;
-        foreach ($energi_id as $key => $energi) {
-            Post::create([
-                'user_id' => $user_id,
-                'energi_id' => $energi,
-                'nilai_energi' => $nilai_energi[$key],
-                'date' => $date[$key]
-            ]);
->>>>>>> a3887105c866b2b791879f7f020e37a34b2a6510
         }
 
         return redirect()->route('riwayat.audit')->with('success', 'Data berhasi disimpan.!');
