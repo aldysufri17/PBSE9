@@ -11,19 +11,20 @@ return new class extends Migration
      *
      * @return void
      */
+
     public function up()
     {
-        Schema::create('energies', function (Blueprint $table) {
-            $table->id('energy_id');
+        Schema::create('sections', function (Blueprint $table) {
+            $table->id('section_id');
             $table->string('name');
-            $table->string('unit');
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('deleted_by')->nullable();
-            $table->foreign('deleted_by')->references('user_id')->on('users')->onDelete('cascade');
+            //$table->foreign('deleted_by')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 
+    
     /**
      * Reverse the migrations.
      *
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('energies');
+        Schema::dropIfExists('sections');
     }
 };

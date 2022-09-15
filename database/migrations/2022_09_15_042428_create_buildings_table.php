@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('energies', function (Blueprint $table) {
-            $table->id('energy_id');
+        Schema::create('buildings', function (Blueprint $table) {
+            $table->id('building_id');
+            $table->unsignedBigInteger('section_id');
+            $table->foreign('section_id')->references('section_id')->on('sections')->onDelete('cascade');
             $table->string('name');
-            $table->string('unit');
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('deleted_by')->nullable();
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('energies');
+        Schema::dropIfExists('buildings');
     }
 };
