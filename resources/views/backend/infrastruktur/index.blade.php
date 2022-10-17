@@ -1,8 +1,8 @@
 @extends('backend.layouts.app')
-@section('title','Daftar Jenis Energi')
+@section('title','Daftar Infrastruktur')
 @section('content')
-<x-page-index title="Jenis Energi" buttonLabel="Tambah Jenis Energi" routeCreate="energy.create">
-    @if ($energi->IsNotEmpty())
+<x-page-index title="Infrastruktur" buttonLabel="Tambah Infrastruktur" routeCreate="infrastruktur.create">
+    @if ($infrastruktur->IsNotEmpty())
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
@@ -12,18 +12,18 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($energi as $data)
+            @foreach ($infrastruktur as $data)
             <tr>
                 <td>{{$data->name}}</td>
-                <td>{{$data->unit}}</td>
+                <td>{{$data->type}}</td>
                 <td>
                     <div class="table-actions btn-group">
-                        <a href="{{route('energy.edit',$data->energy_id)}}" class="table-action btn btn-primary mr-2"
+                        <a href="{{route('infrastruktur.edit',$data->is_id)}}" class="table-action btn btn-primary mr-2"
                             data-toggle="tooltip" title="Ubah">
                             <i class="fas fa-edit"></i>
                         </a>
                         <button class="table-action btn btn-danger delete-btn mr-2" data-toggle="tooltip" title="Delete"
-                            value="{{$data->id}}">
+                            value="{{$data->is_id}}">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -35,11 +35,11 @@
     @else
     <div class="align-items-center bg-light p-3 border-secondary rounded">
         <span class="">Oops!</span><br>
-        <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Energi</p>
+        <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Infrastruktur</p>
     </div>
     @endif
 </x-page-index>
-@include('backend.energi.modal')
+{{-- @include('backend.infrastruktur.modal') --}}
 @endsection
 
 @push('scripts')

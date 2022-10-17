@@ -9,7 +9,8 @@
                 <th>Nama</th>
                 <th>Jenis Energi</th>
                 <th>Nilai Energi</th>
-                <th>Waktu Penggunaan</th>
+                <th>Waktu Awal Penggunaan</th>
+                <th>Waktu Akhir Penggunaan</th>
                 <th>Data Masuk</th>
                 <th>Aksi</th>
             </tr>
@@ -18,9 +19,10 @@
             @foreach ($posts as $post)
             <tr>
                 <td>{{$post->user->name}}</td>
-                <td>{{$post->energi->nama}}</td>
-                <td>{{$post->nilai_energi}} {{$post->energi->satuan}}</td>
-                <td>{{$post->date}}</td>
+                <td>{{$post->energy->name}}</td>
+                <td>{{$post->usage}} {{$post->energy->satuan}}</td>
+                <td>{{$post->start_date}}</td>
+                <td>{{$post->end_date}}</td>
                 <td class="text-center">{{$post->created_at->format('d M Y')}}
                     <strong class="text-muted">({{$post->created_at->format('H:i:s A')}})</strong></td>
                 <td>

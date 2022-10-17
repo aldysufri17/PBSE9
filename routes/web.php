@@ -3,6 +3,7 @@
 use App\Http\Controllers\EnergyController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InfrastrukturController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('post', PostController::class);
 
     // Frontend
-    Route::get('input-audit', [FrontendController::class, 'inputAudit'])->name('audit.input');
-    Route::post('input-audit', [FrontendController::class, 'auditStore'])->name('audit.store');
+    Route::get('audit-rekap', [FrontendController::class, 'auditRekap'])->name('rekap.audit');
+    Route::get('audit-input', [FrontendController::class, 'auditInput'])->name('audit.input');
+    Route::post('audit-store', [FrontendController::class, 'auditStore'])->name('audit.store');
+
+
+    Route::post('tahunan-store', [FrontendController::class, 'tahunanStore'])->name('tahunan.store');
     Route::get('riwayat-audit', [FrontendController::class, 'auditHistory'])->name('riwayat.audit');
+
+    // Infrastruktur
+    Route::resource('infrastruktur', InfrastrukturController::class);
 });

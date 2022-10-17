@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('infrastructures', function (Blueprint $table) {
             $table->id('is_id');
+            $table->string('type');
             $table->string('name');
             $table->timestamps();
             $table->unsignedBigInteger('post_by')->nullable();

@@ -14,6 +14,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-clipboard"></i><span>Masters</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('energy.index')}}">Jenis Energi</a></li>
+                    <li><a class="nav-link" href="{{route('infrastruktur.index')}}">Infrastruktur</a></li>
                 </ul>
             </li>
             <li class="dropdown">

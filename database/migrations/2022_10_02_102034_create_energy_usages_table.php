@@ -15,15 +15,19 @@ return new class extends Migration
     {
         Schema::create('energy_usages', function (Blueprint $table) {
             $table->id('eu_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('energy_id');
             $table->bigInteger('usage');
             $table->bigInteger('cost');
-            $table->date('date');
+            $table->string('invoice');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->json('file')->nullable();
             $table->timestamps();
-            $table->unsignedBigInteger('post_by');
             $table->softDeletes();
             $table->unsignedBigInteger('deleted_by');
+
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 
