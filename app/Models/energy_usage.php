@@ -6,14 +6,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class section extends Model
+class energy_usage extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $primaryKey = 'section_id';
+    protected $primaryKey = 'eu_id';
     public $incrementing = false;
-    protected $table = "sections";
-    
+
+    protected $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function energy()
+    {
+        return $this->belongsTo(Energy::class);
+    }
+
     protected $dates = ['deleted_at'];  
 }

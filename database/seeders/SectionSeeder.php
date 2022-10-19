@@ -16,9 +16,15 @@ class SectionSeeder extends Seeder
     public function run()
     {
         Section::create([
+            'section_id' => 128,
+            'name' => 'Admin'
+        ]);
+        Section::create([
+            'section_id' => 1,
             'name' => 'Teknik Komputer'
         ]);
         Section::create([
+            'section_id' => 2,
             'name' => 'Teknik Elektro'
         ]);
     }

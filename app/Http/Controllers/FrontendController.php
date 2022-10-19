@@ -6,6 +6,7 @@ use App\Models\Blueprint;
 use App\Models\Energi;
 use App\Models\EnergiUsages;
 use App\Models\Energy;
+use App\Models\energy_usage;
 use App\Models\EnergyUsages;
 use App\Models\Post;
 use Carbon\Carbon;
@@ -17,7 +18,7 @@ class FrontendController extends Controller
     public function auditInput()
     {
         $month = Carbon::now()->format('F');
-        $usage = EnergyUsages::where('user_id', Auth::user()->user_id)->whereMonth('created_at', '=', $month)->first();
+        $usage = energy_usage::where('post_by', Auth::user()->user_id)->whereMonth('created_at', '=', $month)->first();
         $energi = Energy::paginate(4);
         return view('frontend.audit.inputan-audit', compact('energi', 'usage'));
     }
@@ -61,14 +62,14 @@ class FrontendController extends Controller
             $invoice->move($destination, $invoice_name);
 
             // Create Post
-            EnergyUsages::create([
-                'user_id' => $user_id,
+            energy_usage::create([
                 'energy_id' => $energi,
                 'usage' => $usage[$key],
                 'cost' => $cost[$key],
                 'invoice' => $invoice_name,
                 'start_date' => $start_date[$key],
                 'end_date' => $end_date[$key],
+                'post_by' => $user_id,
             ]);
 
             // Blueprint

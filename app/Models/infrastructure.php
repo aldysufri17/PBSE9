@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Energy extends Model
+class infrastructure extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $primaryKey = 'energy_id';
+    protected $primaryKey = 'is_id';
     public $incrementing = false;
-
-    protected $guarded = [];
-
-    protected $dates = ['deleted_at'];
+    protected $table = "infrastructures";
+    
+    protected $dates = ['deleted_at'];  
 }
