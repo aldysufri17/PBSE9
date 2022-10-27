@@ -19,8 +19,10 @@
                 <td>{{$data->name}}</td>
                 <td>{{$data->email}}</td>
                 <td>
-                    @if ($data->role_id == 1)
+                    @if ($data->role_id == 128)
                     <span class="badge badge-primary">Admin</span>
+                    @elseif($data->role_id == 4)
+                    <span class="badge badge-warning">Auditor</span>
                     @else
                     <span class="badge badge-info">Pengguna</span>
                     @endif

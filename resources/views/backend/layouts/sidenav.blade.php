@@ -13,23 +13,24 @@
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-clipboard"></i><span>Masters</span></a>
                 <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route('user.index')}}">Daftar Pengguna</a></li>
                     <li><a class="nav-link" href="{{route('energy.index')}}">Jenis Energi</a></li>
                     <li><a class="nav-link" href="{{route('infrastruktur.index')}}">Infrastruktur</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-alt"></i><span>Pengguna</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Rekap Data</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{route('user.index')}}">Daftar Pengguna</a></li>
-                    <li><a class="nav-link" href="{{route('user.create')}}">Tambah Pengguna</a></li>
+                    <li><a class="nav-link" href="{{route('rekap.infrastruktur')}}">Kuantitas Infrastruktur</a></li>
+                    <li><a class="nav-link" href="{{route('post.index')}}">Penggunaan Energi</a></li>
                 </ul>
             </li>
-            <li class="dropdown">
+            {{-- <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Post Energi</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('post.index')}}">Daftar Post Energi</a></li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </aside>
 </div>

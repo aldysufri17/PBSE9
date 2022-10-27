@@ -52,4 +52,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Infrastruktur
     Route::resource('infrastruktur', InfrastrukturController::class);
+    Route::get('Rekap-infrastruktur', [InfrastrukturController::class, 'rekapInfrastruktur'])->name('rekap.infrastruktur');
+    Route::get('Rekap-infrastruktur-Tahunan/{year}/{post_by}', [InfrastrukturController::class, 'infrastrukturYear'])->name('infrastruktur.year');
 });

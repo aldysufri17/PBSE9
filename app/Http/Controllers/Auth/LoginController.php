@@ -35,7 +35,7 @@ class LoginController extends Controller
             Auth::logout();
             return redirect()->route('login')->with('error', "Akun sudah tidak terdaftar!!");
         }
-        if ($user->role_id == 1) {
+        if ($user->role_id == 128) {
             return redirect()->route('dashboard')->with('success', "Selamat datang");
         }
         return redirect()->route('home')->with('success', "Selamat datang");

@@ -38,9 +38,7 @@
                         {{-- Nilai Energi --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                             <span style="color:red;">*</span>Nilai Penggunaan {{$e->name}}</label>
-                            <input required type="number" placeholder="Nilai Penggunaan"
-                                class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                name="usage[]">
+                            <input required type="number" placeholder="Nilai Penggunaan" class="form-control form-control-user @error('usage') is-invalid @enderror" name="usage[]">
                             @error('usage')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -49,9 +47,7 @@
                         {{-- Tanggal Awal Penggunaan --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                             <span style="color:red;">*</span>Tanggal Awal Penggunaan</label>
-                            <input required type="date"
-                                class="form-control form-control-user @error('start_date') is-invalid @enderror"
-                                name="start_date[]">
+                            <input required type="date" class="form-control form-control-user @error('start_date') is-invalid @enderror" name="start_date[]">
                             @error('start_date')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -60,9 +56,7 @@
                         {{-- Tanggal Akhir Penggunaan --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                             <span style="color:red;">*</span>Tanggal Akhir Penggunaan</label>
-                            <input required type="date"
-                                class="form-control form-control-user @error('end_date') is-invalid @enderror"
-                                name="end_date[]">
+                            <input required type="date" class="form-control form-control-user @error('end_date') is-invalid @enderror" name="end_date[]">
                             @error('end_date')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -72,9 +66,7 @@
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                             <span style="color:red;">*</span>Bukti Penggunaan <span class="text-danger">(Max Size
                                 :20 MB, jpeg,png,svg,pdf)</span></label>
-                            <input required type="file"
-                                class="form-control form-control-user @error('invoice') is-invalid @enderror"
-                                name="invoice[]">
+                            <input required type="file" class="form-control form-control-user @error('invoice') is-invalid @enderror" name="invoice[]">
                             @error('invoice')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -84,11 +76,9 @@
                 @endforeach
                 <div class="Tambahan">
                     <hr class="mt-5" style="color: red; border:3px solid blue">
-                    <span class="fw-bold"><span class="text-danger">*</span> Peta Instalasi Energi Gedung <span
-                            class="text-danger">(Max Size:20 MB,pdf)</span></span>
+                    <span class="fw-bold"><span class="text-danger">*</span> Peta Instalasi Energi Gedung <span class="text-danger">(Max Size:20 MB,pdf)</span></span>
                     <div class="input-group control-group d-flex justify-content-center">
-                        <input type="file" class="form-control" value="dsds" name="blueprint" @error('blueprint')
-                            is-invalid @enderror>
+                        <input type="file" class="form-control" value="dsds" name="blueprint" @error('blueprint') is-invalid @enderror>
                     </div>
                     @error('blueprint')
                     <span class="text-danger">{{$message}}</span>
@@ -100,8 +90,7 @@
                     <div class="input-group hdtuto control-group d-flex justify-content-center">
                         <input type="file" class="form-control" name="file[]" @error('file') is-invalid @enderror>
                         <div class="input-group-btn">
-                            <button class="btn btn-success" type="button"><i
-                                    class="fldemo glyphicon glyphicon-plus"></i>Tambah</button>
+                            <button class="btn btn-success" type="button"><i class="fldemo glyphicon glyphicon-plus"></i>Tambah</button>
                         </div>
                     </div>
                     @error('file')
@@ -122,9 +111,9 @@
 
 @push('scripts')
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         $("#rmv").hide();
-        $(".btn-success").click(function () {
+        $(".btn-success").click(function() {
             $(".clone").append(`
                 <div class="hide mt-3">
                     <div class="input-group hdtuto control-group d-flex justify-content-center">
@@ -140,10 +129,103 @@
                 </div>
             `)
         });
-        $("body").on("click", ".btn-danger", function () {
+        $("body").on("click", ".btn-danger", function() {
             $(this).parents(".hdtuto").remove();
         });
     });
-
 </script>
 @endpush
+
+<hr class="my-3" style="color: red; border:3px solid blue">
+<div class="intensitas">
+    <div class="card-footer bg-white text-center">
+        <h3 class="fw-bold">Intensitas Konsumsi Energi dan Air Bulan
+            {{ \Carbon\Carbon::now()->format('F') }}
+        </h3>
+    </div>
+    <div class="card-body p-3 pt-0">
+        <div class="my-5">
+            <span class="fw-bold"><span class="text-danger">*</span>Intensitas Konsumsi Energi per bulan
+                (KWH/m2/bulan)</span>
+            <div class="form-group">
+                {{-- Nilai Energi --}}
+                <div class="my-2">
+                    <label>Nilai IKE</label>
+                    <div class="input-group">
+                        <input required type="number" placeholder="Nilai Penggunaan" class="form-control form-control-user @error('usage') is-invalid @enderror" name="usage[]">
+                    </div>
+                    @error('usage')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="form-deskripsi mb-3">
+                    <label>Keterangan</label>
+                    <textarea class="form-control @error('deskripsi') @enderror" placeholder="Keterangan Konsumsi Energi" name="deskripsi" rows="10" style="height:80%;"></textarea>
+                    @error('deskripsi')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="my-5">
+            <span class="fw-bold"><span class="text-danger">*</span>Intensitas Konsumsi Energi per bulan
+                (KWH/m2/bulan)</span>
+            <div class="form-group">
+                {{-- Nilai Energi --}}
+                <div class="my-2">
+                    <label>Nilai IKE</label>
+                    <div class="input-group">
+                        <input required type="number" placeholder="Nilai Penggunaan" class="form-control form-control-user @error('usage') is-invalid @enderror" name="usage[]">
+                    </div>
+                    @error('usage')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="form-deskripsi mb-3">
+                    <label>Keterangan</label>
+                    <textarea class="form-control" placeholder="Keterangan Konsumsi Energi" name="deskripsi" rows="10" style="height:80%;"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="my-5">
+            <span class="fw-bold"><span class="text-danger">*</span>Intensitas Konsumsi Energi per bulan
+                (KWH/m2/bulan)</span>
+            <div class="form-group">
+                {{-- Nilai Energi --}}
+                <div class="my-2">
+                    <label>Nilai IKE</label>
+                    <div class="input-group">
+                        <input required type="number" placeholder="Nilai Penggunaan" class="form-control form-control-user @error('usage') is-invalid @enderror" name="usage[]">
+                    </div>
+                    @error('usage')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="form-deskripsi mb-3">
+                    <label>Keterangan</label>
+                    <textarea class="form-control" placeholder="Keterangan Konsumsi Energi" name="deskripsi" rows="10" style="height:80%;"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="my-5">
+            <span class="fw-bold"><span class="text-danger">*</span>Intensitas Konsumsi Energi per bulan
+                (KWH/m2/bulan)</span>
+            <div class="form-group">
+                {{-- Nilai Energi --}}
+                <div class="my-2">
+                    <label>Nilai IKE</label>
+                    <div class="input-group">
+                        <input required type="number" placeholder="Nilai Penggunaan" class="form-control form-control-user @error('usage') is-invalid @enderror" name="usage[]">
+                    </div>
+                    @error('usage')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="form-deskripsi mb-3">
+                    <label>Keterangan</label>
+                    <textarea class="form-control" placeholder="Keterangan Konsumsi Energi" name="deskripsi" rows="10" style="height:80%;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

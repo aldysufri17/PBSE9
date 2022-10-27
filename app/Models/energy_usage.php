@@ -13,18 +13,18 @@ class energy_usage extends Model
 
     protected $primaryKey = 'eu_id';
     public $incrementing = false;
+    protected $table = "energy_usages";
+    protected $dates = ['deleted_at'];
 
     protected $guarded = [];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'post_by', 'user_id');
+    // }
 
     public function energy()
     {
-        return $this->belongsTo(Energy::class);
+        return $this->belongsTo(Energy::class, 'energy_id');
     }
-
-    protected $dates = ['deleted_at'];  
 }

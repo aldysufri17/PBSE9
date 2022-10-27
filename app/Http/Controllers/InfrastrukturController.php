@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\infrastructure;
+use App\Models\infrastructure_quantity;
 use App\Models\Infrastruktur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InfrastrukturController extends Controller
 {
@@ -14,7 +18,7 @@ class InfrastrukturController extends Controller
      */
     public function index()
     {
-        $infrastruktur = Infrastruktur::all();
+        $infrastruktur = Infrastruktur::select('name')->groupBy('name')->get();
         return view('backend.infrastruktur.index', compact('infrastruktur'));
     }
 
@@ -25,7 +29,7 @@ class InfrastrukturController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.infrastruktur.add');
     }
 
     /**
@@ -36,7 +40,22 @@ class InfrastrukturController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            "type.*" => 'required',
+            "type" => 'required|array',
+        ]);
+
+        $post_by = Auth::user()->user_id;
+
+        foreach ($request->type as $key => $type) {
+            Infrastruktur::create([
+                'name' => $request->name,
+                'type' => $type,
+                'post_by' => $post_by
+            ]);
+        }
+        return redirect()->route('infrastruktur.index')->with('success', 'Infrastruktur berhasil disimpan.!');
     }
 
     /**
@@ -47,7 +66,11 @@ class InfrastrukturController extends Controller
      */
     public function show($id)
     {
-        //
+        $infrastruktur = infrastructure_quantity::where('post_by', $id)
+            ->select(DB::raw('YEAR(created_at) year'), 'post_by')
+            ->groupBy('year', 'post_by')
+            ->paginate(10);
+        return view('backend.infrastruktur.rekap.order_tahun', compact('infrastruktur'));
     }
 
     /**
@@ -58,7 +81,8 @@ class InfrastrukturController extends Controller
      */
     public function edit($id)
     {
-        //
+        $infrastruktur = Infrastruktur::where('name', $id)->first();
+        return view('backend.infrastruktur.edit', compact('infrastruktur'));
     }
 
     /**
@@ -70,7 +94,19 @@ class InfrastrukturController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Infrastruktur::where('name', $request->Iname)->delete();
+        $post_by = Auth::user()->user_id;
+        foreach ($request->type as $value) {
+            if ($value != null) {
+                Infrastruktur::create([
+                    'name' => $request->name,
+                    'type' => $value,
+                    'post_by' => $post_by
+                ]);
+            }
+        }
+
+        return redirect()->route('infrastruktur.index')->with('success', 'Infrastruktur berhasil dibaharui.!');
     }
 
     /**
@@ -79,8 +115,23 @@ class InfrastrukturController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $name = $request->delete_id;
+        Infrastruktur::where('name', $name)->delete();
+        return redirect()->route('infrastruktur.index')->with('success', 'Infrastruktur berhasil dihapus.!');
+    }
+
+    public function rekapInfrastruktur()
+    {
+        $infrastruktur = infrastructure_quantity::select('post_by')->groupBy('post_by')->paginate(10);
+        return view('backend.infrastruktur.rekap.index', compact('infrastruktur'));
+    }
+
+    public function infrastrukturYear($year, $post_by)
+    {
+        $infrastruktur = infrastructure_quantity::where('post_by', $post_by)
+            ->whereYear('created_at', '=', $year)->paginate(10);
+        return view('backend.infrastruktur.rekap.rekap', compact('infrastruktur'));
     }
 }

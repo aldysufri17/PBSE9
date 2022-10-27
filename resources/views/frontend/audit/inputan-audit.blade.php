@@ -35,126 +35,39 @@
                 <div class="card-body p-3">
                     <div class="infrastruktur mb-5">
                         <h5 class="fw-bold">A. Jumlah Infrastruktur Energi</h5>
+                        @foreach ($infrastruktur as $key=>$item)
                         <div class="pb-4">
-                            <span class="fw-bold">1. AC Ruangan</span>
+                            <span class="fw-bold">{{$key+1}}. {{$item->name}}</span>
                             <div class="form-group row">
+                                @php
+                                $types = App\Models\Infrastruktur::where('name',$item->name)->get();
+                                @endphp
+                                @foreach ($types as $data)
                                 <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>AC Konvensional</h6>
+                                    <h6 class="fw-bold"><span style="color:red;">*</span>{{$data->type}}</h6>
                                     <div class="row">
                                         <div class="col">
-                                            <input required type="number" placeholder="Nilai Penggunaan"
-                                                class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                name="usage[]">
+                                            <input required type="number" placeholder="Quantity"
+                                                class="form-control form-control-user @error('qty') is-invalid @enderror"
+                                                name="qty[{{$data->is_id}}]" value="{{ old('qty.'. $data->is_id) }}">
+                                            @error('qty')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col">
+                                            <input required type="number" placeholder="Capacity"
+                                                class="form-control form-control-user @error('cty') is-invalid @enderror"
+                                                name="cty[{{$data->is_id}}]" value="{{ old('cty.'. $data->is_id) }}">
+                                            @error('cty')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>AC Inverter</label>
-                                        <div class="row">
-                                            <div class="col">
-                                                <input required type="number" placeholder="Nilai Penggunaan"
-                                                    class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                    name="usage[]">
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>AC Manual</h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input required type="number" placeholder="Nilai Penggunaan"
-                                                class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                name="usage[]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>AC Otomatis</h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input required type="number" placeholder="Nilai Penggunaan"
-                                                class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                name="usage[]">
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
-                        <div class="pb-4">
-                            <span class="fw-bold">2. Lampu</span>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>Lampu Konvensional</h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input required type="number" placeholder="Nilai Penggunaan"
-                                                class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                name="usage[]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>LED</h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input required type="number" placeholder="Nilai Penggunaan"
-                                                class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                name="usage[]">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pb-4">
-                            <span class="fw-bold">3. Kipas</span>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>Konvensional</label>
-                                        <div class="row">
-                                            <div class="col">
-                                                <input required type="number" placeholder="Nilai Penggunaan"
-                                                    class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                    name="usage[]">
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>Otomatis</h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input required type="number" placeholder="Nilai Penggunaan"
-                                                class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                name="usage[]">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pb-4">
-                            <span class="fw-bold">4. Operasi Genset</span>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>Konvensional</h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input required type="number" placeholder="Nilai Penggunaan"
-                                                class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                name="usage[]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
-                                    <h6 class="fw-bold"><span style="color:red;">*</span>Otomatis</h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input required type="number" placeholder="Nilai Penggunaan"
-                                                class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                name="usage[]">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <hr class="my-3" style="color: red; border:3px solid blue">
                     <div class="pemakaian">
@@ -164,7 +77,7 @@
                             <div class="items mt-4">
                                 <span class="fw-bold"><span>{{$key+1}}.</span> Input Penggunaan Energi Jenis
                                     {{$e->name}}</span>
-                                <input type="text" name="energy_id[]" hidden value="{{$e->id}}">
+                                <input type="text" name="energy_id[]" hidden value="{{$e->energy_id}}">
                                 <div class="form-group row">
                                     {{-- Nilai Energi --}}
                                     <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
@@ -172,7 +85,7 @@
                                         <div class="input-group">
                                             <input required type="number" placeholder="Nilai Penggunaan"
                                                 class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                                name="usage[]">
+                                                name="usage[]" value="{{ old('usage.'. $key) }}">
                                             <span class="input-group-text">{{$e->unit}}</span>
                                         </div>
                                         @error('usage')
@@ -187,7 +100,7 @@
                                             <span class="input-group-text">Rp.</span>
                                             <input required type="text" id="cost" placeholder="Biaya Penggunaan"
                                                 class="form-control form-control-user @error('cost') is-invalid @enderror"
-                                                name="cost[]"
+                                                name="cost[]" value="{{ old('cost.'. $key) }}"
                                                 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                         </div>
                                         @error('cost')
@@ -200,7 +113,7 @@
                                         <span style="color:red;">*</span>Tanggal Awal Penggunaan</label>
                                         <input required type="date"
                                             class="form-control form-control-user @error('start_date') is-invalid @enderror"
-                                            name="start_date[]">
+                                            name="start_date[]" value="{{ old('start_date.'. $key) }}">
                                         @error('start_date')
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
@@ -211,7 +124,7 @@
                                         <span style="color:red;">*</span>Tanggal Akhir Penggunaan</label>
                                         <input required type="date"
                                             class="form-control form-control-user @error('end_date') is-invalid @enderror"
-                                            name="end_date[]">
+                                            name="end_date[]" value="{{ old('end_date.'. $key) }}">
                                         @error('end_date')
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
@@ -224,7 +137,7 @@
                                             :20 MB, jpeg,png,svg,pdf)</span></label>
                                         <input required type="file"
                                             class="form-control form-control-user @error('invoice') is-invalid @enderror"
-                                            name="invoice[]">
+                                            name="invoice[]" value="{{ old('invoice.'. $key) }}">
                                         @error('invoice')
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
@@ -233,111 +146,11 @@
                             </div>
                             @endforeach
                         </div>
-                        {{$energi->links()}}
+                        {{-- {{$energi->links()}} --}}
                     </div>
                 </div>
             </div>
-            <hr class="my-3" style="color: red; border:3px solid blue">
-            <div class="intensitas">
-                <div class="card-footer bg-white text-center">
-                    <h3 class="fw-bold">Intensitas Konsumsi Energi dan Air Bulan
-                        {{ \Carbon\Carbon::now()->format('F') }}</h3>
-                </div>
-                <div class="card-body p-3 pt-0">
-                    <div class="my-5">
-                        <span class="fw-bold"><span class="text-danger">*</span>Intensitas Konsumsi Energi per bulan
-                            (KWH/m2/bulan)</span>
-                        <div class="form-group">
-                            {{-- Nilai Energi --}}
-                            <div class="my-2">
-                                <label>Nilai IKE</label>
-                                <div class="input-group">
-                                    <input required type="number" placeholder="Nilai Penggunaan"
-                                        class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                        name="usage[]">
-                                </div>
-                                @error('usage')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                            <div class="form-deskripsi mb-3">
-                                <label>Keterangan</label>
-                                <textarea class="form-control" placeholder="Keterangan Konsumsi Energi" name="deskripsi"
-                                    rows="10" style="height:80%;"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="my-5">
-                        <span class="fw-bold"><span class="text-danger">*</span>Intensitas Konsumsi Energi per bulan
-                            (KWH/m2/bulan)</span>
-                        <div class="form-group">
-                            {{-- Nilai Energi --}}
-                            <div class="my-2">
-                                <label>Nilai IKE</label>
-                                <div class="input-group">
-                                    <input required type="number" placeholder="Nilai Penggunaan"
-                                        class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                        name="usage[]">
-                                </div>
-                                @error('usage')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                            <div class="form-deskripsi mb-3">
-                                <label>Keterangan</label>
-                                <textarea class="form-control" placeholder="Keterangan Konsumsi Energi" name="deskripsi"
-                                    rows="10" style="height:80%;"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="my-5">
-                        <span class="fw-bold"><span class="text-danger">*</span>Intensitas Konsumsi Energi per bulan
-                            (KWH/m2/bulan)</span>
-                        <div class="form-group">
-                            {{-- Nilai Energi --}}
-                            <div class="my-2">
-                                <label>Nilai IKE</label>
-                                <div class="input-group">
-                                    <input required type="number" placeholder="Nilai Penggunaan"
-                                        class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                        name="usage[]">
-                                </div>
-                                @error('usage')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                            <div class="form-deskripsi mb-3">
-                                <label>Keterangan</label>
-                                <textarea class="form-control" placeholder="Keterangan Konsumsi Energi" name="deskripsi"
-                                    rows="10" style="height:80%;"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="my-5">
-                        <span class="fw-bold"><span class="text-danger">*</span>Intensitas Konsumsi Energi per bulan
-                            (KWH/m2/bulan)</span>
-                        <div class="form-group">
-                            {{-- Nilai Energi --}}
-                            <div class="my-2">
-                                <label>Nilai IKE</label>
-                                <div class="input-group">
-                                    <input required type="number" placeholder="Nilai Penggunaan"
-                                        class="form-control form-control-user @error('usage') is-invalid @enderror"
-                                        name="usage[]">
-                                </div>
-                                @error('usage')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                            <div class="form-deskripsi mb-3">
-                                <label>Keterangan</label>
-                                <textarea class="form-control" placeholder="Keterangan Konsumsi Energi" name="deskripsi"
-                                    rows="10" style="height:80%;"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{-- Intensitas --}}
             <div class="card-footer text-end border-0">
                 <x-tabel-button type="submit" color="primary" title="Simpan"></x-tabel-button>
             </div>
@@ -349,11 +162,11 @@
 
 @push('scripts')
 <script type="text/javascript">
-    $(function () {
-        $("#cost").keyup(function (e) {
-            $(this).val(format($(this).val()));
-        });
+    // $(function () {
+    $("#cost").keyup(function (e) {
+        $(this).val(format($(this).val()));
     });
+    // });
 
     var format = function (num) {
         var str = num.toString().replace("", ""),

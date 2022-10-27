@@ -16,7 +16,7 @@
                     onclick="event.preventDefault(); document.getElementById('user-delete-form').submit();">
                     Oke
                 </a>
-                <form id="user-delete-form" method="POST" action="{{ route('energy.destroy', ['energy' => 0]) }}">
+                <form id="user-delete-form" method="POST" action="{{ route('infrastruktur.destroy', 0) }}">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="delete_id" id="delete_id">

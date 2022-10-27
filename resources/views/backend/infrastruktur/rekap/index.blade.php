@@ -6,39 +6,26 @@
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
-                <th>Nama</th>
-                <th>Tipe</th>
+                <th>Nama Departemen</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($infrastruktur as $data)
             <tr>
-                <td>{{$data->name}}</td>
+                @php
+                $name = App\Models\User::where('user_id',$data->post_by)->value('name');
+                @endphp
+                <td>{{$name}}</td>
                 <td>
-                    @php
-                    $types = App\Models\Infrastruktur::where('name',$data->name)->get();
-                    @endphp
-                    <ol>
-                        @foreach ($types as $data)
-                        <li>{{$data->type}}</li>
-                        @endforeach
-                    </ol>
-                </td>
-                <td>
-                    <div class="table-actions btn-group">
-                        <a href="{{route('infrastruktur.edit', $data->name)}}" class="table-action btn btn-primary
-                        mr-2" data-toggle="tooltip" title="Ubah"><i class="fas fa-edit"></i></a>
-                        <button class="table-action btn btn-danger delete-btn mr-2" data-toggle="tooltip" title="Delete"
-                            value="{{$data->name}}">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
+                    <a href="{{route('infrastruktur.show', $data->post_by)}}" class="table-action btn btn-primary
+                        mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    {{$infrastruktur->links()}}
     @else
     <div class="align-items-center bg-light p-3 border-secondary rounded">
         <span class="">Oops!</span><br>
@@ -46,7 +33,7 @@
     </div>
     @endif
 </x-page-index>
-@include('backend.infrastruktur.modal')
+{{-- @include('backend.infrastruktur.modal') --}}
 @endsection
 
 @push('scripts')

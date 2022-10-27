@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('infrastructure_quantities', function (Blueprint $table) {
             $table->id('iq_id');
             $table->unsignedBigInteger('is_id');
-            $table->tinyInteger('type');
-            $table->string('name');
+            // $table->tinyInteger('type');
+            // $table->string('name');
             $table->integer('capacity');
             $table->integer('quantity');
-            $table->date('date');
+            // $table->date('date');
             $table->timestamps();
             $table->unsignedBigInteger('post_by')->nullable();
             $table->softDeletes();

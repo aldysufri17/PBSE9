@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('infrastructures', function (Blueprint $table) {
             $table->id('is_id');
             $table->string('name');
+            $table->string('type');
             $table->timestamps();
             $table->unsignedBigInteger('post_by')->nullable();
             $table->softDeletes();

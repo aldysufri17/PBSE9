@@ -47,6 +47,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
-    protected $dates = ['deleted_at'];  
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    protected $dates = ['deleted_at'];
 }

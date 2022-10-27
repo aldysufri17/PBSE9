@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('energy_usages', function (Blueprint $table) {
             $table->id('eu_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('energy_id');
             $table->bigInteger('usage');
             $table->bigInteger('cost');
@@ -25,7 +26,10 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('post_by');
             $table->softDeletes();
-            $table->unsignedBigInteger('deleted_by');
+            $table->unsignedBigInteger('deleted_by')->nullable();
+
+            $table->foreign('deleted_by')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 
