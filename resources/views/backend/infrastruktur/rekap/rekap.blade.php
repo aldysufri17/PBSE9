@@ -15,7 +15,7 @@
         <tbody>
             @foreach ($infrastruktur as $data)
             <tr>
-                <td>{{$data->infrastruktur->name}}</td>
+                <td>{{$data->infrastruktur->name}}-{{$data->infrastruktur->type}}</td>
                 <td>{{$data->capacity}}</td>
                 <td>{{$data->quantity}}</td>
                 <td>

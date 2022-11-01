@@ -12,16 +12,16 @@ class energy_usage extends Model
     use SoftDeletes;
 
     protected $primaryKey = 'eu_id';
-    public $incrementing = false;
+    //public $incrementing = false;
     protected $table = "energy_usages";
     protected $dates = ['deleted_at'];
 
     protected $guarded = [];
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class, 'post_by', 'user_id');
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'post_by', 'user_id');
+    }
 
     public function energy()
     {

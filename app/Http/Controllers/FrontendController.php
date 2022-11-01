@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blueprint;
-use App\Models\Energi;
-use App\Models\EnergiUsages;
 use App\Models\Energy;
 use App\Models\energy_usage;
-use App\Models\EnergyUsages;
+use App\Models\infrastructure;
 use App\Models\infrastructure_quantity;
-use App\Models\Infrastruktur;
-use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,10 +15,10 @@ class FrontendController extends Controller
     public function auditInput()
     {
         $month = Carbon::now()->format('m');
-        $usage = energy_usage::where('user_id', Auth::user()->user_id)
+        $usage = energy_usage::where('post_by', Auth::user()->user_id)
             ->whereMonth('created_at', '=', $month)->first();
         $energi = Energy::all();
-        $infrastruktur = Infrastruktur::select('name')->groupBy('name')->paginate(4);
+        $infrastruktur = infrastructure::select('name')->groupBy('name')->paginate(4);
         return view('frontend.audit.inputan-audit', compact('energi', 'usage', 'infrastruktur'));
     }
 
@@ -197,18 +192,18 @@ class FrontendController extends Controller
                 'invoice' => $invoice_name,
                 'start_date' => $start_date[$key],
                 'end_date' => $end_date[$key],
-                'post_by' => $post_by,
-                'user_id' => $post_by,
+                'post_by' => $post_by
+                //'user_id' => $post_by,
             ]);
         }
 
         return redirect()->route('rekap.audit')->with('success', 'Data autdit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
     }
 
-    public function auditHistory()
+    /*public function auditHistory()
     {
         $user_id = Auth::user()->user_id;
         $posts = Post::where('user_id', $user_id)->get();
         return view('frontend.posts-history', compact('posts'));
-    }
+    }*/
 }

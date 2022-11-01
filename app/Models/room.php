@@ -5,13 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Blueprint extends Model
+class room extends Model
 {
     use HasFactory;
-
-    protected $guarded = [];
-
-    public function user()
-    {
-    }
 }

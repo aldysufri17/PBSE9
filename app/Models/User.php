@@ -15,7 +15,6 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $primaryKey = 'user_id';
-    public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -24,6 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'section_id',
         'role_id',
         'status',
         'password',
@@ -47,6 +47,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function section()
+    {
+        return $this->belongsTo(section::class);
+    }
 
     public function role()
     {
