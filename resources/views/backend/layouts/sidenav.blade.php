@@ -16,6 +16,7 @@
                     <li><a class="nav-link" href="{{route('user.index')}}">Daftar Pengguna</a></li>
                     <li><a class="nav-link" href="{{route('energy.index')}}">Jenis Energi</a></li>
                     <li><a class="nav-link" href="{{route('infrastruktur.index')}}">Infrastruktur</a></li>
+                    <li><a class="nav-link" href="{{route('konservasi.index')}}">Konservasi Energi</a></li>
                 </ul>
             </li>
             <li class="dropdown">

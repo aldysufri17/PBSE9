@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('conservation_managements', function (Blueprint $table) {
-            $table->id('cm_id');
-            $table->unsignedBigInteger('coi_id');
-            $table->string('desc');
-            $table->date('date');
+        Schema::create('conservation_items', function (Blueprint $table) {
+            $table->id('coi_id');
+            $table->string('name');
             $table->timestamps();
-            $table->unsignedBigInteger('post_by')->nullable();
             $table->softDeletes();
             $table->unsignedBigInteger('deleted_by')->nullable();
         });
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conservation_managements');
+        Schema::dropIfExists('conservation_items');
     }
 };

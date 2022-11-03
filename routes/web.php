@@ -5,6 +5,7 @@ use App\Http\Controllers\EnergyController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfrastrukturController;
+use App\Http\Controllers\KonservasiContoller;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -39,8 +40,8 @@ Route::middleware(['auth'])->group(function () {
     // Energi
     Route::resource('energy', EnergyController::class);
 
-    // Post
-    Route::resource('post', PostController::class);
+    // Konservasi
+    Route::resource('konservasi', KonservasiContoller::class);
 
     // Frontend
     Route::get('audit-rekap', [FrontendController::class, 'auditRekap'])->name('rekap.audit');

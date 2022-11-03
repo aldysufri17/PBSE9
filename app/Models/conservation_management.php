@@ -10,7 +10,6 @@ class conservation_management extends Model
     use HasFactory;
 
     protected $primaryKey = 'cm_id';
-    protected $table = "conservation_management";
     protected $fillable = [
         'item',
         'desc',
