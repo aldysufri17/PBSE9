@@ -18,11 +18,11 @@ return new class extends Migration
             $table->json('incoming_students');
             $table->json('graduate_students');
             $table->json('employee');
-            $table->date('date');
+            // $table->date('date');
             $table->timestamps();
             $table->unsignedBigInteger('post_by');
             $table->softDeletes();
-            $table->unsignedBigInteger('deleted_by');
+            $table->unsignedBigInteger('deleted_by')->nullable();
         });
     }
 

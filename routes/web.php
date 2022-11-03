@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CivitasController;
 use App\Http\Controllers\EnergyController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
@@ -46,6 +47,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('audit-input', [FrontendController::class, 'auditInput'])->name('audit.input');
     Route::post('audit-store', [FrontendController::class, 'auditStore'])->name('audit.store');
 
+    Route::post('tahunan-store', [FrontendController::class, 'tahunanStore'])->name('tahunan.store');
+    Route::get('riwayat-audit', [FrontendController::class, 'auditHistory'])->name('riwayat.audit');
+
+    Route::get('civitas-akademika', [FrontendController::class, 'inputCivitas'])->name('input.civitas');
+    Route::post('civitas-akademika/store', [FrontendController::class, 'civitasStore'])->name('civitas.store');
+
 
     // energi_usage
     Route::get('energi-usage', [EnergyController::class, 'enegiusageIndex'])->name('energi_usage.index');
@@ -53,11 +60,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('energi-usage-month/{id}/{year}', [EnergyController::class, 'enegiusageMonth'])->name('energi_usage.month');
     Route::get('energi-usage/show/{id}/{year}/{month}', [EnergyController::class, 'enegiusageShow'])->name('energi_usage.show');
 
-    Route::post('tahunan-store', [FrontendController::class, 'tahunanStore'])->name('tahunan.store');
-    Route::get('riwayat-audit', [FrontendController::class, 'auditHistory'])->name('riwayat.audit');
 
     // Infrastruktur
     Route::resource('infrastruktur', InfrastrukturController::class);
     Route::get('Rekap-infrastruktur', [InfrastrukturController::class, 'rekapInfrastruktur'])->name('rekap.infrastruktur');
     Route::get('Rekap-infrastruktur-Tahunan/{year}/{post_by}', [InfrastrukturController::class, 'infrastrukturYear'])->name('infrastruktur.year');
+
+    // Rekap Civitas
+    Route::get('Rekap-civitas', [CivitasController::class, 'rekapCivitas'])->name('rekap.civitas');
+    Route::get('Rekap-civitas-Tahunan/{post_by}', [CivitasController::class, 'civitasYear'])->name('civitas.year');
+    Route::get('Rekap-civitas/show/{post_by}/{year}', [CivitasController::class, 'show'])->name('civitas.show');
 });
