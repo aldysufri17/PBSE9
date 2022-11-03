@@ -1,15 +1,15 @@
 @extends('backend.layouts.app')
-@section('title','Daftar Infrastruktur')
+@section('title','Daftar Penggunaan Energi Tahunan')
 @section('content')
 <section class="section">
     <div class="section-header">
         <div class="section-header-back">
             <a href="javascript:history.back()" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
         </div>
-        <h1>Daftar Infrastruktur</h1>
+        <h1>Energi Tahunan</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="/dashboard">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="/Rekap-infrastruktur">Daftar Infrastruktur</a></div>
+            <div class="breadcrumb-item active"><a href="/energi-usage">Daftar Penggunaan Energi</a></div>
             <div class="breadcrumb-item">Tahunan</div>
         </div>
     </div>
@@ -17,23 +17,24 @@
     <div class="section-body">
         <div class="card">
             <div class="card-header pb-0">
-                <h4>Daftar Infrastruktur Tahunan</h4>
+                <h4>Daftar Penggunaan Energi Bulanan</h4>
             </div>
             <div class="card-body p-2">
-                @if ($infrastruktur->IsNotEmpty())
+                @if ($usage->IsNotEmpty())
                 <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Tahun</th>
+                            <th>Tahun Input</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($infrastruktur as $data)
+                        @foreach ($usage as $data)
                         <tr>
                             <td>{{$data->year}}</td>
                             <td>
-                                <a href="{{route('infrastruktur.year', [$data->year,$data->post_by])}}" class="table-action btn btn-primary
+                                <a href="{{route('energi_usage.month', ['id'=>$data->post_by, 'year'=>$data->year])}}"
+                                    class="table-action btn btn-primary
                                     mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
                             </td>
                         </tr>
@@ -59,7 +60,7 @@
         $('#dataTable').DataTable({
             responsive: true
         });
-        
+
         $(document).on('click', '.delete-btn', function () {
             var sid = $(this).val();
             $('#deleteModal').modal('show')

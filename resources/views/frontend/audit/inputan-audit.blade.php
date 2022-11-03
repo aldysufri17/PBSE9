@@ -40,7 +40,7 @@
                             <span class="fw-bold">{{$key+1}}. {{$item->name}}</span>
                             <div class="form-group row">
                                 @php
-                                $types = App\Models\Infrastruktur::where('name',$item->name)->get();
+                                $types = App\Models\infrastructure::where('name',$item->name)->get();
                                 @endphp
                                 @foreach ($types as $data)
                                 <div class="col-sm-6 mb-3 mt-2 mb-sm-0">
@@ -146,7 +146,6 @@
                             </div>
                             @endforeach
                         </div>
-                        {{-- {{$energi->links()}} --}}
                     </div>
                 </div>
             </div>
@@ -163,34 +162,34 @@
 @push('scripts')
 <script type="text/javascript">
     // $(function () {
-    $("#cost").keyup(function (e) {
-        $(this).val(format($(this).val()));
-    });
+    // $("#cost").keyup(function (e) {
+    //     $(this).val(format($(this).val()));
     // });
+    // // });
 
-    var format = function (num) {
-        var str = num.toString().replace("", ""),
-            parts = false,
-            output = [],
-            i = 1,
-            formatted = null;
-        if (str.indexOf(".") > 0) {
-            parts = str.split(".");
-            str = parts[0];
-        }
-        str = str.split("").reverse();
-        for (var j = 0, len = str.length; j < len; j++) {
-            if (str[j] != ",") {
-                output.push(str[j]);
-                if (i % 3 == 0 && j < (len - 1)) {
-                    output.push(",");
-                }
-                i++;
-            }
-        }
-        formatted = output.reverse().join("");
-        return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
-    };
+    // var format = function (num) {
+    //     var str = num.toString().replace("", ""),
+    //         parts = false,
+    //         output = [],
+    //         i = 1,
+    //         formatted = null;
+    //     if (str.indexOf(".") > 0) {
+    //         parts = str.split(".");
+    //         str = parts[0];
+    //     }
+    //     str = str.split("").reverse();
+    //     for (var j = 0, len = str.length; j < len; j++) {
+    //         if (str[j] != ",") {
+    //             output.push(str[j]);
+    //             if (i % 3 == 0 && j < (len - 1)) {
+    //                 output.push(",");
+    //             }
+    //             i++;
+    //         }
+    //     }
+    //     formatted = output.reverse().join("");
+    //     return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+    // };
 
 </script>
 @endpush

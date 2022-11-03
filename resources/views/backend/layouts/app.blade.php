@@ -5,20 +5,23 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
         <title> @yield('title')</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    
         <!-- General CSS Files -->
         <link rel="stylesheet" href="{{ asset('backend/assets/vendors/bootstrap/dist/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('backend/assets/vendors/font-awesome/css/fontawesome.min.css') }}">
-
+    
         @stack('styles')
-
+    
         <!-- Template CSS -->
         <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('backend/assets/css/components.css')}}">
-
+        <link rel="stylesheet" href="{{ asset('backend/css/app.css')}}">
+    
         <!-- Own CSS -->
         <link rel="stylesheet" href="{{ asset('backend/assets/css/loading.css')}}">
-
+        <link href="{{ asset('backend/assets/vendors/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+        <link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.min.css" rel="stylesheet"
+            type="text/css" />
     </head>
 
     <body style="overflow: scroll">
@@ -55,7 +58,13 @@
         <script src="{{ asset('backend/assets/vendors/jquery.nicescroll/jquery.nicescroll.min.js') }}"></script>
         <script src="{{ asset('backend/assets/js/stisla.js') }}"></script>
         <script src="{{ asset('backend/assets/vendors/moment.min.js') }}"></script>
-
+        <script src="{{asset('backend/assets/vendors/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('backend/assets/vendors/datatables/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js" type="text/javascript">
+        </script>
+        <script src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.bootstrap.min.js" type="text/javascript">
+        </script>
+        
         <!-- Template JS File -->
         <script src="{{ asset('backend/assets/js/scripts.js') }}"></script>
         <script src="{{ asset('backend/assets/js/custom.js') }}"></script>

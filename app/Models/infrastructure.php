@@ -14,6 +14,6 @@ class infrastructure extends Model
     protected $primaryKey = 'is_id';
     public $incrementing = false;
     protected $table = "infrastructures";
-    
-    protected $dates = ['deleted_at'];  
+    protected $guarded = [];
+    protected $dates = ['deleted_at'];
 }

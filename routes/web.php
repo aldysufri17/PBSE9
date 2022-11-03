@@ -47,6 +47,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('audit-store', [FrontendController::class, 'auditStore'])->name('audit.store');
 
 
+    // energi_usage
+    Route::get('energi-usage', [EnergyController::class, 'enegiusageIndex'])->name('energi_usage.index');
+    Route::get('energi-usage-years/{id}', [EnergyController::class, 'enegiusageYears'])->name('energi_usage.years');
+    Route::get('energi-usage-month/{id}/{year}', [EnergyController::class, 'enegiusageMonth'])->name('energi_usage.month');
+    Route::get('energi-usage/show/{id}/{year}/{month}', [EnergyController::class, 'enegiusageShow'])->name('energi_usage.show');
+
     Route::post('tahunan-store', [FrontendController::class, 'tahunanStore'])->name('tahunan.store');
     Route::get('riwayat-audit', [FrontendController::class, 'auditHistory'])->name('riwayat.audit');
 

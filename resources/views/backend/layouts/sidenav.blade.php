@@ -22,7 +22,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Rekap Data</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('rekap.infrastruktur')}}">Kuantitas Infrastruktur</a></li>
-                    <li><a class="nav-link" href="{{route('post.index')}}">Penggunaan Energi</a></li>
+                    <li><a class="nav-link" href="{{route('energi_usage.index')}}">Penggunaan Energi</a></li>
                 </ul>
             </li>
             {{-- <li class="dropdown">

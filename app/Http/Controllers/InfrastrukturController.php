@@ -18,7 +18,7 @@ class InfrastrukturController extends Controller
      */
     public function index()
     {
-        $infrastruktur = Infrastruktur::select('name')->groupBy('name')->get();
+        $infrastruktur = infrastructure::select('name')->groupBy('name')->get();
         return view('backend.infrastruktur.index', compact('infrastruktur'));
     }
 
@@ -48,8 +48,8 @@ class InfrastrukturController extends Controller
 
         $post_by = Auth::user()->user_id;
 
-        foreach ($request->type as $key => $type) {
-            Infrastruktur::create([
+        foreach ($request->type as $type) {
+            infrastructure::create([
                 'name' => $request->name,
                 'type' => $type,
                 'post_by' => $post_by
@@ -69,7 +69,7 @@ class InfrastrukturController extends Controller
         $infrastruktur = infrastructure_quantity::where('post_by', $id)
             ->select(DB::raw('YEAR(created_at) year'), 'post_by')
             ->groupBy('year', 'post_by')
-            ->paginate(10);
+            ->get();
         return view('backend.infrastruktur.rekap.order_tahun', compact('infrastruktur'));
     }
 
@@ -81,7 +81,7 @@ class InfrastrukturController extends Controller
      */
     public function edit($id)
     {
-        $infrastruktur = Infrastruktur::where('name', $id)->first();
+        $infrastruktur = infrastructure::where('name', $id)->first();
         return view('backend.infrastruktur.edit', compact('infrastruktur'));
     }
 
@@ -94,11 +94,11 @@ class InfrastrukturController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Infrastruktur::where('name', $request->Iname)->delete();
+        infrastructure::where('name', $request->Iname)->delete();
         $post_by = Auth::user()->user_id;
         foreach ($request->type as $value) {
             if ($value != null) {
-                Infrastruktur::create([
+                infrastructure::create([
                     'name' => $request->name,
                     'type' => $value,
                     'post_by' => $post_by
@@ -118,20 +118,20 @@ class InfrastrukturController extends Controller
     public function destroy($id, Request $request)
     {
         $name = $request->delete_id;
-        Infrastruktur::where('name', $name)->delete();
+        infrastructure::where('name', $name)->delete();
         return redirect()->route('infrastruktur.index')->with('success', 'Infrastruktur berhasil dihapus.!');
     }
 
     public function rekapInfrastruktur()
     {
-        $infrastruktur = infrastructure_quantity::select('post_by')->groupBy('post_by')->paginate(10);
+        $infrastruktur = infrastructure_quantity::select('post_by')->groupBy('post_by')->get();
         return view('backend.infrastruktur.rekap.index', compact('infrastruktur'));
     }
 
     public function infrastrukturYear($year, $post_by)
     {
         $infrastruktur = infrastructure_quantity::where('post_by', $post_by)
-            ->whereYear('created_at', '=', $year)->paginate(10);
-        return view('backend.infrastruktur.rekap.rekap', compact('infrastruktur'));
+            ->whereYear('created_at', '=', $year)->get();
+        return view('backend.infrastruktur.rekap.rekap', compact('infrastruktur', 'year'));
     }
 }

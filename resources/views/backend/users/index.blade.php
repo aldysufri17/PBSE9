@@ -80,10 +80,6 @@
 
 @push('scripts')
 <script>
-    $('#dataTable').DataTable({
-        responsive: true
-    });
-
     $(document).on('click', '.delete-btn', function () {
         var sid = $(this).val();
         $('#deleteModal').modal('show')

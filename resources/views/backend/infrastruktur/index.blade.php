@@ -17,7 +17,7 @@
                 <td>{{$data->name}}</td>
                 <td>
                     @php
-                    $types = App\Models\Infrastruktur::where('name',$data->name)->get();
+                    $types = App\Models\infrastructure::where('name',$data->name)->get();
                     @endphp
                     <ol>
                         @foreach ($types as $data)

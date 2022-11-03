@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Energi;
 use App\Models\Energy;
+use App\Models\energy_usage;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EnergyController extends Controller
 {
@@ -105,5 +109,41 @@ class EnergyController extends Controller
         if ($delete) {
             return redirect()->route('energy.index')->with('success', 'Jenis energi berhasil dihapus!.');
         }
+    }
+
+    public function enegiusageIndex()
+    {
+        $usage = energy_usage::select('post_by')->groupBy('post_by')->get();
+        return view('backend.energi.usage.index', compact('usage'));
+    }
+
+    public function enegiusageYears($id)
+    {
+        $usage = energy_usage::where('post_by', $id)
+            ->select(DB::raw('YEAR(created_at) year'), 'post_by')
+            ->groupBy('year', 'post_by')
+            ->get();
+        return view('backend.energi.usage.years', compact('usage'));
+    }
+
+    public function enegiusageMonth($id, $year)
+    {
+        $usage = energy_usage::where('post_by', $id)
+            ->whereYear('created_at', '=', $year)
+            ->select(DB::raw('MONTH(created_at) month'), 'post_by')
+            ->groupBy('month', 'post_by')
+            ->get();
+        return view('backend.energi.usage.month', compact('usage', 'year'));
+    }
+
+    public function enegiusageShow($id, $year, $month)
+    {
+        $dateObj = DateTime::createFromFormat('!m', $month);
+        $monthName = $dateObj->format('F');
+        $usage = energy_usage::where('post_by', $id)
+            ->whereYear('created_at', '=', $year)
+            ->whereMonth('created_at', '=', $month)
+            ->get();
+        return view('backend.energi.usage.show', compact('usage', 'monthName', 'year'));
     }
 }

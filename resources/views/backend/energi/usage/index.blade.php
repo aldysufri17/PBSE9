@@ -1,8 +1,8 @@
 @extends('backend.layouts.app')
-@section('title','Daftar Infrastruktur')
+@section('title','Daftar Penggunaan Energi')
 @section('content')
-<x-page-index title="Infrastruktur" buttonLabel="Tambah Infrastruktur" routeCreate="">
-    @if ($infrastruktur->IsNotEmpty())
+<x-page-index title="Penggunaan Energi" buttonLabel="Tambah Penggunaan Energi" routeCreate="">
+    @if ($usage->IsNotEmpty())
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
@@ -11,14 +11,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($infrastruktur as $data)
+            @foreach ($usage as $data)
             <tr>
                 @php
                 $name = App\Models\User::where('user_id',$data->post_by)->value('name');
                 @endphp
                 <td>{{$name}}</td>
                 <td>
-                    <a href="{{route('infrastruktur.show', $data->post_by)}}" class="table-action btn btn-primary
+                    <a href="{{route('energi_usage.years', $data->post_by)}}" class="table-action btn btn-primary
                         mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
                 </td>
             </tr>

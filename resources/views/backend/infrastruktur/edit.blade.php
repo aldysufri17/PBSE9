@@ -18,7 +18,7 @@
             </div>
 
             @php
-            $types = App\Models\Infrastruktur::where('name',$infrastruktur->name)->get();
+            $types = App\Models\infrastructure::where('name',$infrastruktur->name)->get();
             @endphp
 
             @foreach ($types as $key=>$item)
