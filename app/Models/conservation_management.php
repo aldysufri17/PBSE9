@@ -10,9 +10,5 @@ class conservation_management extends Model
     use HasFactory;
 
     protected $primaryKey = 'cm_id';
-    protected $fillable = [
-        'item',
-        'desc',
-        'date'
-    ];
+    protected $guarded = [];
 }

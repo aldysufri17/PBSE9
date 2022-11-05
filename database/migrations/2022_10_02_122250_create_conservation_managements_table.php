@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('conservation_managements', function (Blueprint $table) {
             $table->id('cm_id');
-            $table->unsignedBigInteger('coi_id');
-            $table->string('desc');
-            $table->date('date');
+            $table->json('item');
+            // $table->string('desc');
+            // $table->date('date');
             $table->timestamps();
             $table->unsignedBigInteger('post_by')->nullable();
             $table->softDeletes();

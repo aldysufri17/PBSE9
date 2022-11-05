@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
-@section('title','Tambah Jenis Konservasi')
+@section('title','Tambah Item Konservasi')
 @section('content')
-<x-page-form page='create' route="konservasi.index" title="Jenis Konservasi">
+<x-page-form page='create' route="konservasi.index" title="Item Konservasi">
     <form action="{{route('konservasi.store')}}" method="post">
         @csrf
         {{-- Name --}}

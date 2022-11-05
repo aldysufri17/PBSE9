@@ -105,7 +105,7 @@ class EnergyController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $delete = Energy::whereId($request->delete_id)->delete();
+        $delete = Energy::where('energy_id', $request->delete_id)->delete();
         if ($delete) {
             return redirect()->route('energy.index')->with('success', 'Jenis energi berhasil dihapus!.');
         }

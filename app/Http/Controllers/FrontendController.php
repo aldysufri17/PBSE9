@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\academic_community;
+use App\Models\conservation_item;
+use App\Models\conservation_management;
 use App\Models\Energy;
 use App\Models\energy_usage;
 use App\Models\infrastructure;
@@ -16,11 +18,16 @@ class FrontendController extends Controller
     public function auditInput()
     {
         $month = Carbon::now()->format('m');
-        $usage = energy_usage::where('post_by', Auth::user()->user_id)
+        $cekPemakaian = energy_usage::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+        $cekInfrastruktur = infrastructure_quantity::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+        $cekKonservasi = conservation_management::where('post_by', Auth::user()->user_id)
             ->whereMonth('created_at', '=', $month)->first();
         $energi = Energy::all();
         $infrastruktur = infrastructure::select('name')->groupBy('name')->paginate(4);
-        return view('frontend.audit.inputan-audit', compact('energi', 'usage', 'infrastruktur'));
+        $konservasi = conservation_item::all();
+        return view('frontend.audit.inputan-audit', compact('energi', 'infrastruktur', 'konservasi', 'cekPemakaian', 'cekInfrastruktur', 'cekKonservasi'));
     }
 
     public function auditRekap()
@@ -33,7 +40,30 @@ class FrontendController extends Controller
         return view('frontend.audit.rekap-audit', compact('energi', 'civitas'));
     }
 
-    public function auditStore(Request $request)
+    public function infrastrukturInput(Request $request)
+    {
+        $request->validate([
+            'qty' => 'required|array',
+            "qty.*" => 'required',
+            'cty' => 'required|array',
+            "cty.*" => 'required',
+        ]);
+
+        $post_by = Auth::user()->user_id;
+
+        // Quantity Infrastructure
+        foreach ($request->qty as $key => $qty) {
+            $qty = infrastructure_quantity::create([
+                'is_id'     => $key,
+                'capacity'  => $request->cty[$key],
+                'quantity'  => $qty,
+                'post_by'   => $post_by
+            ]);
+        }
+        return redirect()->route('rekap.audit')->with('success', 'Data autdit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+    }
+
+    public function PemakaianInput(Request $request)
     {
         $request->validate([
             'energy_id' => 'required|array',
@@ -46,31 +76,17 @@ class FrontendController extends Controller
             "start_date.*" => 'required',
             'end_date' => 'required|array',
             "end_date.*" => 'required',
-            'qty' => 'required|array',
-            "qty.*" => 'required',
-            'cty' => 'required|array',
-            "cty.*" => 'required',
             'invoice' => 'required|array',
             "invoice.*" => 'required|mimes:jpeg,png,svg,pdf|max:20000',
             // "blueprint" => 'required|mimes:pdf|max:20000'
         ]);
+
         $post_by = Auth::user()->user_id;
         $energy_id = $request->energy_id;
         $usage = $request->usage;
         $cost = $request->cost;
         $start_date = $request->start_date;
         $end_date = $request->end_date;
-
-
-        // Quantity Infrastructure
-        foreach ($request->qty as $key => $qty) {
-            $qty = infrastructure_quantity::create([
-                'is_id'     => $key,
-                'capacity'  => $request->cty[$key],
-                'quantity'  => $qty,
-                'post_by'   => $post_by
-            ]);
-        }
 
         // Energy Usage
         foreach ($energy_id as $key => $energi) {
@@ -92,70 +108,41 @@ class FrontendController extends Controller
                 'post_by' => $post_by
                 //'user_id' => $post_by,
             ]);
-
-            // Blueprint
-            // $blueprint = $request->blueprint;
-            // $blueprint_name = "Peta Instalasi Energi Gedung " . Auth::user()->name . "." . $blueprint->getClientOriginalExtension();
-            // $destination = 'file/blueprints';
-            // $blueprint->move($destination, $blueprint_name);
-
-            // if ($request->file) {
-            //     $file = $request->file;
-            //     foreach ($file as $key => $value) {
-            //         $name = date('Y-m-d') . '-' . 'File Tambahan' . $key + 1 . "-" . Auth::user()->name . "." . $value->getClientOriginalExtension();
-            //         $destination = 'file/file-tambahan';
-            //         $value->move($destination, $name);
-
-            //         $file[$key] = $name;
-            //     }
-
-            //     $file_json = json_encode($file);
-
-            //     foreach ($energy_id as $key => $energi) {
-            //         // Invoice Name
-            //         $invoice = $request->invoice[$key];
-            //         $energi_name = Energy::whereId($invoice)->value('name');
-            //         $invoice_name = date('Y-m-d') . '-' . 'Invoice' . "-" . $energi_name . "-" . Auth::user()->name . "." . $invoice->getClientOriginalExtension();
-            //         $destination = 'file/invoice';
-            //         $invoice->move($destination, $invoice_name);
-
-            //         // Create Post
-            //         EnergyUsages::create([
-            //             'user_id' => $user_id,
-            //             'energy_id' => $energi,
-            //             'usage' => $usage[$key],
-            //             'cost' => $cost[$key],
-            //             'invoice' => $invoice_name,
-            //             'start_date' => $start_date[$key],
-            //             'end_date' => $end_date[$key],
-            //             'file'  => $file_json,
-            //         ]);
-            //     }
-            // } else {
-            //     foreach ($energy_id as $key => $energi) {
-            //         // Invoice Name
-            //         $invoice = $request->invoice[$key];
-            //         $energi_name = Energy::whereId($invoice)->value('name');
-            //         $invoice_name = date('Y-m-d') . '-' . 'Invoice' . "-" . $energi_name . "-" . Auth::user()->name . "." . $invoice->getClientOriginalExtension();
-            //         $destination = 'file/invoice';
-            //         $invoice->move($destination, $invoice_name);
-
-            //         // Create Post
-            //         EnergyUsages::create([
-            //             'user_id' => $user_id,
-            //             'energy_id' => $energi,
-            //             'usage' => $usage[$key],
-            //             'cost' => $cost[$key],
-            //             'invoice' => $invoice_name,
-            //             'start_date' => $start_date[$key],
-            //             'end_date' => $end_date[$key],
-            //         ]);
-            //     }
-            // }
         }
-
         return redirect()->route('rekap.audit')->with('success', 'Data autdit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
     }
+
+    public function KonservasiInput(Request $request)
+    {
+        $post_by = Auth::user()->user_id;
+        $answer = $request->answer;
+        $desc_kon = $request->desc_kon;
+
+        foreach ($answer as $key => $value) {
+            if (is_null($desc_kon[$key])) {
+                $item = [
+                    $key => array(
+                        'item' => $value,
+                        'desc' => '-',
+                    )
+                ];
+            } else {
+                $item = [
+                    $key => array(
+                        'item' => $value,
+                        'desc' => $desc_kon[$key],
+                    )
+                ];
+            }
+
+            conservation_management::create([
+                'item' => json_encode($item),
+                'post_by'   => $post_by
+            ]);
+        }
+        return redirect()->route('rekap.audit')->with('success', 'Data autdit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+    }
+
 
     public function inputCivitas()
     {

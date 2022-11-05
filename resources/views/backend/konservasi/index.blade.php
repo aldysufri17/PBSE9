@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
-@section('title','Daftar Konservsi')
+@section('title','Daftar Konservasi')
 @section('content')
-<x-page-index title="Konservsi" buttonLabel="Tambah Konservsi" routeCreate="konservasi.create">
+<x-page-index title="Konservasi" buttonLabel="Tambah Konservasi" routeCreate="konservasi.create">
     @if ($konservasi->IsNotEmpty())
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>

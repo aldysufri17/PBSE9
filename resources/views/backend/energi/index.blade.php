@@ -23,7 +23,7 @@
                             <i class="fas fa-edit"></i>
                         </a>
                         <button class="table-action btn btn-danger delete-btn mr-2" data-toggle="tooltip" title="Delete"
-                            value="{{$data->id}}">
+                            value="{{$data->energy_id}}">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>

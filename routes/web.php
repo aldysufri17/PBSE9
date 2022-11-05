@@ -46,7 +46,12 @@ Route::middleware(['auth'])->group(function () {
     // Frontend
     Route::get('audit-rekap', [FrontendController::class, 'auditRekap'])->name('rekap.audit');
     Route::get('audit-input', [FrontendController::class, 'auditInput'])->name('audit.input');
-    Route::post('audit-store', [FrontendController::class, 'auditStore'])->name('audit.store');
+    // Route::post('audit-store', [FrontendController::class, 'auditStore'])->name('audit.store');
+
+    Route::post('infrastruktur-input', [FrontendController::class, 'infrastrukturInput'])->name('infrastruktur.input');
+    Route::post('pemakaian-input', [FrontendController::class, 'pemakaianInput'])->name('pemakaian.input');
+    Route::post('konservasi-input', [FrontendController::class, 'konservasiInput'])->name('konservasi.input');
+
 
     Route::post('tahunan-store', [FrontendController::class, 'tahunanStore'])->name('tahunan.store');
     Route::get('riwayat-audit', [FrontendController::class, 'auditHistory'])->name('riwayat.audit');
