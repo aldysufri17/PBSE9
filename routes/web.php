@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
     // User
     Route::get('/dashboard', [HomeController::class, 'indexAdmin'])->name('dashboard');
+    Route::get('/list_user', [UserController::class, 'show'])->name('list_user');
     Route::resource('user', UserController::class);
     Route::get('/status/user/{user_id}/{status}', [UserController::class, 'updateStatus'])->name('user.status');
     Route::post('/reset/password', [UserController::class, 'reset'])->name('user.reset');

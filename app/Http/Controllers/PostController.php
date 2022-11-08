@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Energi;
 use App\Models\Energy;
 use App\Models\Post;
 use App\Models\User;

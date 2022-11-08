@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $auth = Auth::user()->user_id;
-        $user = User::where('user_id', '!=', $auth)->get();
+        $user = User::wherekeynot($auth)->get();
         return view('backend.users.index', compact('user'));
     }
 
@@ -69,9 +69,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         //
+        $auth = Auth::user()->user_id;
+        $user = User::wherekeynot($auth)->get();
+        return view('backend.users.show', compact('user'));
     }
 
     /**
