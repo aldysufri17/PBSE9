@@ -1,15 +1,13 @@
 @extends('backend.layouts.app')
-@section('title','Daftar Akun')
+@section('title','Daftar Pengguna')
 @section('content')
 @if ($user->IsNotEmpty())
-<x-page-index title="Akun" buttonLabel="Tambah Akun" routeCreate="user.create">
+<x-page-index title="Pengguna" buttonLabel="Tambah Pengguna" routeCreate="user.create">
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
-                <th>No</th>
                 <th>Nama</th>
                 <th>Email</th>
-                <th>Departemen</th>
                 <th>Role</th>
                 <th>Status</th>
                 <th>Aksi</th>
@@ -18,16 +16,8 @@
         <tbody>
             @foreach ($user as $data)
             <tr>
-                <td>{{$key+1}}</td>
                 <td>{{$data->name}}</td>
                 <td>{{$data->email}}</td>
-                <td>
-                    @if ($data->section_id == 128)
-                    Admin
-                    @else
-                    {{$data->section->name }}
-                    @endif
-                </td>
                 <td>
                     @if ($data->role_id == 128)
                     <span class="badge badge-primary">Admin</span>

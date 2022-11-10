@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function section()
     {
-        return $this->belongsTo(section::class);
+        return $this->belongsTo(Section::class,'section_id');
     }
 
     public function role()
