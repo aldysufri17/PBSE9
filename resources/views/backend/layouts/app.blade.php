@@ -52,7 +52,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <!-- General JS Scripts -->
         <script src="{{ asset('backend/assets/vendors/jquery/dist/jquery.min.js') }}"></script>
-        <script src="{{ mix('js/app.js') }}"></script>
+        {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
         <script src="{{ asset('backend/assets/vendors/bootstrap/dist/js/popper.min.js') }}"></script>
         <script src="{{ asset('backend/assets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('backend/assets/vendors/jquery.nicescroll/jquery.nicescroll.min.js') }}"></script>

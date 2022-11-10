@@ -9,14 +9,14 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body border-0 text-dark">Jika anda yakin ingin manghapus, Tekan Oke !!</div>
+            <div class="modal-body border-0 text-dark">Akun yang terdaftar pada departemen akan terhapus !!</div>
             <div class="modal-footer border-0">
                 <button class="btn btn-danger" type="button" data-dismiss="modal">Batal</button>
                 <a class="btn btn-primary" href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); document.getElementById('user-delete-form').submit();">
+                    onclick="event.preventDefault(); document.getElementById('section-delete-form').submit();">
                     Oke
                 </a>
-                <form id="user-delete-form" method="POST" action="{{ route('post.destroy', ['post' => 0]) }}">
+                <form id="section-delete-form" method="POST" action="{{ route('section.destroy', ['section' => $data->section_id]) }}">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="delete_id" id="delete_id">

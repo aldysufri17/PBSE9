@@ -6,7 +6,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfrastrukturController;
 use App\Http\Controllers\KonservasiContoller;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,10 +33,13 @@ Route::middleware(['auth'])->group(function () {
 
     // User
     Route::get('/dashboard', [HomeController::class, 'indexAdmin'])->name('dashboard');
-    Route::get('/list_user', [UserController::class, 'show'])->name('list_user');
+    // Route::get('/list_user', [UserController::class, 'show'])->name('list_user');
     Route::resource('user', UserController::class);
     Route::get('/status/user/{user_id}/{status}', [UserController::class, 'updateStatus'])->name('user.status');
     Route::post('/reset/password', [UserController::class, 'reset'])->name('user.reset');
+
+    // section
+    Route::resource('section', SectionController::class);
 
     // Energi
     Route::resource('energy', EnergyController::class);

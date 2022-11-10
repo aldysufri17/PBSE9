@@ -18,7 +18,8 @@
             {{-- Status --}}
             <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
                 <span style="color:red;">*</span>Status</label>
-                <select class="form-control form-control-user @error('status') is-invalid @enderror" name="status">
+                <select class="form-control form-control-user @error('status') is-invalid @enderror"
+                    name="status">
                     <option selected disabled>Select Status</option>
                     <option value="1" {{$user->status == 1 ? 'selected' : ''}}>
                         Active</option>
@@ -26,6 +27,35 @@
                         Inactive</option>
                 </select>
                 @error('status')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+
+            {{-- Role --}}
+            <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+                <span style="color:red;">*</span>Role</label>
+                <select id="role" class="form-control form-control-user @error('role') is-invalid @enderror"
+                    name="role">
+                    <option selected disabled>Pilih Role</option>
+                    <option value="128" {{ old('role',$user->role_id) == 128 ? 'selected' : '' }}>Admin</option>
+                    <option value="4" {{ old('role',$user->role_id) == 4 ? 'selected' : '' }}>Auditor</option>
+                    <option value="1" {{ old('role',$user->role_id) == 1 ? 'selected' : '' }}>Pengguna</option>
+                </select>
+                @error('role')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            {{-- <input type="text" id="usr" value="{{$user->role_id}}" hidden> --}}
+            {{-- Section --}}
+            <div class="col-sm-6 mb-3 mt-3 mb-sm-0" id="section">
+                <span style="color:red;">*</span>Departemen</label>
+                <select class="form-control form-control-user @error('section') is-invalid @enderror" name="section">
+                    <option selected disabled>Pilih Departemen</option>
+                    @foreach ($section as $item)
+                    <option value="{{$item->section_id}}" {{ old('section',$item->section_id) == $item->section_id ? 'selected' : '' }}>{{$item->name}}</option>
+                    @endforeach
+                </select>
+                @error('section')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
@@ -38,3 +68,24 @@
     </form>
 </x-page-form>
 @endsection
+
+@push('scripts')
+<script>
+    var usr = $('#role option:selected').val();
+    // alert(usr)
+    if (usr == 128) {
+        $('#section').hide();
+    }else{
+        $('#section').show();
+    }
+
+    $(document).on('change', '#role', function () {
+        var select = $('#role option:selected').val()
+        if (select != 128) {
+            $('#section').show();
+        }else{
+            $('#section').hide();
+        }
+    })
+</script>
+@endpush

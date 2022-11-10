@@ -1,6 +1,10 @@
 <div class="display-inline mr-auto">
     <ul class="navbar-nav mr-3">
         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fa fa-bars"></i></a></li>
+        <li><a href="/home" class="btn btn-info create-button"
+            style="border-radius: 0px !important">
+            Halaman Pengguna
+        </a></li>
     </ul>
 </div>
 <ul class="navbar-nav navbar-right">

@@ -14,6 +14,7 @@ class section extends Model
     protected $primaryKey = 'section_id';
     public $incrementing = false;
     protected $table = "sections";
+    protected $guarded = [];
     
     protected $dates = ['deleted_at'];  
 }

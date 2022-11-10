@@ -31,7 +31,7 @@
                 {{ \Carbon\Carbon::now()->format('F') }}</h3>
         </div>
         <div class="card-body p-3">
-            @if (!$cekInfrastruktur)
+            @if (!$cekInfrastruktur && $infrastruktur->IsNotEmpty())
             <form action="{{route('infrastruktur.input')}}" method="post" enctype="multipart/form-data">
                 <div class="card">
                     <div class="card-body">
@@ -84,7 +84,7 @@
             <hr class="my-5" style="color: red; border:3px solid blue">
             @endif
 
-            @if (!$cekPemakaian)
+            @if (!$cekPemakaian && $energi->IsNotEmpty())
             <form action="{{route('pemakaian.input')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
@@ -176,7 +176,7 @@
             <hr class="my-5" style="color: red; border:3px solid blue">
             @endif
 
-            @if (!$cekKonservasi)
+            @if (!$cekKonservasi && $konservasi->IsNotEmpty())
             <form action="{{route('konservasi.input')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
@@ -252,8 +252,6 @@
     //     formatted = output.reverse().join("");
     //     return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
     // };
-
-    $('')
 
 </script>
 @endpush
