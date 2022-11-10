@@ -24,13 +24,15 @@
                 <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Tahun Input</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($usage as $data)
+                        @foreach ($usage as $key=>$data)
                         <tr>
+                            <td>{{$key+1}}</td>
                             <td>{{$data->year}}</td>
                             <td>
                                 <a href="{{route('energi_usage.month', ['id'=>$data->post_by, 'year'=>$data->year])}}"

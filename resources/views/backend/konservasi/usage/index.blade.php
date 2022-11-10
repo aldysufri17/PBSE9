@@ -1,8 +1,8 @@
 @extends('backend.layouts.app')
-@section('title','Daftar Infrastruktur')
+@section('title','Daftar Pengelola Konservasi')
 @section('content')
-<x-page-index title="Infrastruktur" buttonLabel="Tambah Infrastruktur" routeCreate="">
-    @if ($infrastruktur->IsNotEmpty())
+<x-page-index title="Pengelola Konservasi" buttonLabel="Tambah Pengelola Konservasi" routeCreate="">
+    @if ($konservasi->IsNotEmpty())
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($infrastruktur as $key=>$data)
+            @foreach ($konservasi as $key=>$data)
             <tr>
                 @php
                 $name = App\Models\User::where('user_id',$data->post_by)->value('name');
@@ -20,7 +20,7 @@
                 <td>{{$key+1}}</td>
                 <td>{{$name}}</td>
                 <td>
-                    <a href="{{route('infrastruktur.show', $data->post_by)}}" class="table-action btn btn-primary
+                    <a href="{{route('konservasi_usage.years', $data->post_by)}}" class="table-action btn btn-primary
                         mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
                 </td>
             </tr>
@@ -30,7 +30,7 @@
     @else
     <div class="align-items-center bg-light p-3 border-secondary rounded">
         <span class="">Oops!</span><br>
-        <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Infrastruktur</p>
+        <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Pengelola Konservasi</p>
     </div>
     @endif
 </x-page-index>

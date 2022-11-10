@@ -24,14 +24,16 @@
                 <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Nama</th>
                             <th>Kapasitas</th>
                             <th>Kuantitas</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($infrastruktur as $data)
+                        @foreach ($infrastruktur as $key=>$data)
                         <tr>
+                            <td>{{$key+1}}</td>
                             <td>{{$data->infrastruktur->name}}-{{$data->infrastruktur->type}}</td>
                             <td>{{$data->capacity}}</td>
                             <td>{{$data->quantity}}</td>

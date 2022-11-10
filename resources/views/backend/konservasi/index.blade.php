@@ -6,14 +6,22 @@
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
+                <th>No</th>
                 <th>Nama</th>
+                <th>Kategori</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($konservasi as $data)
+            @foreach ($konservasi as $key=>$data)
             <tr>
+                <td>{{$key+1}}</td>
                 <td>{{$data->name}}</td>
+                <td>@if ($data->category == 0)
+                    Tahunan
+                @else
+                    Bulanan
+                @endif</td>
                 <td>
                     <div class="table-actions btn-group">
                         <a href="{{route('konservasi.edit',$data->coi_id)}}" class="table-action btn btn-primary mr-2"

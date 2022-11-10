@@ -24,13 +24,15 @@
                 <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Tahun</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($infrastruktur as $data)
+                        @foreach ($infrastruktur as $key=>$data)
                         <tr>
+                            <td>{{$key+1}}</td>
                             <td>{{$data->year}}</td>
                             <td>
                                 <a href="{{route('infrastruktur.year', [$data->year,$data->post_by])}}" class="table-action btn btn-primary

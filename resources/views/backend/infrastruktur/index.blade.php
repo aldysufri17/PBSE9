@@ -6,14 +6,16 @@
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
+                <th>No</th>
                 <th>Nama</th>
                 <th>Tipe</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($infrastruktur as $data)
+            @foreach ($infrastruktur as $key=>$data)
             <tr>
+                <td>{{$key+1}}</td>
                 <td>{{$data->name}}</td>
                 <td>
                     @php

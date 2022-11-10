@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('conservation_items', function (Blueprint $table) {
             $table->id('coi_id');
             $table->string('name');
+            $table->boolean('category');
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('deleted_by')->nullable();

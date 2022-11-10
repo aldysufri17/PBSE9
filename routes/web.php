@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
     // Energi
     Route::resource('energy', EnergyController::class);
 
-    // Konservasi
+    // Konservasi Item
     Route::resource('konservasi', KonservasiContoller::class);
 
     // Frontend
@@ -76,4 +76,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('Rekap-civitas', [CivitasController::class, 'rekapCivitas'])->name('rekap.civitas');
     Route::get('Rekap-civitas-Tahunan/{post_by}', [CivitasController::class, 'civitasYear'])->name('civitas.year');
     Route::get('Rekap-civitas/show/{post_by}/{year}', [CivitasController::class, 'show'])->name('civitas.show');
+
+    // Konservasi Usage
+    Route::get('konservasi-usage', [KonservasiContoller::class, 'konservasiusageIndex'])->name('konservasi_usage.index');
+    Route::get('konservasi-usage-years/{id}', [KonservasiContoller::class, 'konservasiusageYears'])->name('konservasi_usage.years');
+    Route::get('konservasi-usage-month/{id}/{year}', [KonservasiContoller::class, 'konservasiusageMonth'])->name('konservasi_usage.month');
+    Route::get('konservasi-usage/show/{id}/{year}/{month}', [KonservasiContoller::class, 'konservasiusageShow'])->name('konservasi_usage.show');
 });

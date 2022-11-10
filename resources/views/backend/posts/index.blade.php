@@ -6,6 +6,7 @@
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
+                <th>No</th>
                 <th>Nama</th>
                 <th>Jenis Energi</th>
                 <th>Nilai Energi</th>
@@ -18,6 +19,7 @@
         <tbody>
             @foreach ($posts as $post)
             <tr>
+                <td>{{$key+1}}</td>
                 <td>{{$post->user->name}}</td>
                 <td>{{$post->energy->name}}</td>
                 <td>{{$post->usage}} {{$post->energy->satuan}}</td>

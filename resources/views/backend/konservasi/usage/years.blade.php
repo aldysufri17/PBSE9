@@ -1,47 +1,41 @@
 @extends('backend.layouts.app')
-@section('title','Daftar Penggunaan Energi Bulanan')
+@section('title','Daftar Pengelolaan Konservasi Tahunan')
 @section('content')
 <section class="section">
     <div class="section-header">
         <div class="section-header-back">
             <a href="javascript:history.back()" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
         </div>
-        <h1>Energi Bulanan</h1>
+        <h1>Energi Tahunan</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="/dashboard">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="/energi-usage">Daftar Penggunaan Energi</a></div>
-            <div class="breadcrumb-item active"><a href="javascript:history.back()">Tahunan</a></div>
-            <div class="breadcrumb-item">Bulanan</div>
+            <div class="breadcrumb-item active"><a href="/energi-usage">Daftar Pengelolaan Konservasi<div>
+            <div class="breadcrumb-item">Tahunan</div>
         </div>
     </div>
 
     <div class="section-body">
         <div class="card">
             <div class="card-header pb-0">
-                <h4>Daftar Penggunaan Energi Bulanan</h4>
+                <h4>Daftar Pengelolaan Konservasi Tahunan</h4>
             </div>
             <div class="card-body p-2">
-                @if ($usage->IsNotEmpty())
+                @if ($konservasi->IsNotEmpty())
                 <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Bulan Input</th>
+                            <th>Tahun Input</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($usage as $key=>$data)
+                        @foreach ($konservasi as $key=>$data)
                         <tr>
                             <td>{{$key+1}}</td>
-                            @php
-                            $monthNum = $data->month;
-                            $dateObj = DateTime::createFromFormat('!m', $monthNum);
-                            $monthName = $dateObj->format('F');
-                            @endphp
-                            <td>{{$monthName}}</td>
+                            <td>{{$data->year}}</td>
                             <td>
-                                <a href="{{route('energi_usage.show', ['id'=>$data->post_by,'year'=>$year,'month'=>$data->month])}}"
+                                <a href="{{route('energi_usage.month', ['id'=>$data->post_by, 'year'=>$data->year])}}"
                                     class="table-action btn btn-primary
                                     mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
                             </td>

@@ -60,7 +60,20 @@ class FrontendController extends Controller
                 'post_by'   => $post_by
             ]);
         }
-        return redirect()->route('rekap.audit')->with('success', 'Data autdit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+
+        $month = Carbon::now()->format('m');
+        $cekPemakaian = energy_usage::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+        $cekInfrastruktur = infrastructure_quantity::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+        $cekKonservasi = conservation_management::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+
+        if ($cekPemakaian && $cekInfrastruktur && $cekKonservasi) {
+            return redirect()->route('rekap.audit')->with('success', 'Data audit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+        } else {
+            return redirect()->route('audit.input')->with('success', 'Data audit Infrastruktur bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+        }
     }
 
     public function PemakaianInput(Request $request)
@@ -109,7 +122,20 @@ class FrontendController extends Controller
                 //'user_id' => $post_by,
             ]);
         }
-        return redirect()->route('rekap.audit')->with('success', 'Data autdit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+
+        $month = Carbon::now()->format('m');
+        $cekPemakaian = energy_usage::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+        $cekInfrastruktur = infrastructure_quantity::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+        $cekKonservasi = conservation_management::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+
+        if ($cekPemakaian && $cekInfrastruktur && $cekKonservasi) {
+            return redirect()->route('rekap.audit')->with('success', 'Data audit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+        } else {
+            return redirect()->route('audit.input')->with('success', 'Data audit Pemakaian bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+        }
     }
 
     public function KonservasiInput(Request $request)
@@ -140,9 +166,21 @@ class FrontendController extends Controller
                 'post_by'   => $post_by
             ]);
         }
-        return redirect()->route('rekap.audit')->with('success', 'Data autdit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
-    }
 
+        $month = Carbon::now()->format('m');
+        $cekPemakaian = energy_usage::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+        $cekInfrastruktur = infrastructure_quantity::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+        $cekKonservasi = conservation_management::where('post_by', Auth::user()->user_id)
+            ->whereMonth('created_at', '=', $month)->first();
+
+        if ($cekPemakaian && $cekInfrastruktur && $cekKonservasi) {
+            return redirect()->route('rekap.audit')->with('success', 'Data audit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+        } else {
+            return redirect()->route('audit.input')->with('success', 'Data audit Konservasi bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+        }
+    }
 
     public function inputCivitas()
     {

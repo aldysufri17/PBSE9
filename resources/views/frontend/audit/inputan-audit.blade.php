@@ -27,7 +27,7 @@
     @else
     <div class="audit my-3">
         <div class="card-footer bg-white text-center">
-            <h3 class="fw-bold">Rekap Audit Departemen {{auth()->user()->name}} Bulan
+            <h3 class="fw-bold">AUDIT DEPARTEMEN {{auth()->user()->name}} BULAN
                 {{ \Carbon\Carbon::now()->format('F') }}</h3>
         </div>
         <div class="card-body p-3">

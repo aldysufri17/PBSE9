@@ -7,12 +7,30 @@
         {{-- Name --}}
         <div class="">
             <span style="color:red;">*</span>Item</label>
-            <input autocomplete="off" type="text" name="item" id="item"
-                class="form-control form-control-user @error('item') is-invalid @enderror" id="exampleitem"
-                placeholder="item">
+            <input autocomplete="off" type="text" name="name" id="name"
+                class="form-control form-control-user @error('name') is-invalid @enderror" id="examplename"
+                placeholder="name">
             @error('item')
             <span class="text-danger">{{$message}}</span>
             @enderror
+        </div>
+
+        <div class="mt-2">
+            <span style="color:red;">*</span>Kategori</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="category"
+                    id="radio" value="1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Bulanan
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" checked type="radio"
+                    name="category" id="radio" value="0">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Tahunan
+                </label>
+            </div>
         </div>
 
         <div class="card-footer text-right border-0">

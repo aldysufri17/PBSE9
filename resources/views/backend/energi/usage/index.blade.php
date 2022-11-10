@@ -6,16 +6,18 @@
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
+                <th>No</th>
                 <th>Nama Departemen</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($usage as $data)
+            @foreach ($usage as $key=>$data)
             <tr>
                 @php
                 $name = App\Models\User::where('user_id',$data->post_by)->value('name');
                 @endphp
+                <td>{{$key+1}}</td>
                 <td>{{$name}}</td>
                 <td>
                     <a href="{{route('energi_usage.years', $data->post_by)}}" class="table-action btn btn-primary

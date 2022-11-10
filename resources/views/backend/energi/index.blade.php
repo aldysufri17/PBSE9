@@ -6,14 +6,16 @@
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
+                <th>No</th>
                 <th>Nama</th>
                 <th>Satuan</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($energi as $data)
+            @foreach ($energi as $key=>$data)
             <tr>
+                <td>{{$key+1}}</td>
                 <td>{{$data->name}}</td>
                 <td>{{$data->unit}}</td>
                 <td>
