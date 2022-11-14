@@ -49,7 +49,7 @@
                             <td>{{$data->start_date}}</td>
                             <td>{{$data->end_date}}</td>
                             <td><a class="table-action btn btn-primary mr-2"
-                                    href="{{asset('file/invoice/'.$data->invoice)}}"><i class="ri-download-line"></i>
+                                    href="{{asset('file/invoice/'.$data->invoice)}}" target="_blank"><i class="ri-download-line"></i>
                                     Unduh Bukti</a>
                             </td>
                         </tr>

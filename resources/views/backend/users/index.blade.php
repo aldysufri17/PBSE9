@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($user as $data)
+            @foreach ($user as $key=>$data)
             <tr>
                 <td>{{$key+1}}</td>
                 <td>{{$data->name}}</td>
@@ -39,21 +39,21 @@
                 </td>
                 <td>
                     @if ($data->status == 0)
-                    <span class="badge badge-danger">Inactive</span>
+                    <span class="badge badge-danger" title="User Inactive">Inactive</span>
                     @else
-                    <span class="badge badge-success">Active</span>
+                    <span class="badge badge-success" title="User is Active">Active</span>
                     @endif
                 </td>
                 <td>
                     <div class="table-actions btn-group">
                         @if ($data->status == 0)
                         <a href="{{ route('user.status', ['user_id' => encrypt($data->user_id), 'status' => 1]) }}"
-                            title="Inactive" class="table-action btn btn-success mr-2" data-toggle="tooltip">
+                            title="Set Active" class="table-action btn btn-success mr-2" data-toggle="tooltip">
                             <i class="fa fa-check"></i>
                         </a>
                         @else
                         <a href="{{ route('user.status', ['user_id' => encrypt($data->user_id), 'status' => 0]) }}"
-                            title="Active" class="table-action btn btn-danger mr-2" data-toggle="tooltip">
+                            title="Set Inactive" class="table-action btn btn-danger mr-2" data-toggle="tooltip">
                             <i class="fa fa-ban"></i>
                         </a>
                         @endif
@@ -61,11 +61,11 @@
                             data-toggle="tooltip" value="">
                             <i class="fas fa-history"></i>
                         </button>
-                        <a href="" class="table-action btn btn-info mr-2" data-toggle="tooltip" title="Lihat">
+                        <!--<a href="" class="table-action btn btn-info mr-2" data-toggle="tooltip" title="Lihat">
                             <i class="fas fa-eye"></i>
-                        </a>
+                        </a>-->
                         <a href="{{route('user.edit',$data->user_id)}}" class="table-action btn btn-primary mr-2"
-                            data-toggle="tooltip" title="Ubah">
+                            data-toggle="tooltip" title="Edit">
                             <i class="fas fa-edit"></i>
                         </a>
                         <button class="table-action btn btn-danger delete-btn mr-2" data-toggle="tooltip" title="Delete"
