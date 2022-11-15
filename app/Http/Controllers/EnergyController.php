@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Energi;
 use App\Models\Energy;
 use App\Models\energy_usage;
 use Carbon\Carbon;
@@ -19,8 +18,8 @@ class EnergyController extends Controller
      */
     public function index()
     {
-        $energi = Energy::all();
-        return view('backend.energi.index', compact('energi'));
+        $energy = Energy::all();
+        return view('backend.energy.index', compact('energy'));
     }
 
     /**
@@ -30,7 +29,7 @@ class EnergyController extends Controller
      */
     public function create()
     {
-        return view('backend.energi.add');
+        return view('backend.energy.add');
     }
 
     /**
@@ -46,10 +45,10 @@ class EnergyController extends Controller
             'unit' => 'required',
         ]);
 
-        $energi = Energy::create($request->all());
+        $energy = Energy::create($request->all());
 
-        if ($energi) {
-            return redirect()->route('energy.index')->with('success', 'Jenis energi berhasil ditambah!.');
+        if ($energy) {
+            return redirect()->route('energy.index')->with('success', 'Jenis energy berhasil ditambah!.');
         }
     }
 
@@ -72,8 +71,8 @@ class EnergyController extends Controller
      */
     public function edit($id)
     {
-        $energi = Energy::whereId($id)->first();
-        return view('backend.energi.edit', compact('energi'));
+        $energy = Energy::whereenergy_id($id)->first();
+        return view('backend.energy.edit', compact('energy'));
     }
 
     /**
@@ -86,14 +85,14 @@ class EnergyController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required',
-            'satuan' => 'required',
+            'name' => 'required',
+            'unit' => 'required',
         ]);
 
-        $energi = Energy::whereId($id)->update(request()->except(['_token', '_method']));
+        $energy = Energy::whereenergy_id($id)->update(request()->except(['_token', '_method']));
 
-        if ($energi) {
-            return redirect()->route('energy.index')->with('success', 'Jenis energi berhasil diubah!.');
+        if ($energy) {
+            return redirect()->route('energy.index')->with('success', 'Jenis energy berhasil diubah!.');
         }
     }
 
@@ -107,14 +106,14 @@ class EnergyController extends Controller
     {
         $delete = Energy::where('energy_id', $request->delete_id)->delete();
         if ($delete) {
-            return redirect()->route('energy.index')->with('success', 'Jenis energi berhasil dihapus!.');
+            return redirect()->route('energy.index')->with('success', 'Jenis energy berhasil dihapus!.');
         }
     }
 
     public function enegiusageIndex()
     {
         $usage = energy_usage::select('post_by')->groupBy('post_by')->get();
-        return view('backend.energi.usage.index', compact('usage'));
+        return view('backend.energy.usage.index', compact('usage'));
     }
 
     public function enegiusageYears($id)
@@ -123,7 +122,7 @@ class EnergyController extends Controller
             ->select(DB::raw('YEAR(created_at) year'), 'post_by')
             ->groupBy('year', 'post_by')
             ->get();
-        return view('backend.energi.usage.years', compact('usage'));
+        return view('backend.energy.usage.years', compact('usage'));
     }
 
     public function enegiusageMonth($id, $year)
@@ -133,7 +132,7 @@ class EnergyController extends Controller
             ->select(DB::raw('MONTH(created_at) month'), 'post_by')
             ->groupBy('month', 'post_by')
             ->get();
-        return view('backend.energi.usage.month', compact('usage', 'year'));
+        return view('backend.energy.usage.month', compact('usage', 'year'));
     }
 
     public function enegiusageShow($id, $year, $month)
@@ -144,6 +143,6 @@ class EnergyController extends Controller
             ->whereYear('created_at', '=', $year)
             ->whereMonth('created_at', '=', $month)
             ->get();
-        return view('backend.energi.usage.show', compact('usage', 'monthName', 'year'));
+        return view('backend.energy.usage.show', compact('usage', 'monthName', 'year'));
     }
 }

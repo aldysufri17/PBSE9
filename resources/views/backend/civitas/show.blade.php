@@ -8,7 +8,7 @@
         </div>
         <h1>Data Civitas</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="/dashboard">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
             <div class="breadcrumb-item active"><a href="/energi-usage">Daftar Civitas Tahunan</a></div>
             <div class="breadcrumb-item active"><a href="javascript:history.back()">Daftar Civitas tahun {{$year}}</a></div>
         </div>

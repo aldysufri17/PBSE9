@@ -24,10 +24,10 @@ class FrontendController extends Controller
             ->whereMonth('created_at', '=', $month)->first();
         $cekKonservasi = conservation_management::where('post_by', Auth::user()->user_id)
             ->whereMonth('created_at', '=', $month)->first();
-        $energi = Energy::all();
+        $energy = Energy::all();
         $infrastruktur = infrastructure::select('name')->groupBy('name')->paginate(4);
         $konservasi = conservation_item::all();
-        return view('frontend.audit.inputan-audit', compact('energi', 'infrastruktur', 'konservasi', 'cekPemakaian', 'cekInfrastruktur', 'cekKonservasi'));
+        return view('frontend.audit.inputan-audit', compact('energy', 'infrastruktur', 'konservasi', 'cekPemakaian', 'cekInfrastruktur', 'cekKonservasi'));
     }
 
     public function auditRekap()

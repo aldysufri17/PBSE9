@@ -8,11 +8,11 @@
         <div class="form-group row">
 
             {{-- Name --}}
-            <x-form-input label="Nama" type="text" required="required" value="{{$energy->name}}" name="nama">
+            <x-form-input label="Nama" type="text" required="required" value="{{$energy->name}}" name="name">
             </x-form-input>
 
             {{-- Email --}}
-            <x-form-input label="Satuan" type="text" required="required" value="{{$energy->unit}}" name="satuan">
+            <x-form-input label="Satuan" type="text" required="required" value="{{$energy->unit}}" name="unit">
             </x-form-input>
 
         </div>

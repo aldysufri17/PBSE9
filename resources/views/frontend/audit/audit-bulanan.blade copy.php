@@ -98,7 +98,7 @@
                     @enderror
                     <div class="clone"></div>
                 </div>
-                {{$energi->links()}}
+                {{$energy->links()}}
             </div>
             <div class="card-footer text-end border-0">
                 <x-tabel-button type="submit" color="primary" title="Simpan"></x-tabel-button>

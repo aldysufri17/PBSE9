@@ -6,7 +6,7 @@
             </div>
                 <h1>{{$title}}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="{{route($route)}}">{{'Daftar '. $title}}</a></div>
                 <div class="breadcrumb-item">{{ $page == 'create' ? 'Tambah' : 'Ubah' }} {{$title}}</div>
             </div>

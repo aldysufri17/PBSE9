@@ -92,7 +92,7 @@
                         <div class="pemakaian">
                             <h4 class="fw-bold text-center py-2">AUDIT PEMAKAIAN ENERGI DAN AIR</h4>
                             <div class="pb-5">
-                                @foreach ($energi as $key=>$e)
+                                @foreach ($energy as $key=>$e)
                                 <div class="items mt-4">
                                     <span class="fw-bold"><span>{{$key+1}}.</span> Input Penggunaan Energi Jenis
                                         {{$e->name}}</span>

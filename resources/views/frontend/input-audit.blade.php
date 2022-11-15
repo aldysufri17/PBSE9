@@ -19,14 +19,14 @@
 <form action="{{route('audit.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="container-fluid">
-        @if ($energi->IsNotEmpty())
+        @if ($energy->IsNotEmpty())
         <div class="card my-3">
             <div class="card-footer bg-white text-center">
                 <h4 class="fw-bold">Rekap Data Penggunaan Energi Pada Gedung {{auth()->user()->name}}</h4>
             </div>
             <!-- <input type="text" name="ha"> -->
             <div class="card-body p-3">
-                @foreach ($energi as $key=>$e)
+                @foreach ($energy as $key=>$e)
                 <div class="mt-5">
                     @if ($key != 0)
                     <hr style="color: red; border:3px solid blue">
