@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($civitas as $data)
+            @foreach ($civitas as $key => $data)
             <tr>
                 @php
                 $name = App\Models\User::where('user_id',$data->post_by)->value('name');

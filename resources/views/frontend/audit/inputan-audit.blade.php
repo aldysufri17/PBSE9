@@ -84,7 +84,7 @@
             <hr class="my-5" style="color: red; border:3px solid blue">
             @endif
 
-            @if (!$cekPemakaian && $energi->IsNotEmpty())
+            @if (!$cekPemakaian && $energy->IsNotEmpty())
             <form action="{{route('pemakaian.input')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
