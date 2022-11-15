@@ -9,7 +9,6 @@ use App\Models\Energy;
 use App\Models\energy_usage;
 use App\Models\infrastructure;
 use App\Models\infrastructure_quantity;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

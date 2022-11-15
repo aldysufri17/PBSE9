@@ -27,8 +27,8 @@
     @else
     <div class="audit my-3">
         <div class="card-footer bg-white text-center">
-            <h3 class="fw-bold">AUDIT DEPARTEMEN {{auth()->user()->name}} BULAN
-                {{ \Carbon\Carbon::now()->format('F') }}</h3>
+            <h3 class="fw-bold">AUDIT DEPARTEMEN {{strtoupper(auth()->user()->name)}} BULAN
+                {{ strtoupper(\Carbon\Carbon::now()->format('F')) }}</h3>
         </div>
         <div class="card-body p-3">
             @if (!$cekInfrastruktur && $infrastruktur->IsNotEmpty())
