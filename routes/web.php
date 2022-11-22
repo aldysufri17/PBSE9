@@ -77,5 +77,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('konservasi-input', [FrontendController::class, 'konservasiInput'])->name('konservasi.input');
         Route::get('civitas-akademika', [FrontendController::class, 'inputCivitas'])->name('input.civitas');
         Route::post('civitas-akademika/store', [FrontendController::class, 'civitasStore'])->name('civitas.store');
+        Route::post('tahunan-store', [FrontendController::class, 'tahunanStore'])->name('tahunan.store');
     });
 });
