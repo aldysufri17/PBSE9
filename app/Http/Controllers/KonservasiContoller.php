@@ -75,4 +75,35 @@ class KonservasiContoller extends Controller
             ->get();
         return view('backend.konservasi.usage.years', compact('konservasi'));
     }
+
+    public function konservasiusageShowYears($id, $year)
+    {
+        $year = Carbon::now()->format('Y');
+        $konservasi = conservation_management::where('post_by', $id)
+            ->whereYear('created_at', '=', $year)
+            ->where('category', 0)
+            ->get();
+        return view('backend.konservasi.usage.show-year', compact('konservasi'));
+    }
+
+    public function konservasiusageMonth($id)
+    {
+        $konservasi = conservation_management::where('post_by', $id)
+            ->select(DB::raw('MONTH(created_at) month'), 'post_by')
+            ->groupBy('month', 'post_by')
+            ->get();
+        return view('backend.konservasi.usage.month', compact('konservasi'));
+    }
+
+    public function konservasiusageShowMonth($id, $month)
+    {
+        $year = Carbon::now()->format('Y');
+        $month = Carbon::now()->format('m');
+        $konservasi = conservation_management::where('post_by', $id)
+            ->whereYear('created_at', '=', $year)
+            ->whereMonth('created_at', '=', $month)
+            ->where('category', 1)
+            ->get();
+        return view('backend.konservasi.usage.show-month', compact('konservasi'));
+    }
 }

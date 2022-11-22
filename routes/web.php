@@ -62,8 +62,10 @@ Route::middleware(['auth'])->group(function () {
         // Konservasi Usage
         Route::get('konservasi-usage', [KonservasiContoller::class, 'konservasiusageIndex'])->name('konservasi_usage.index');
         Route::get('konservasi-usage-years/{id}', [KonservasiContoller::class, 'konservasiusageYears'])->name('konservasi_usage.years');
+        Route::get('konservasi-usage-show-years/{id}/{year}', [KonservasiContoller::class, 'konservasiusageShowYears'])->name('konservasi_usage.show_year');
         Route::get('konservasi-usage-month/{id}/{year}', [KonservasiContoller::class, 'konservasiusageMonth'])->name('konservasi_usage.month');
-        Route::get('konservasi-usage/show/{id}/{year}/{month}', [KonservasiContoller::class, 'konservasiusageShow'])->name('konservasi_usage.show');
+        Route::get('konservasi-usage-show-month/{id}/{month}', [KonservasiContoller::class, 'konservasiusageShowMonth'])->name('konservasi_usage.show_month');
+        // Route::get('konservasi-usage/show/{id}/{year}/{month}', [KonservasiContoller::class, 'konservasiusageShow'])->name('konservasi_usage.show');
     });
 
     // ====================================== User Panel ==============================

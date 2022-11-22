@@ -9,6 +9,7 @@ use App\Models\Energy;
 use App\Models\energy_usage;
 use App\Models\infrastructure;
 use App\Models\infrastructure_quantity;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,7 @@ class FrontendController extends Controller
     public function auditInput()
     {
         $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
         $cekPemakaian = energy_usage::where('post_by', Auth::user()->user_id)
             ->whereMonth('created_at', '=', $month)->first();
         $cekInfrastruktur = infrastructure_quantity::where('post_by', Auth::user()->user_id)
@@ -25,7 +27,13 @@ class FrontendController extends Controller
             ->whereMonth('created_at', '=', $month)->first();
         $energy = Energy::all();
         $infrastruktur = infrastructure::select('name')->groupBy('name')->paginate(4);
-        $konservasi = conservation_item::all();
+        $konservasiValidate = conservation_management::where('post_by', Auth::user()->user_id)
+            ->whereYear('created_at', '=', $year)->first();
+        if ($konservasiValidate) {
+            $konservasi = conservation_item::where('category', 1)->get();
+        } else {
+            $konservasi = conservation_item::all();
+        }
         return view('frontend.audit.inputan-audit', compact('energy', 'infrastruktur', 'konservasi', 'cekPemakaian', 'cekInfrastruktur', 'cekKonservasi'));
     }
 
@@ -142,6 +150,7 @@ class FrontendController extends Controller
         $post_by = Auth::user()->user_id;
         $answer = $request->answer;
         $desc_kon = $request->desc_kon;
+        $category = $request->category;
 
         foreach ($answer as $key => $value) {
             if (is_null($desc_kon[$key])) {
@@ -162,6 +171,7 @@ class FrontendController extends Controller
 
             conservation_management::create([
                 'item' => json_encode($item),
+                'category' => $category[$key],
                 'post_by'   => $post_by
             ]);
         }
