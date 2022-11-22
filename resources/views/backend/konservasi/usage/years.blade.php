@@ -9,7 +9,7 @@
         <h1>Energi Tahunan</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="/dashboard">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="/energi-usage">Daftar Pengelolaan Konservasi<div>
+            <div class="breadcrumb-item active"><a href="/energi-usage">Daftar Pengelolaan Konservasi</a></div>
             <div class="breadcrumb-item">Tahunan</div>
         </div>
     </div>
@@ -35,9 +35,12 @@
                             <td>{{$key+1}}</td>
                             <td>{{$data->year}}</td>
                             <td>
-                                <a href="{{route('energi_usage.month', ['id'=>$data->post_by, 'year'=>$data->year])}}"
+                                <a href="{{route('konservasi_usage.show_year', ['id'=>$data->post_by, 'year'=>$data->year])}}"
                                     class="table-action btn btn-primary
-                                    mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
+                                    mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i> Detail</a>
+                                <a href="{{route('energi_usage.month', ['id'=>$data->post_by, 'year'=>$data->year])}}"
+                                    class="table-action btn btn-info
+                                        mr-2" data-toggle="tooltip" title="Show Bulan"><i class="fas fa-eye"></i> Show Bulanan</a>
                             </td>
                         </tr>
                         @endforeach
@@ -70,6 +73,5 @@
             // alert(sid)
         });
     });
-
 </script>
 @endpush

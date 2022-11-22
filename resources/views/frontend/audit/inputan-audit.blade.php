@@ -28,7 +28,7 @@
     <div class="audit my-3">
         <div class="card-footer bg-white text-center">
             <h3 class="fw-bold">AUDIT DEPARTEMEN {{strtoupper(auth()->user()->name)}} BULAN
-                {{ strtoupper(\Carbon\Carbon::now()->format('F')) }}</h3>
+                {{ strtoupper(\Carbon\Carbon::now()->format('F')) }} {{ strtoupper(\Carbon\Carbon::now()->format('Y')) }}</h3>
         </div>
         <div class="card-body p-3">
             @if (!$cekInfrastruktur && $infrastruktur->IsNotEmpty())
@@ -184,6 +184,7 @@
                         <div class="konservasi">
                             <h4 class="fw-bold text-center py-2">AUDIT PENGELOLAAN KONSERVASI ENERGI DAN AIR</h4>
                             @foreach ($konservasi as $key=>$item)
+                            <input type="text" name="category[{{$item->coi_id}}]" hidden value="{{$item->category}}">
                             <div class="pb-2">
                                 <div class="card-header bg-white fw-bold">{{$key+1}}. {{$item->name}}</div>
                                 <div class="card-body">

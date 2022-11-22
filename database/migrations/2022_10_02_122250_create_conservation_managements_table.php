@@ -18,6 +18,7 @@ return new class extends Migration
             $table->json('item');
             // $table->string('desc');
             // $table->date('date');
+            $table->boolean('category');
             $table->timestamps();
             $table->unsignedBigInteger('post_by')->nullable();
             $table->softDeletes();

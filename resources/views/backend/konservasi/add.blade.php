@@ -18,14 +18,14 @@
         <div class="mt-2">
             <span style="color:red;">*</span>Kategori</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="category"
+                <input class="form-check-input" checked type="radio" name="category"
                     id="radio" value="1">
                 <label class="form-check-label" for="flexRadioDefault1">
                     Bulanan
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" checked type="radio"
+                <input class="form-check-input" type="radio"
                     name="category" id="radio" value="0">
                 <label class="form-check-label" for="flexRadioDefault2">
                     Tahunan
