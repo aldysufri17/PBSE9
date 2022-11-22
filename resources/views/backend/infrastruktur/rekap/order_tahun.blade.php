@@ -37,6 +37,9 @@
                             <td>
                                 <a href="{{route('infrastruktur.year', [$data->year,$data->post_by])}}" class="table-action btn btn-primary
                                     mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
+                                <a class="table-action btn btn-primary mr-2"
+                                    href="{{route('infrastructure.export', ['id'=>$data->post_by,'year'=>$data->year])}}" target="_blank"><i class="ri-download-line"></i>
+                                    Unduh Bukti</a>
                             </td>
                         </tr>
                         @endforeach

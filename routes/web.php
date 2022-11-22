@@ -48,11 +48,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('energi-usage-years/{id}', [EnergyController::class, 'enegiusageYears'])->name('energi_usage.years');
         Route::get('energi-usage-month/{id}/{year}', [EnergyController::class, 'enegiusageMonth'])->name('energi_usage.month');
         Route::get('energi-usage/show/{id}/{year}/{month}', [EnergyController::class, 'enegiusageShow'])->name('energi_usage.show');
+        Route::get('energi-usage/export-csv/{id}/{year}', [EnergyController::class, 'export'])->name('energy.exportall');
+        Route::get('energi-usage/export-csv/{id}/{year}/{month}', [EnergyController::class, 'export'])->name('energy.export');
 
         // Infrastruktur
         Route::resource('infrastruktur', InfrastrukturController::class);
         Route::get('Rekap-infrastruktur', [InfrastrukturController::class, 'rekapInfrastruktur'])->name('rekap.infrastruktur');
         Route::get('Rekap-infrastruktur-Tahunan/{year}/{post_by}', [InfrastrukturController::class, 'infrastrukturYear'])->name('infrastruktur.year');
+        //Route::get('infrastruktur/export-csv/{id}/{year}', [InfrastrukturController::class, 'export'])->name('infrastructure.exportall');
+        Route::get('infrastruktur/export-csv/{id}/{year}', [InfrastrukturController::class, 'export'])->name('infrastructure.export');
 
         // Rekap Civitas
         Route::get('Rekap-civitas', [CivitasController::class, 'rekapCivitas'])->name('rekap.civitas');

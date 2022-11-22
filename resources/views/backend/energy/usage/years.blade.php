@@ -38,6 +38,9 @@
                                 <a href="{{route('energi_usage.month', ['id'=>$data->post_by, 'year'=>$data->year])}}"
                                     class="table-action btn btn-primary
                                     mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
+                                    <a class="table-action btn btn-primary mr-2"
+                                    href="{{route('energy.exportall', ['id'=>$data->post_by,'year'=>$data->year])}}" target="_blank"><i class="ri-download-line"></i>
+                                    Unduh Bukti</a>
                             </td>
                         </tr>
                         @endforeach

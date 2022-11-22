@@ -27,7 +27,8 @@
                         <tr>
                             <th>No</th>
                             <th>Bulan Input</th>
-                            <th>Aksi</th>
+                            <th>Lihat</th>
+                            <th>Unduh</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,6 +45,10 @@
                                 <a href="{{route('energi_usage.show', ['id'=>$data->post_by,'year'=>$year,'month'=>$data->month])}}"
                                     class="table-action btn btn-primary
                                     mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
+                            </td>
+                            <td><a class="table-action btn btn-primary mr-2"
+                                    href="{{route('energy.export', ['id'=>$data->post_by,'year'=>$year, 'month'=>$data->month])}}" target="_blank"><i class="ri-download-line"></i>
+                                    Unduh Bukti</a>
                             </td>
                         </tr>
                         @endforeach

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ISExport;
 use App\Models\infrastructure;
 use App\Models\infrastructure_quantity;
-use App\Models\Infrastruktur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InfrastrukturController extends Controller
 {
@@ -133,5 +134,15 @@ class InfrastrukturController extends Controller
         $infrastruktur = infrastructure_quantity::where('post_by', $post_by)
             ->whereYear('created_at', '=', $year)->get();
         return view('backend.infrastruktur.rekap.rekap', compact('infrastruktur', 'year'));
+    }
+
+    public function export($id, $year, $month=null)
+    {
+        $fileName = date('Y-m-d') . '_' . 'Data Pengguna' . '.xlsx';
+        /*if ($month==null){
+            return Excel::download(new ISExportMonth($id, $year), $fileName);
+        }else{*/
+            return Excel::download(new ISExport($id, $year, $month),  $fileName);
+        //}
     }
 }
