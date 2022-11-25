@@ -6,16 +6,31 @@ use App\Models\energy_usage;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class EUExportMonth implements FromCollection, WithHeadings, WithTitle
+class EUExportMonth implements FromCollection, WithHeadings, WithTitle, WithMapping
 {
     protected $year, $month;
 
     function __construct($id, $year, $month, $data=null) {
+        $this->index = 0;
         $this->id = $id;
         $this->year = $year;
         $this->month = $month;
         $this->data = $data;
+    }
+
+    public function map($mydata): array
+    {
+        return [
+            ++$this->index,
+            $mydata->name,
+            $mydata->usage,
+            $mydata->unit,
+            $mydata->cost,
+            $mydata->start_date,
+            $mydata->end_date,
+        ];
     }
 
     public function headings(): array

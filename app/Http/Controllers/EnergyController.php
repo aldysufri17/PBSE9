@@ -6,11 +6,9 @@ use App\Exports\EUExport;
 use App\Exports\EUExportMonth;
 use App\Models\Energy;
 use App\Models\energy_usage;
-use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Facades\Excel;
 
 class EnergyController extends Controller

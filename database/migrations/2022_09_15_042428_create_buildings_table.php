@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('buildings', function (Blueprint $table) {
             $table->id('building_id');
             $table->unsignedBigInteger('section_id');
-            $table->foreign('section_id')->references('section_id')->on('sections')->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('deleted_by')->nullable();
             $table->foreign('deleted_by')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('section_id')->references('section_id')->on('sections')->onDelete('cascade');
         });
     }
 

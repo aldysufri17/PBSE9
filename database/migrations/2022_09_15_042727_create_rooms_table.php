@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id('room_id');
             $table->unsignedBigInteger('building_id');
             $table->string('name');
-            $table->json('file')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('deleted_by')->nullable();

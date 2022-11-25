@@ -11,15 +11,10 @@ class energy_weight extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $primaryKey = 'building_id';
+    protected $primaryKey = 'ew_id';
     public $incrementing = false;
 
     protected $guarded = [];
 
     protected $dates = ['deleted_at'];
-
-    public function section()
-    {
-        return $this->belongsTo(section::class, 'section_id');
-    }
 }
