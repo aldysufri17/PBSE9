@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
-@section('title','Daftar Infrastruktur')
+@section('title','Daftar Infrastruktur Departement')
 @section('content')
-<x-page-index title="Infrastruktur" buttonLabel="Tambah Infrastruktur" routeCreate="">
+<x-page-index title="Infrastruktur Departemen" buttonLabel="Tambah Infrastruktur" routeCreate="">
     @if ($infrastruktur->IsNotEmpty())
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>

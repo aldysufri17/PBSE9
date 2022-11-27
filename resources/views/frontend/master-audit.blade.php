@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title', 'Input data Audit')
+@section('title', 'Master data Audit')
 @section('content')
 <x-alert />
 <!-- ======= Breadcrumbs Section ======= -->
@@ -7,10 +7,10 @@
     <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="font-weight-bold">Input data Audit</h2>
+            <h2 class="font-weight-bold">Master data Audit</h2>
             <ol>
                 <li><a href="/">Beranda</a></li>
-                <li>Input data Audit</li>
+                <li>Master data Audit</li>
             </ol>
         </div>
     </div>
@@ -19,7 +19,7 @@
     @csrf
     <div class="container-fluid">
         <div class="my-3">
-            <h3 class="fw-bold my-4 text-center">REKAP DATA PENGGUNAAN ENERGI PADA GEDUNG {{auth()->user()->name}}</h3>
+            <h3 class="fw-bold my-4 text-center">MASTER DATA DEPARTEMEN {{strtoupper(auth()->user()->name)}}</h3>
             <div class="civitas">
                 <div class="card m-3">
                     <div class="card-body p-3">
@@ -32,9 +32,8 @@
                             @endphp
                             @endif
                             <div class="d-flex justify-content-between total font-weight-bold mt-3">
-                                <h4 class="fw-bold">Data Civitas Akademika Departemen Tahun
-                                    {{ \Carbon\Carbon::now()->format('Y') }}</h4>
-                                <a href="{{route('input.civitas')}}"><span class="badge bg-primary">Ubah</span></a>
+                                <h4 class="fw-bold">DATA CIVITAS AKADEMIKA</h4>
+                                <a href="{{route('input.civitas')}}"><span class="badge bg-primary p-2">Ubah</span></a>
                             </div>
                             <div class="masuk">
                                 <div class="">
@@ -106,6 +105,54 @@
                 </div>
                 <hr class="my-5" style="color: red; border:3px solid blue">
             </div>
+            <div class="Gedung">
+                <div class="card m-3">
+                    <div class="card-body p-3">
+                        <div class="justify-content-center">
+                            <div class="d-flex justify-content-between total font-weight-bold mt-3">
+                                <h4 class="fw-bold">DATA GEDUNG DAN RUANGAN</h4>
+                                <a href="{{route('building.add')}}"><span class="badge bg-success p-2">Tambah
+                                        Data</span></a>
+                            </div>
+                            @if ($building->IsNotEmpty())
+                            <table id="dataTable" class="table table-striped table-borderless responsive nowrap"
+                                style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Gedung</th>
+                                        <th>Total Ruangan</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($building as $item)
+                                    <tr>
+                                        @php
+                                        $room_count = App\Models\Room::where('building_id',$item->building_id)->count();
+                                        @endphp
+                                        <td>{{$item->name}}</td>
+                                        <td>{{$room_count}} Ruang</td>
+                                        <td>
+                                            <a href="{{route('building.detail',$item->building_id)}}" class="table-action btn btn-info
+                                                mr-2" data-toggle="tooltip" title="Detail"><i
+                                                    class="fas fa-eye"></i></a>
+                                            <a href="{{route('building.delete',$item->building_id)}}" class="table-action btn btn-danger
+                                                        mr-2" data-toggle="tooltip" title="Delete"><i
+                                                    class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            {{$building->links()}}
+                            @else
+                            <h5 class="text-danger fw-bold">Data Gedung Belum ada</h5>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-5" style="color: red; border:3px solid blue">
+            </div>
         </div>
     </div>
 </form>
@@ -134,7 +181,13 @@
         $("body").on("click", ".btn-danger", function () {
             $(this).parents(".hdtuto").remove();
         });
-    });
 
+        $(document).on('click', '.delete-btn', function () {
+            var sid = $(this).val();
+            $('#deleteModal').modal('show')
+            $('#delete_id').val(sid)
+            // alert(sid)
+        });
+    });
 </script>
 @endpush

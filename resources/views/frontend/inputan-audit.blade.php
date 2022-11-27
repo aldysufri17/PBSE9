@@ -27,10 +27,47 @@
     @else
     <div class="audit my-3">
         <div class="card-footer bg-white text-center">
-            <h3 class="fw-bold">AUDIT DEPARTEMEN {{strtoupper(auth()->user()->name)}} BULAN
-                {{ strtoupper(\Carbon\Carbon::now()->format('F')) }} {{ strtoupper(\Carbon\Carbon::now()->format('Y')) }}</h3>
+            <h3 class="fw-bold">AUDIT DEPARTEMEN {{strtoupper(auth()->user()->name)}}</h3>
         </div>
         <div class="card-body p-3">
+            @if ($building->IsNotEmpty())
+            <form action="{{route('updateInfrastruktur.input')}}" method="post">
+                @csrf
+                <div class="card">
+                    <div class="card-body">
+                        <div class="infrastruktur mb-5">
+                            <h4 class="fw-bold text-center py-2">AUDIT JUMLAH INFRASTRUKTUR</h4>
+                            <div class="pb-4">
+                                <span class="fw-bold"></span>
+                                <div class="form-group row">
+                                    <div class="building">
+                                        <span class="fw-bold">Nama Gedung</span>
+                                        <select id="select" required class="form-select selectpicker form-control-user"
+                                            name="building">
+                                            <option disabled selected>---Pilih Gedung---</option>
+                                            @foreach ($building as $data)
+                                            <option value="{{$data->building_id}}">{{ $data->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="room my-2">
+                                        <span class="fw-bold">Nama Ruangan</span>
+                                        <select id="room" required class="form-select selectroom room" name="room">
+                                        </select>
+                                    </div>
+                                    <div class="text-end mt-3 btn-area">
+                                        <button class="btn btn-primary btn-edit-inf"></button>
+                                    </div>
+                                    <div class="infrastruktur-parent">
+                                    </div>
+                                    <div class="clone-infrastruktur"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            @endif
             @if (!$cekInfrastruktur && $infrastruktur->IsNotEmpty())
             <form action="{{route('infrastruktur.input')}}" method="post" enctype="multipart/form-data">
                 <div class="card">
@@ -203,8 +240,8 @@
                                         </label>
                                     </div>
                                     <textarea class="form-control @error('deskripsi') @enderror"
-                                        placeholder="Keterangan Pengelolaan Konservasi" name="desc_kon[{{$item->coi_id}}]"
-                                        rows="5" style="height:10%;"></textarea>
+                                        placeholder="Keterangan Pengelolaan Konservasi"
+                                        name="desc_kon[{{$item->coi_id}}]" rows="5" style="height:10%;"></textarea>
                                 </div>
                             </div>
                             @endforeach
@@ -224,35 +261,51 @@
 
 @push('scripts')
 <script type="text/javascript">
-    // $(function () {
-    // $("#cost").keyup(function (e) {
-    //     $(this).val(format($(this).val()));
-    // });
-    // // });
+    $(".btn-area").hide();
+    $(document).ready(function () {
+        $(document).on('change', '.selectpicker', function () {
+            var select = $('#select option:selected').val()
+            $.ajax({
+                url: "{{ route('room.ajax') }}",
+                type: "GET",
+                data: {
+                    select: select
+                },
+                success: function (data) {
+                    if (data) {
+                        $('#room').empty()
+                        $("#room").append(
+                            '<option disabled selected>---Pilih Ruangan---</option>');
+                        $.each(data, function (key, room) {
+                            $('select[name="room"]').append('<option value="' + room
+                                .room_id + '">' + room.name + '</option>');
+                        })
+                    } else {
+                        $('#room').empty()
+                    }
+                }
+            });
+        });
 
-    // var format = function (num) {
-    //     var str = num.toString().replace("", ""),
-    //         parts = false,
-    //         output = [],
-    //         i = 1,
-    //         formatted = null;
-    //     if (str.indexOf(".") > 0) {
-    //         parts = str.split(".");
-    //         str = parts[0];
-    //     }
-    //     str = str.split("").reverse();
-    //     for (var j = 0, len = str.length; j < len; j++) {
-    //         if (str[j] != ",") {
-    //             output.push(str[j]);
-    //             if (i % 3 == 0 && j < (len - 1)) {
-    //                 output.push(",");
-    //             }
-    //             i++;
-    //         }
-    //     }
-    //     formatted = output.reverse().join("");
-    //     return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
-    // };
-
+        $(document).on('change', '.selectroom', function () {
+            var select = $('#room option:selected').val()
+            $.ajax({
+                url: "{{ route('roomInfrastruktur.ajax') }}",
+                type: "GET",
+                data: {
+                    select: select
+                },
+                success: function (data) {
+                    if (data.cekNull == '0') {
+                        $(".btn-edit-inf").html('Tambah Infrastruktur');
+                    } else {
+                        $(".btn-edit-inf").html('Edit Infrastruktur');
+                    }
+                    $(".btn-area").show();
+                    $('.infrastruktur-parent').html(data.output)
+                }
+            });
+        });
+    });
 </script>
 @endpush

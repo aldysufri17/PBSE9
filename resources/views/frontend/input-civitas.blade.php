@@ -186,7 +186,7 @@
                 </div>
             </div>
             <div class="card-footer text-end border-0">
-                <a class="btn btn-danger mr-3" href="{{route('rekap.audit')}}">Batal</a>
+                <a class="btn btn-danger mr-3" href="{{route('master.audit')}}">Batal</a>
                 <x-tabel-button type="submit" color="primary" title="Simpan"></x-tabel-button>
             </div>
         </div>

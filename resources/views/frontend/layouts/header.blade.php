@@ -25,10 +25,10 @@
                   @if (!Auth::check())
                   <li><a class="nav-link scrollto" href="{{route('login')}}">Login</a></li>
                   @else
-                  <li class="dropdown"><a href="#"><span>Data Audit</span> <i class="bi bi-chevron-down"></i></a>
+                  <li class="dropdown"><a href="#"><span>Audit</span> <i class="bi bi-chevron-down"></i></a>
                       <ul>
-                          <li><a href="{{route('audit.input')}}">Input Data Audit</a></li>
-                          <li><a href="{{route('rekap.audit')}}">Rekap Audit</a></li>
+                          <li><a href="{{route('master.audit')}}">Master Data</a></li>
+                          <li><a href="{{route('audit.input')}}">Input Data</a></li>
                           {{-- <li><a href="{{route('riwayat.audit')}}">Riwayat Audit</a>
                   </li> --}}
               </ul>

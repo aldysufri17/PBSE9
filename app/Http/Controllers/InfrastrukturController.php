@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ISExport;
+use App\Models\building;
 use App\Models\infrastructure;
 use App\Models\infrastructure_quantity;
 use Illuminate\Http\Request;
@@ -68,10 +69,12 @@ class InfrastrukturController extends Controller
     public function show($id)
     {
         $infrastruktur = infrastructure_quantity::where('post_by', $id)
-            ->select(DB::raw('YEAR(created_at) year'), 'post_by')
-            ->groupBy('year', 'post_by')
+            // ->select(DB::raw('YEAR(created_at) year'), 'post_by')
+            // ->groupBy('year', 'post_by')
+            ->orderBy('building_id', 'ASC')
             ->get();
-        return view('backend.infrastruktur.rekap.order_tahun', compact('infrastruktur'));
+        $departemen = $infrastruktur->first();
+        return view('backend.infrastruktur.rekap.show', compact('infrastruktur', 'departemen'));
     }
 
     /**
@@ -123,6 +126,12 @@ class InfrastrukturController extends Controller
         return redirect()->route('infrastruktur.index')->with('success', 'Infrastruktur berhasil dihapus.!');
     }
 
+    public function InfrastrukturQty()
+    {
+        $building = building::where('section_id', Auth::user()->section_id)->get();
+        return view('backend.infrastruktur.rekap.building', compact('building'));
+    }
+
     public function rekapInfrastruktur()
     {
         $infrastruktur = infrastructure_quantity::select('post_by')->groupBy('post_by')->get();
@@ -136,13 +145,48 @@ class InfrastrukturController extends Controller
         return view('backend.infrastruktur.rekap.rekap', compact('infrastruktur', 'year'));
     }
 
-    public function export($id, $year, $month=null)
+    public function export($id, $year, $month = null)
     {
         $fileName = date('Y-m-d') . '_' . 'Data Pengguna' . '.xlsx';
         /*if ($month==null){
             return Excel::download(new ISExportMonth($id, $year), $fileName);
         }else{*/
-            return Excel::download(new ISExport($id, $year, $month),  $fileName);
+        return Excel::download(new ISExport($id, $year, $month),  $fileName);
         //}
+    }
+
+    public function ajaxEdit(Request $request)
+    {
+        $id = $request->id;
+        $inf = infrastructure_quantity::find($id);
+        $gedung = $inf->building->name;
+        $ruangan = $inf->room->name;
+        return response()->json([
+            'inf' => $inf,
+            'gedung'    => $gedung,
+            'ruangan'   => $ruangan
+        ]);
+    }
+
+    public function ajaxUpdate(Request $request)
+    {
+        $id = $request->id;
+
+        infrastructure_quantity::where('iq_id', $id)->update([
+            'name' => $request->barang,
+            'quantity' => $request->kuantitas,
+            'capacity' => $request->kapasitas,
+        ]);
+
+        return response()->json([
+            'status' => 200,
+        ]);
+    }
+
+    public function deleteInfrastruktur(Request $request)
+    {
+        $id = $request->delete_id;
+        infrastructure_quantity::where('iq_id', $id)->delete();
+        return redirect()->back()->with('success', 'Infrastruktur berhasil dihapus.!');
     }
 }

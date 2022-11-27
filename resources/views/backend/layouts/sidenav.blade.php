@@ -25,7 +25,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Rekap Data</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('rekap.civitas')}}">Civitas Akademika</a></li>
-                    <li><a class="nav-link" href="{{route('rekap.infrastruktur')}}">Kuantitas Infrastruktur</a></li>
+                    <li><a class="nav-link" href="{{route('rekap.infrastruktur')}}">Penggunaan Infrastruktur</a></li>
                     <li><a class="nav-link" href="{{route('energi_usage.index')}}">Penggunaan Energi</a></li>
                     <li><a class="nav-link" href="{{route('konservasi_usage.index')}}">Konservasi Energi</a></li>
                 </ul>

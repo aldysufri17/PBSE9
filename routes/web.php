@@ -23,7 +23,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     // ====================================== Load all role ==============================
     Route::get('/home', [HomeController::class, 'indexPengguna'])->name('home');
-    Route::get('audit-rekap', [FrontendController::class, 'auditRekap'])->name('rekap.audit');
+    Route::get('audit-master', [FrontendController::class, 'auditMaster'])->name('master.audit');
     Route::get('audit-input', [FrontendController::class, 'auditInput'])->name('audit.input');
 
     // ====================================== Dashboard Admin and Auditor ==============================
@@ -57,6 +57,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('Rekap-infrastruktur-Tahunan/{year}/{post_by}', [InfrastrukturController::class, 'infrastrukturYear'])->name('infrastruktur.year');
         //Route::get('infrastruktur/export-csv/{id}/{year}', [InfrastrukturController::class, 'export'])->name('infrastructure.exportall');
         Route::get('infrastruktur/export-csv/{id}/{year}', [InfrastrukturController::class, 'export'])->name('infrastructure.export');
+        Route::get('infrastruktur/building/{building_id}', [InfrastrukturController::class, 'InfrastrukturQty'])->name('rekap.building');
+        Route::get('infrastruktur/infrastruktur/admin/Edit', [InfrastrukturController::class, 'ajaxEdit']);
+        Route::post('infrastruktur/admin/infrastruktur/update', [InfrastrukturController::class, 'ajaxUpdate']);
+        Route::delete('admin/infrastruktur/delete', [InfrastrukturController::class, 'deleteInfrastruktur'])->name('delete_infrastruktur');
 
         // Rekap Civitas
         Route::get('Rekap-civitas', [CivitasController::class, 'rekapCivitas'])->name('rekap.civitas');
@@ -82,5 +86,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('civitas-akademika', [FrontendController::class, 'inputCivitas'])->name('input.civitas');
         Route::post('civitas-akademika/store', [FrontendController::class, 'civitasStore'])->name('civitas.store');
         Route::post('tahunan-store', [FrontendController::class, 'tahunanStore'])->name('tahunan.store');
+
+        // Gedung
+        Route::get('Building-Add', [FrontendController::class, 'buildingAdd'])->name('building.add');
+        Route::post('Building-Store', [FrontendController::class, 'buildingStore'])->name('building.store');
+        Route::get('Building-Detail/{building_id}', [FrontendController::class, 'buildingDetail'])->name('building.detail');
+        Route::get('/room/delete', [FrontendController::class, 'deleteroom']);
+        Route::get('/room/ajax', [FrontendController::class, 'roomAjax'])->name('room.ajax');
+        Route::post('Building-Update/{building_id}', [FrontendController::class, 'buildingUpdate'])->name('building.update');
+        Route::get('Building-Delete/{building_id}', [FrontendController::class, 'buildingDelete'])->name('building.delete');
+
+        // Infrastruktur
+        Route::get('/room/infrastruktur/ajax', [FrontendController::class, 'roomInfrastrukturAjax'])->name('roomInfrastruktur.ajax');
+        Route::post('infrastruktur-edit/update', [FrontendController::class, 'updateInfrastrukturInput'])->name('updateInfrastruktur.input');
+        Route::get('/infras/delete', [FrontendController::class, 'deleteinfras']);
     });
 });
