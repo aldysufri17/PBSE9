@@ -32,27 +32,27 @@
                     <div class="col">
                         <span class="fw-bold">Nama Infrastruktur</span>
                         <input required type="text" placeholder="Nama Infrastruktur"
-                            class="form-control form-control-user @error('inf_in') is-invalid @enderror" name="inf_in[]"
+                            class="form-control form-control-user @error('inf') is-invalid @enderror" name="inf[]"
                             value="">
-                        @error('inf_in')
+                        @error('inf')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col mx-2">
                         <span class="fw-bold">Kapasitas</span>
                         <input required type="number" placeholder="Kapasitas"
-                            class="form-control form-control-user @error('cty_in') is-invalid @enderror" name="cty_in[]"
+                            class="form-control form-control-user @error('cty') is-invalid @enderror" name="cty[]"
                             value="">
-                        @error('cty_in')
+                        @error('cty')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col">
                         <span class="fw-bold">Kuantitas</span>
                         <input required type="number" placeholder="Kuantitas"
-                            class="form-control form-control-user @error('qty_in') is-invalid @enderror" name="qty_in[]"
+                            class="form-control form-control-user @error('qty') is-invalid @enderror" name="qty[]"
                             value="">
-                        @error('qty_in')
+                        @error('qty')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
@@ -64,27 +64,27 @@
                     <div class="col">
                         <span class="fw-bold">Nama Infrastruktur</span>
                         <input required type="text" placeholder="Nama Infrastruktur"
-                            class="form-control form-control-user @error('inf_in') is-invalid @enderror"
-                            value="{{$item->name}}" name="inf_in[]" value="">
-                        @error('inf_in')
+                            class="form-control form-control-user @error('inf') is-invalid @enderror"
+                            value="{{$item->name}}" name="inf[]" value="">
+                        @error('inf')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col mx-2">
                         <span class="fw-bold">Kapasitas (Watt)</span>
                         <input required type="number" placeholder="Kapasitas"
-                            class="form-control form-control-user @error('cty_in') is-invalid @enderror"
-                            value="{{$item->capacity}}" name="cty_in[]">
-                        @error('cty_in')
+                            class="form-control form-control-user @error('cty') is-invalid @enderror"
+                            value="{{$item->capacity}}" name="cty[]">
+                        @error('cty')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col">
                         <span class="fw-bold">Kuantitas</span>
                         <input required type="number" placeholder="Kuantitas"
-                            class="form-control form-control-user @error('qty_in') is-invalid @enderror" name="qty_in[]"
+                            class="form-control form-control-user @error('qty') is-invalid @enderror" name="qty[]"
                             value="{{$item->quantity}}">
-                        @error('qty_in')
+                        @error('qty')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
@@ -125,7 +125,7 @@
                                             @enderror
                                         </div>
                                         <div class="col mx-2">
-                                            <span class="fw-bold">Kapasitas (Watt)</span>
+                                            <span class="fw-bold">Kapasitas</span>
                                             <input required type="number" placeholder="Kapasitas"
                                                 class="form-control form-control-user @error('cty') is-invalid @enderror"
                                                 name="cty[]" value="">

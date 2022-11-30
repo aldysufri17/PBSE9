@@ -21,11 +21,11 @@ class SectionSeeder extends Seeder
         ]);
         Section::create([
             'section_id' => 1,
-            'name' => 'Teknik Komputer'
+            'name' => 'GKB'
         ]);
         Section::create([
             'section_id' => 2,
-            'name' => 'Teknik Elektro'
+            'name' => 'ELEKTRO'
         ]);
     }
 }

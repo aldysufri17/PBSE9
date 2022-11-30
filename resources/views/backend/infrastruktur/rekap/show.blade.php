@@ -20,7 +20,7 @@
                 <h4>Infrastruktur Departemen {{$departemen->user->name}}</h4>
             </div>
             <div class="d-sm-flex align-items-center mb-4">
-                <a href="" class="btn btn-sm btn-warning">
+                <a href="" target="_blank" class="btn btn-sm btn-warning">
                     <i class="fas fa-file-csv"></i> Export CSV
                 </a>
                 <a href="" class="btn btn-sm btn-danger mx-2">

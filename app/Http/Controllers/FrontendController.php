@@ -14,6 +14,7 @@ use App\Models\infrastructure_quantity;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -59,31 +60,32 @@ class FrontendController extends Controller
         $request->validate([
             "building" => 'required',
             "room" => 'required',
-            'inf_in' => 'required|array',
-            "inf_in.*" => 'required',
-            'qty_in' => 'required|array',
-            "qty_in.*" => 'required',
-            'cty_in' => 'required|array',
-            "cty_in.*" => 'required',
+            'inf' => 'required|array',
+            "inf.*" => 'required',
+            'qty' => 'required|array',
+            "qty.*" => 'required',
+            'cty' => 'required|array',
+            "cty.*" => 'required',
         ]);
 
         $post_by = Auth::user()->user_id;
         infrastructure_quantity::where('building_id', $request->building)->where('room_id', $request->room)->delete();
 
         // Quantity Infrastructure
-        foreach ($request->qty_in as $key => $qty) {
+        foreach ($request->qty as $key => $qty) {
             infrastructure_quantity::create([
+                'section_id'  => DB::table('buildings')->where('building_id', $request->building)->value('section_id'),
                 'building_id'  => $request->building,
                 'room_id'  => $request->room,
-                'name'      => $request->inf_in[$key],
-                'capacity'  => $request->cty_in[$key],
+                'name'      => $request->inf[$key],
+                'capacity'  => $request->cty[$key],
                 'quantity'  => $qty,
-                'total'     => $request->cty_in[$key] * $qty,
+                'total'     => $request->cty[$key] * $qty,
                 'post_by'   => $post_by
             ]);
         }
-
-        if ($request->qty) {
+        
+        /*if ($request->qty) {
             // Quantity Infrastructure
             foreach ($request->qty as $key => $qty) {
                 infrastructure_quantity::create([
@@ -96,7 +98,7 @@ class FrontendController extends Controller
                     'post_by'   => $post_by
                 ]);
             }
-        }
+        }*/
 
         $month = Carbon::now()->format('m');
         $cekPemakaian = energy_usage::where('post_by', Auth::user()->user_id)
@@ -396,7 +398,7 @@ class FrontendController extends Controller
                     '<input required type="text" disabled placeholder="Nama Infrastruktur" class="form-control form-control-user value="' . $value->name . '"' . 'name="inf[]">' .
                     '</div>' .
                     '<div class="col mx-2">' .
-                    '<span class="fw-bold">Kapasitas (Watt)</span>' .
+                    '<span class="fw-bold">Kapasitas</span>' .
                     '<input required type="number" disabled placeholder="Kapasitas" class="form-control form-control-user @error("cty") is-invalid @enderror" value="' . $value->capacity . '"' . ' name="cty[]" value="">' .
                     '</div>' .
                     '<div class="col">' .
@@ -404,8 +406,8 @@ class FrontendController extends Controller
                     '<input required type="number" disabled placeholder="Kuantitas" class="form-control form-control-user @error("qty") is-invalid @enderror" value="' . $value->quantity . '"' . 'name="qty[]" value="">' .
                     '</div>' .
                     '<div class="col mx-2">' .
-                    '<span class="fw-bold">Total Daya (Watt)</span>' .
-                    '<input required type="number" disabled placeholder="Kuantitas" class="form-control form-control-user @error("qty") is-invalid @enderror" value="' . $value->total . '"' . 'name="qty[]" value="">' .
+                    '<span class="fw-bold">Total Daya</span>' .
+                    '<input required type="number" disabled placeholder="Kuantitas" class="form-control form-control-user @error("total") is-invalid @enderror" value="' . $value->total . '"' . 'name="qty[]" value="">' .
                     '</div>' .
                     '</div>';
             }

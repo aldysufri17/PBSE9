@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('Rekap-infrastruktur-Tahunan/{year}/{post_by}', [InfrastrukturController::class, 'infrastrukturYear'])->name('infrastruktur.year');
         //Route::get('infrastruktur/export-csv/{id}/{year}', [InfrastrukturController::class, 'export'])->name('infrastructure.exportall');
         Route::get('infrastruktur/export-csv/{id}/{year}', [InfrastrukturController::class, 'export'])->name('infrastructure.export');
+        Route::get('infrastruktur/export/{id}', [InfrastrukturController::class, 'exportbeban'])->name('iq.export');
         Route::get('infrastruktur/building/{building_id}', [InfrastrukturController::class, 'InfrastrukturQty'])->name('rekap.building');
         Route::get('infrastruktur/infrastruktur/admin/Edit', [InfrastrukturController::class, 'ajaxEdit']);
         Route::post('infrastruktur/admin/infrastruktur/update', [InfrastrukturController::class, 'ajaxUpdate']);

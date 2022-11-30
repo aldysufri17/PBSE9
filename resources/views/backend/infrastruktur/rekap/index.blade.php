@@ -22,6 +22,8 @@
                 <td>
                     <a href="{{route('infrastruktur.show', $data->post_by)}}" class="table-action btn btn-primary
                         mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
+                    <a href="{{route('iq.export', $data->post_by)}}" class="table-action btn btn-primary
+                        mr-2" data-toggle="tooltip" title="download"><i class="fas fa-eye"></i></a>
                 </td>
             </tr>
             @endforeach

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('infrastructure_quantities', function (Blueprint $table) {
             $table->id('iq_id');
+            $table->unsignedBigInteger('section_id');
             $table->unsignedBigInteger('building_id');
             $table->unsignedBigInteger('room_id');
             // $table->tinyInteger('type');
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->unsignedBigInteger('deleted_by')->nullable();
             $table->foreign('building_id')->references('building_id')->on('buildings')->onDelete('cascade');
             $table->foreign('room_id')->references('room_id')->on('rooms')->onDelete('cascade');
+            $table->foreign('section_id')->references('section_id')->on('sections')->onDelete('cascade');
         });
     }
 

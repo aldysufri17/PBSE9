@@ -12,7 +12,6 @@ class Room extends Model
     use SoftDeletes;
 
     protected $primaryKey = 'room_id';
-    public $incrementing = false;
 
     protected $guarded = [];
 

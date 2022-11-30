@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IQExportFile;
 use App\Exports\ISExport;
 use App\Models\building;
 use App\Models\infrastructure;
 use App\Models\infrastructure_quantity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class InfrastrukturController extends Controller
@@ -153,6 +153,12 @@ class InfrastrukturController extends Controller
         }else{*/
         return Excel::download(new ISExport($id, $year, $month),  $fileName);
         //}
+    }
+
+    public function exportbeban($id, $year, $month = null)
+    {
+        $fileName = date('Y-m-d') . '_' . 'Data Pengguna' . '.xlsx';
+        return Excel::download(new IQExportFile($id, $year, $month),  $fileName);
     }
 
     public function ajaxEdit(Request $request)

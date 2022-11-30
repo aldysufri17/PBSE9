@@ -13,7 +13,7 @@ class infrastructure_quantity extends Model
 
     protected $guarded = [];
     protected $primaryKey = 'iq_id';
-    public $incrementing = false;
+    //public $incrementing = false;
 
     public function infrastruktur()
     {
@@ -33,5 +33,10 @@ class infrastructure_quantity extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'post_by');
+    }
+
+    public function section()
+    {
+        return $this->belongsTo(section::class, 'section_id');
     }
 }
