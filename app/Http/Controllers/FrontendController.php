@@ -84,7 +84,7 @@ class FrontendController extends Controller
                 'post_by'   => $post_by
             ]);
         }
-        
+
         /*if ($request->qty) {
             // Quantity Infrastructure
             foreach ($request->qty as $key => $qty) {
@@ -314,7 +314,7 @@ class FrontendController extends Controller
     {
         $building = building::where('building_id', $building_id)->first();
         $room = Room::where('building_id', $building_id)->get();
-        return view('frontend.gedung-detail', compact('building', 'room'));
+        return view('frontend.building-detail', compact('building', 'room'));
     }
 
     public function deleteroom(Request $request)

@@ -20,12 +20,12 @@
                 <h4>Infrastruktur Departemen {{$departemen->user->name}}</h4>
             </div>
             <div class="d-sm-flex align-items-center mb-4">
-                <a href="" target="_blank" class="btn btn-sm btn-warning">
+                <a href="{{route('iq.export', $departemen->user->user_id)}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
                     <i class="fas fa-file-csv"></i> Export CSV
                 </a>
-                <a href="" class="btn btn-sm btn-danger mx-2">
+                {{-- <a href="" class="btn btn-sm btn-danger mx-2">
                     <i class="fas fa-file-pdf"></i> Export PDF
-                </a>
+                </a> --}}
             </div>
             <span class="font-weight-bold">Total Penggunaan Daya :
                 {{App\Models\infrastructure_quantity::where('post_by',$departemen->user->user_id)->sum('total')}}

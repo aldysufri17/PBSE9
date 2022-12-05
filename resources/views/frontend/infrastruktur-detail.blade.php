@@ -39,7 +39,7 @@
                         @enderror
                     </div>
                     <div class="col mx-2">
-                        <span class="fw-bold">Kapasitas</span>
+                        <span class="fw-bold">Kapasitas (Watt)</span>
                         <input required type="number" placeholder="Kapasitas"
                             class="form-control form-control-user @error('cty') is-invalid @enderror" name="cty[]"
                             value="">
