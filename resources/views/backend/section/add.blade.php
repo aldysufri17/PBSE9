@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
-@section('title','Tambah Departemen')
+@section('title','Tambah Section')
 @section('content')
-<x-page-form page='create' route="section.index" title="Departemen">
+<x-page-form page='create' route="section.index" title="Section">
     <form action="{{route('section.store')}}" method="post">
         @csrf
         <div class="form-group row">

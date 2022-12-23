@@ -16,11 +16,10 @@
                     onclick="event.preventDefault(); document.getElementById('user-delete-form').submit();">
                     Oke
                 </a>
-                <form id="user-delete-form" method="POST" action="{{ route('infrastruktur.destroy', 0) }}">
+                <form id="user-delete-form" method="POST" action="{{ route('delete_infrastruktur', 0) }}">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="delete_id" id="delete_id">
-                    <input type="hidden" name="year" id="delete_year">
                 </form>
             </div>
         </div>

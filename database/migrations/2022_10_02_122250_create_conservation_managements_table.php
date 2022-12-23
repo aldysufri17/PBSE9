@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('conservation_managements', function (Blueprint $table) {
             $table->id('cm_id');
-            $table->json('item');
-            // $table->string('desc');
-            // $table->date('date');
-            $table->boolean('category');
+            $table->unsignedBigInteger('coi_id')->nullable();
+            $table->text('desc')->nullable();
+            $table->string('item')->nullable();
+            $table->string('file')->nullable();
+            $table->boolean('category')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('post_by')->nullable();
             $table->softDeletes();

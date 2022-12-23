@@ -117,64 +117,64 @@ class FrontendController extends Controller
 
     public function PemakaianInput(Request $request)
     {
-        $request->validate([
-            'energy_id' => 'required|array',
-            "energy_id.*" => 'required',
-            "usage.*" => 'required',
-            "usage" => 'required|array',
-            "cost.*" => 'required',
-            "cost" => 'required|array',
-            'start_date' => 'required|array',
-            "start_date.*" => 'required',
-            'end_date' => 'required|array',
-            "end_date.*" => 'required',
-            'invoice' => 'required|array',
-            "invoice.*" => 'required|mimes:jpeg,png,svg,pdf|max:20000',
-            // "blueprint" => 'required|mimes:pdf|max:20000'
-        ]);
+        // $request->validate([
+        //     'energy_id' => 'required|array',
+        //     "energy_id.*" => 'required',
+        //     "usage.*" => 'required',
+        //     "usage" => 'required|array',
+        //     "cost.*" => 'required',
+        //     "cost" => 'required|array',
+        //     'start_date' => 'required|array',
+        //     "start_date.*" => 'required',
+        //     'end_date' => 'required|array',
+        //     "end_date.*" => 'required',
+        //     'invoice' => 'required|array',
+        //     "invoice.*" => 'required|mimes:jpeg,png,svg,pdf|max:20000',
+        //     // "blueprint" => 'required|mimes:pdf|max:20000'
+        // ]);
 
-        $post_by = Auth::user()->user_id;
-        $energy_id = $request->energy_id;
-        $usage = $request->usage;
-        $cost = $request->cost;
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
+        // $post_by = Auth::user()->user_id;
+        // $energy_id = $request->energy_id;
+        // $usage = $request->usage;
+        // $cost = $request->cost;
+        // $start_date = $request->start_date;
+        // $end_date = $request->end_date;
 
-        // Energy Usage
-        foreach ($energy_id as $key => $energi) {
-            // Invoice Name
-            $invoice = $request->invoice[$key];
-            $energi_name = Energy::where('energy_id', $energi)->value('name');
-            $invoice_name = date('Y-m-d') . '-' . 'Invoice' . "-" . $energi_name . "-" . Auth::user()->name . "." . $invoice->getClientOriginalExtension();
-            $destination = 'file/invoice';
-            $invoice->move($destination, $invoice_name);
+        // // Energy Usage
+        // foreach ($energy_id as $key => $energi) {
+        //     // Invoice Name
+        //     $invoice = $request->invoice[$key];
+        //     $energi_name = Energy::where('energy_id', $energi)->value('name');
+        //     $invoice_name = date('Y-m-d') . '-' . 'Invoice' . "-" . $energi_name . "-" . Auth::user()->name . "." . $invoice->getClientOriginalExtension();
+        //     $destination = 'file/invoice';
+        //     $invoice->move($destination, $invoice_name);
 
-            // Create Post
-            energy_usage::create([
-                'energy_id' => $energi,
-                'usage' => $usage[$key],
-                'cost' => $cost[$key],
-                'invoice' => $invoice_name,
-                'start_date' => $start_date[$key],
-                'end_date' => $end_date[$key],
-                'post_by' => $post_by
-                //'user_id' => $post_by,
-            ]);
-        }
+        //     // Create Post
+        //     energy_usage::create([
+        //         'energy_id' => $energi,
+        //         'usage' => $usage[$key],
+        //         'cost' => $cost[$key],
+        //         'invoice' => $invoice_name,
+        //         'start_date' => $start_date[$key],
+        //         'end_date' => $end_date[$key],
+        //         'post_by' => $post_by
+        //         //'user_id' => $post_by,
+        //     ]);
+        // }
 
-        $month = Carbon::now()->format('m');
-        $cekPemakaian = energy_usage::where('post_by', Auth::user()->user_id)
-            ->whereMonth('created_at', '=', $month)->first();
-        $cekInfrastruktur = infrastructure_quantity::where('post_by', Auth::user()->user_id)
-            ->whereMonth('created_at', '=', $month)->first();
-        $cekKonservasi = conservation_management::where('post_by', Auth::user()->user_id)
-            ->whereMonth('created_at', '=', $month)->first();
+        // $month = Carbon::now()->format('m');
+        // $cekPemakaian = energy_usage::where('post_by', Auth::user()->user_id)
+        //     ->whereMonth('created_at', '=', $month)->first();
+        // $cekInfrastruktur = infrastructure_quantity::where('post_by', Auth::user()->user_id)
+        //     ->whereMonth('created_at', '=', $month)->first();
+        // $cekKonservasi = conservation_management::where('post_by', Auth::user()->user_id)
+        //     ->whereMonth('created_at', '=', $month)->first();
 
-        if ($cekPemakaian && $cekInfrastruktur && $cekKonservasi) {
-            return redirect()->route('master.audit')->with('success', 'Data audit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
-        } else {
-            return redirect()->route('audit.input')->with('success', 'Data audit Pemakaian bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
-        }
+        // if ($cekPemakaian && $cekInfrastruktur && $cekKonservasi) {
+        //     return redirect()->route('master.audit')->with('success', 'Data audit bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+        // } else {
+        //     return redirect()->route('audit.input')->with('success', 'Data audit Pemakaian bulan ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
+        // }
     }
 
     public function KonservasiInput(Request $request)
@@ -384,32 +384,50 @@ class FrontendController extends Controller
     public function roomInfrastrukturAjax(Request $request)
     {
         $room_id = $request->select;
+        $year = $request->year;
         $output = "";
 
-        $infrastruktur = infrastructure_quantity::where('room_id', $room_id)->get();
+        $infrastruktur = infrastructure_quantity::where('room_id', $room_id)
+            ->whereYear('created_at', '=', $year)
+            ->get();
         if ($infrastruktur->isEmpty()) {
             $cekNull = "0";
         } else {
             $cekNull = "";
             foreach ($infrastruktur as $key => $value) {
-                $output .= '<div class="infrastruktur d-flex justify-content-between total mb-2 font-weight-bold">' .
-                    '<div class="col">' .
-                    '<span class="fw-bold">Nama Infrastruktur</span>' .
-                    '<input required type="text" disabled placeholder="Nama Infrastruktur" class="form-control form-control-user value="' . $value->name . '"' . 'name="inf[]">' .
-                    '</div>' .
-                    '<div class="col mx-2">' .
-                    '<span class="fw-bold">Kapasitas</span>' .
-                    '<input required type="number" disabled placeholder="Kapasitas" class="form-control form-control-user @error("cty") is-invalid @enderror" value="' . $value->capacity . '"' . ' name="cty[]" value="">' .
-                    '</div>' .
-                    '<div class="col">' .
-                    '<span class="fw-bold">Kuantitas</span>' .
-                    '<input required type="number" disabled placeholder="Kuantitas" class="form-control form-control-user @error("qty") is-invalid @enderror" value="' . $value->quantity . '"' . 'name="qty[]" value="">' .
-                    '</div>' .
-                    '<div class="col mx-2">' .
-                    '<span class="fw-bold">Total Daya</span>' .
-                    '<input required type="number" disabled placeholder="Kuantitas" class="form-control form-control-user @error("total") is-invalid @enderror" value="' . $value->total . '"' . 'name="qty[]" value="">' .
-                    '</div>' .
-                    '</div>';
+                if ($key > 0) {
+                    $output .= '<div class="infrastruktur hdtuto d-flex justify-content-between total mb-2 font-weight-bold">' .
+                        '<div class="col">' .
+                        '<span class="fw-bold">Nama Infrastruktur</span>' .
+                        '<input required type="text" placeholder="Nama Infrastruktur" class="form-control form-control-user" value="' . $value->name . '"' . 'name="inf[]">' .
+                        '</div>' .
+                        '<div class="col mx-2">' .
+                        '<span class="fw-bold">Kapasitas</span>' .
+                        '<input required type="number" placeholder="Kapasitas" class="form-control form-control-user @error("cty") is-invalid @enderror" value="' . $value->capacity . '"' . ' name="cty[]" value="">' .
+                        '</div>' .
+                        '<div class="col">' .
+                        '<span class="fw-bold">Kuantitas</span>' .
+                        '<input required type="number" placeholder="Kuantitas" class="form-control form-control-user @error("qty") is-invalid @enderror" value="' . $value->quantity . '"' . 'name="qty[]" value="">' .
+                        '</div>' .
+                        '<button class="btn btn-danger" id="rmv" type="button">' . 'Hapus' . '</button>' .
+                        '</div>';
+                } else {
+                    $output .= '<div class="infrastruktur d-flex justify-content-between total mb-2 font-weight-bold">' .
+                        '<div class="col">' .
+                        '<span class="fw-bold">Nama Infrastruktur</span>' .
+                        '<input required type="text" placeholder="Nama Infrastruktur" class="form-control form-control-user" value="' . $value->name . '"' . 'name="inf[]">' .
+                        '</div>' .
+                        '<div class="col mx-2">' .
+                        '<span class="fw-bold">Kapasitas</span>' .
+                        '<input required type="number" placeholder="Kapasitas" class="form-control form-control-user @error("cty") is-invalid @enderror" value="' . $value->capacity . '"' . ' name="cty[]" value="">' .
+                        '</div>' .
+                        '<div class="col">' .
+                        '<span class="fw-bold">Kuantitas</span>' .
+                        '<input required type="number" placeholder="Kuantitas" class="form-control form-control-user @error("qty") is-invalid @enderror" value="' . $value->quantity . '"' . 'name="qty[]" value="">' .
+                        '</div>' .
+                        '<button class="btn btn-success btn-add" type="button">' . 'Tambah' . '</button>' .
+                        '</div>';
+                }
             }
         }
 

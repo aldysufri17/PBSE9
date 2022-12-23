@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedBigInteger('post_by');
             $table->unsignedBigInteger('deleted_by')->nullable();
             $table->foreign('deleted_by')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('section_id')->references('section_id')->on('sections')->onDelete('cascade');

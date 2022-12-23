@@ -41,9 +41,9 @@
 
             {{-- Section --}}
             <div class="col-sm-6 mb-3 mt-3 mb-sm-0" id="section">
-                <span style="color:red;">*</span>Departemen</label>
+                <span style="color:red;">*</span>Section</label>
                 <select class="form-control form-control-user @error('section') is-invalid @enderror" name="section">
-                    <option selected disabled>Pilih Departemen</option>
+                    <option selected disabled>Pilih Section</option>
                     @foreach ($section as $item)
                     <option value="{{$item->section_id}}" {{ old('section',$item->section_id) == $item->section_id ? 'selected' : '' }}>{{$item->name}}</option>
                     @endforeach

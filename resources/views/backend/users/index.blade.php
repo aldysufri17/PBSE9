@@ -7,9 +7,9 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama</th>
-                <th>Email</th>
                 <th>Departemen</th>
+                <th>Email</th>
+                <th>Section</th>
                 <th>Role</th>
                 <th>Status</th>
                 <th>Aksi</th>

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->string('invoice');
             $table->json('file')->nullable();
+            $table->unsignedBigInteger('building_id');
             $table->timestamps();
             $table->unsignedBigInteger('post_by');
             $table->softDeletes();

@@ -22,4 +22,9 @@ class building extends Model
     {
         return $this->belongsTo(section::class, 'section_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'post_by', 'user_id');
+    }
 }

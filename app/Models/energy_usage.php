@@ -27,4 +27,9 @@ class energy_usage extends Model
     {
         return $this->belongsTo(Energy::class, 'energy_id');
     }
+
+    public function building()
+    {
+        return $this->belongsTo(building::class, 'building_id');
+    }
 }

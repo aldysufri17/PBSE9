@@ -1,8 +1,7 @@
 @extends('backend.layouts.app')
 @section('title','Penggunaan Infrastruktur')
 @section('content')
-<x-page-index title="Penggunaan Infrastruktur" buttonLabel="Tambah Rekap" routeCreate="{{auth()->user()->section_id == 128 ? '':'infrastruktur.create'}}">
-    @if (Auth::user()->section_id != 128)
+<x-page-index title="Penggunaan Infrastruktur" buttonLabel="Tambah Rekap" routeCreate="">
     @if ($infrastruktur->IsNotEmpty())
     <div class="d-sm-flex align-items-center mb-4">
         <a href="#" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
@@ -39,49 +38,6 @@
             @endforeach
         </tbody>
     </table>
-    @else
-    <div class="align-items-center bg-light p-3 border-secondary rounded">
-        <span class="">Oops!</span><br>
-        <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Infrastruktur</p>
-    </div>
-    @endif
-    @else
-    @if ($infrastruktur->IsNotEmpty())
-    <div class="d-sm-flex align-items-center mb-4">
-        <a href="#" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
-            <i class="fas fa-file-csv"></i> Export CSV
-        </a>
-    </div>
-    <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama Departemen</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($infrastruktur as $key=>$data)
-            <tr>
-                @php
-                $name = App\Models\User::where('user_id', $data->post_by)->value('name');
-                @endphp
-                <td>{{$key+1}}</td>
-                <td>{{$name}}</td>
-                <td>
-                    <a href="{{route('infrastruktur.show', $data->post_by)}}" class="table-action btn btn-primary
-                        mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    @else
-    <div class="align-items-center bg-light p-3 border-secondary rounded">
-        <span class="">Oops!</span><br>
-        <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Infrastruktur</p>
-    </div>
-    @endif
     @endif
 </x-page-index>
 @include('backend.infrastruktur.modal')

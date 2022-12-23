@@ -11,4 +11,9 @@ class conservation_management extends Model
 
     protected $primaryKey = 'cm_id';
     protected $guarded = [];
+
+    public function conservation_item()
+    {
+        return $this->belongsTo(conservation_item::class, 'coi_id');
+    }
 }

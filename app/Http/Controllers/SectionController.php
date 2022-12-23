@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\role;
 use App\Models\Section;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class SectionController extends Controller
     public function index()
     {
         $section = section::wherekeynot(128)->get();
-        return view('backend.section.index',compact('section'));
+        return view('backend.section.index', compact('section'));
     }
 
     /**
@@ -26,7 +27,8 @@ class SectionController extends Controller
      */
     public function create()
     {
-        return view('backend.section.add');
+        $users = user::where('section_id', null)->get();
+        return view('backend.section.add', compact('users'));
     }
 
     /**
@@ -72,7 +74,9 @@ class SectionController extends Controller
     public function edit($id)
     {
         $section = section::wherekey($id)->first();
-        return view('backend.section.edit',compact('section'));
+        $user = user::where('section_id', null)->orwhere('section_id', $id)->get();
+        $users = user::where('section_id', null)->get();
+        return view('backend.section.edit', compact('section', 'user', 'users'));
     }
 
     /**
@@ -91,6 +95,10 @@ class SectionController extends Controller
 
         $section = section::wherekey($id)->update([
             'name'          => $request->name,
+        ]);
+
+        User::whereIn('user_id', $request->user)->update([
+            'section_id' => $id
         ]);
 
         // Assign Role To section
@@ -112,9 +120,9 @@ class SectionController extends Controller
 
         $delete = section::wherekey($request->delete_id)->delete();
         if ($delete) {
-            $user = User::where('section_id',$id)->delete();
+            $user = User::where('section_id', $id)->delete();
             return redirect()->route('section.index')->with('success', 'Departemen Berhasil dihapus!.');
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Departemen Gagal dihapus!.');
         }
     }

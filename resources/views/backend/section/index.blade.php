@@ -1,12 +1,12 @@
 @extends('backend.layouts.app')
-@section('title','Daftar Departemen')
+@section('title','Daftar Section')
 @section('content')
 @if ($section->IsNotEmpty())
-<x-page-index title="Departemen" buttonLabel="Tambah Departemen" routeCreate="section.create">
+<x-page-index title="Section" buttonLabel="Tambah Section" routeCreate="section.create">
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
-                <th>Nama Departemen</th>
+                <th>Nama Section</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -34,7 +34,7 @@
 @else
 <div class="align-items-center bg-light p-3 border-secondary rounded">
     <span class="">Oops!</span><br>
-    <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Departemen</p>
+    <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Section</p>
 </div>
 @endif
 @include('backend.section.modal')
