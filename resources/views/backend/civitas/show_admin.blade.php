@@ -6,6 +6,9 @@
 @endphp
 <x-page-index title="Civitas Akademik {{$name}}" buttonLabel="Tambah Civitas Akademik"
     routeCreate="{{auth()->user()->section_id == 128 ? '':'civitas.create'}}">
+    <div class="section-header-back">
+        <a href="javascript:history.back()" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+    </div>
     @if ($civitas->IsNotEmpty())
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>

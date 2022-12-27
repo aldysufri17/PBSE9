@@ -52,6 +52,9 @@ Route::middleware(['auth'])->group(function () {
     // Building
     Route::resource('civitas', CivitasController::class);
     Route::get('/civitas/detail_admin/{id}/{post_by}', [CivitasController::class, 'detailAdmin'])->name('civitas.detailAdmin');
+    Route::get('/civitas/show/{year}/{post_by}', [CivitasController::class, 'show'])->name('civitas.show');
+    Route::get('/civitas/history/{year}/{post_by}', [CivitasController::class, 'history'])->name('civitas.history');
+
 
     // Infrastruktur
     Route::resource('infrastruktur', InfrastrukturController::class);

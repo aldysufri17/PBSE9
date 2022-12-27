@@ -18,6 +18,7 @@ class CivitasController extends Controller
     public function index()
     {
         $post_by = Auth::user()->user_id;
+        $year = Carbon::now()->format('Y');
         if (Auth::user()->section_id == 128) {
             $civitas = academic_community::select('post_by')
                 ->groupBy('post_by')
@@ -26,10 +27,11 @@ class CivitasController extends Controller
             $civitas = academic_community::where('post_by', $post_by)
                 ->select(DB::raw('YEAR(created_at) year'), 'post_by')
                 ->groupBy('year', 'post_by')
+                ->orderBy('year', 'desc')
                 ->get();
         }
 
-        return view('backend.civitas.index', compact('civitas', 'post_by'));
+        return view('backend.civitas.index', compact('civitas', 'post_by', 'year'));
     }
 
     /**
@@ -39,11 +41,12 @@ class CivitasController extends Controller
      */
     public function create()
     {
-        $id = Carbon::now()->format('Y');
-        $civitas = academic_community::where('post_by', Auth::user()->user_id)
-            ->whereYear('created_at', '=', $id)
+        $year = Carbon::now()->format('Y');
+        $post_by = Auth::user()->user_id;
+        $civitas = academic_community::where('post_by', $post_by)
+            ->whereYear('created_at', '=', $year)
             ->first();
-        return view('backend.civitas.add', compact('civitas', 'id'));
+        return view('backend.civitas.add', compact('civitas', 'post_by', 'year'));
     }
 
     /**
@@ -85,21 +88,22 @@ class CivitasController extends Controller
         ];
 
         if (Auth::user()->section_id == 128) {
-            $user_id =  $request->post_by;
+            $post_by =  $request->post_by;
         } else {
-            $user_id = Auth::user()->user_id;
+            $post_by = Auth::user()->user_id;
         }
 
+        $dt = Carbon::create($request->year, 1, 1, 0);
+        if ($request->has('id_civitas')) {
+            academic_community::where('ac_id', $request->id_civitas)->delete();
+        }
 
-        // if ($request->id_civitas) {
-        //     academic_community::where('ac_id', $request->id_civitas)->delete();
-        // }
-
-        academic_community::where('ac_id', $request->id_civitas)->update([
+        academic_community::create([
             'incoming_students' => json_encode($incoming_students),
             'graduate_students' => json_encode($graduate_students),
             'employee'          => json_encode($employee),
-            'post_by'           => $user_id,
+            'post_by'           => $post_by,
+            'created_at' => $dt->toDateTimeString()
         ]);
 
         return redirect()->route('civitas.index')->with('success', 'Data autdit civitas ' . Carbon::now()->format('F') . ' berhasil disimpan.!');
@@ -111,16 +115,17 @@ class CivitasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($year, $post_by)
     {
         if (Auth::user()->section_id != 128) {
             $post_by = Auth::user()->user_id;
             $civitas = academic_community::where('post_by', $post_by)
-                ->whereYear('created_at', '=', $id)
+                ->whereYear('created_at', '=', $year)
                 ->first();
-            return view('backend.civitas.add', compact('post_by', 'id', 'civitas'));
+            return view('backend.civitas.add', compact('post_by', 'year', 'civitas'));
         } else {
-            $post_by = $id;
+            $post_by = $post_by;
+            $year = $year;
             $civitas = academic_community::where('post_by', $post_by)
                 ->select(DB::raw('YEAR(created_at) year'), 'post_by')
                 ->groupBy('year', 'post_by')
@@ -146,6 +151,15 @@ class CivitasController extends Controller
     public function edit($id)
     {
         //
+    }
+
+    public function history($year, $post_by)
+    {
+        $civitases = academic_community::where('post_by', $post_by)
+            ->whereYear('created_at', $year)
+            ->withTrashed()
+            ->paginate(3);
+        return view('backend.civitas.history', compact('civitases', 'year', 'post_by'));
     }
 
     /**

@@ -12,7 +12,7 @@
         <h1>Ubah Data Civitas {{$name}}</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="/dashboard">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="/energi-usage">Daftar Civitas</a></div>
+            <div class="breadcrumb-item active"><a href="/civitas">Daftar Civitas</a></div>
             <div class="breadcrumb-item active">Ubah Civitas</div>
         </div>
     </div>
@@ -31,8 +31,9 @@
                                 <div class="data-penyewa">
                                     <div class="d-flex justify-content-between total font-weight-bold mt-3">
                                         <h4 class="font-weight-bold">Ubah Data Civitas Akademika Tahun
-                                            {{ $id ? $id : \Carbon\Carbon::now()->format('Y') }}</h4>
+                                            {{ $year }}</h4>
                                     </div>
+                                    <input type="text" name="year" hidden value="{{$year}}">
                                     @if ($civitas)
                                     @php
                                     $incoming_students = array_values(json_decode($civitas->incoming_students, true));
@@ -50,7 +51,7 @@
                                                 <div class="input-group">
                                                     <input required type="text" id="cost" placeholder="Jumlah Orang"
                                                         class="form-control form-control-user @error('S1in') is-invalid @enderror"
-                                                        name="S1in" value="{{$civitas ? $incoming_students[0] : ''}}"
+                                                        name="S1in" value="{{$civitas ? $incoming_students[0] : 0}}"
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                     <span class="input-group-text">Orang</span>
                                                     @error('S1in')
@@ -64,7 +65,7 @@
                                                 <div class="input-group mt-2">
                                                     <input required type="text" id="cost" placeholder="Jumlah Orang"
                                                         class="form-control form-control-user @error('S2in') is-invalid @enderror"
-                                                        name="S2in" value="{{$civitas ? $incoming_students[1] : ''}}"
+                                                        name="S2in" value="{{$civitas ? $incoming_students[1] : 0}}"
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                     <span class="input-group-text">Orang</span>
                                                     @error('S2in')
@@ -78,7 +79,7 @@
                                                 <div class="input-group mt-2">
                                                     <input required type="text" id="cost" placeholder="Jumlah Orang"
                                                         class="form-control form-control-user @error('S3in') is-invalid @enderror"
-                                                        name="S3in" value="{{$civitas ? $incoming_students[2] : ''}}"
+                                                        name="S3in" value="{{$civitas ? $incoming_students[2] : 0}}"
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                     <span class="input-group-text">Orang</span>
                                                     @error('S3in')
@@ -98,7 +99,7 @@
                                                 <div class="input-group mt-2">
                                                     <input required type="text" id="cost" placeholder="Jumlah Orang"
                                                         class="form-control form-control-user @error('S1out') is-invalid @enderror"
-                                                        name="S1out" value="{{$civitas ? $graduate_students[0] : ''}}"
+                                                        name="S1out" value="{{$civitas ? $graduate_students[0] : 0}}"
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                     <span class="input-group-text">Orang</span>
                                                     @error('S1out')
@@ -112,7 +113,7 @@
                                                 <div class="input-group mt-2">
                                                     <input required type="text" id="S2out" placeholder="Jumlah Orang"
                                                         class="form-control form-control-user @error('S2out') is-invalid @enderror"
-                                                        name="S2out" value="{{$civitas ? $graduate_students[1] : ''}}"
+                                                        name="S2out" value="{{$civitas ? $graduate_students[1] : 0}}"
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                     <span class="input-group-text">Orang</span>
                                                     @error('S2out')
@@ -126,7 +127,7 @@
                                                 <div class="input-group mt-2">
                                                     <input required type="text" id="S3out" placeholder="Jumlah Orang"
                                                         class="form-control form-control-user @error('S3out') is-invalid @enderror"
-                                                        name="S3out" value="{{$civitas ? $graduate_students[2] : ''}}"
+                                                        name="S3out" value="{{$civitas ? $graduate_students[2] : 0}}"
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                     <span class="input-group-text">Orang</span>
                                                     @error('S3out')
@@ -146,7 +147,7 @@
                                                 <div class="input-group mt-2">
                                                     <input required type="text" id="S1emp" placeholder="Jumlah Orang"
                                                         class="form-control form-control-user @error('S1emp') is-invalid @enderror"
-                                                        name="S1emp" value="{{$civitas ? $employee[0] : ''}}"
+                                                        name="S1emp" value="{{$civitas ? $employee[0] : 0}}"
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                     <span class="input-group-text">Orang</span>
                                                     @error('S1emp')
@@ -160,7 +161,7 @@
                                                 <div class="input-group mt-2">
                                                     <input required type="text" id="cost" placeholder="Jumlah Orang"
                                                         class="form-control form-control-user @error('S2emp') is-invalid @enderror"
-                                                        name="S2emp" value="{{$civitas ? $employee[1] : ''}}"
+                                                        name="S2emp" value="{{$civitas ? $employee[1] : 0}}"
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                     <span class="input-group-text">Orang</span>
                                                     @error('S2emp')
@@ -174,7 +175,7 @@
                                                 <div class="input-group mt-2">
                                                     <input required type="text" id="cost" placeholder="Jumlah Orang"
                                                         class="form-control form-control-user @error('S3emp') is-invalid @enderror"
-                                                        name="S3emp" value="{{$civitas ? $employee[2] : ''}}"
+                                                        name="S3emp" value="{{$civitas ? $employee[2] : 0}}"
                                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                     <span class="input-group-text">Orang</span>
                                                     @error('S3emp')

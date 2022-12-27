@@ -2,10 +2,10 @@
 @section('title','Daftar Civitas Akademik')
 @section('content')
 @php
-    $name = App\Models\User::where('user_id',$post_by)->value('name');
+$name = App\Models\User::where('user_id',$post_by)->value('name');
 @endphp
-<x-page-index title="{{auth()->user()->section_id == 128 ? 'Civitas Akademik': 'Civitas Akademik '.$name}}" buttonLabel="Tambah Civitas Akademik"
-    routeCreate="{{auth()->user()->section_id == 128 ? '':'civitas.create'}}">
+<x-page-index title="{{auth()->user()->section_id == 128 ? 'Civitas Akademik': 'Civitas Akademik '.$name}}"
+    buttonLabel="Tambah Civitas Akademik" routeCreate="{{auth()->user()->section_id == 128 ? '':'civitas.create'}}">
     @if (auth()->user()->section_id != 128)
     @if ($civitas->IsNotEmpty())
     <div class="d-sm-flex align-items-center mb-4">
@@ -30,8 +30,10 @@
                 <td>{{$key+1}}</td>
                 <td>{{$data->year}}</td>
                 <td>
-                    <a href="{{route('civitas.show',$data->year)}}" class="table-action btn btn-primary
+                    <a href="{{route('civitas.show',[$data->year,$data->post_by])}}" class="table-action btn btn-primary
                         mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
+                    <a href="{{route('civitas.history',[$data->year,$data->post_by])}}" class="table-action btn btn-warning
+                            mr-2" data-toggle="tooltip" title="History"><i class="fas fa-clock"></i></a>
                 </td>
             </tr>
             @endforeach
@@ -67,7 +69,7 @@
                 <td>{{$key+1}}</td>
                 <td>{{$name}}</td>
                 <td>
-                    <a href="{{route('civitas.show', $data->post_by)}}" class="table-action btn btn-primary
+                    <a href="{{route('civitas.show',[$year,$data->post_by])}}" class="table-action btn btn-primary
                         mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
                 </td>
             </tr>
