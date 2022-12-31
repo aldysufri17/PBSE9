@@ -99,8 +99,6 @@ class KonservasiContoller extends Controller
         return view('backend.konservasi.usage.index_admin', compact('usage'));
     }
 
-
-
     public function KonservasiInput(Request $request)
     {
         $post_by = $request->post_by;
@@ -225,5 +223,26 @@ class KonservasiContoller extends Controller
             ->where('category', 1)
             ->get();
         return view('backend.konservasi.usage.show-month', compact('konservasi'));
+    }
+
+    public function konservasiUsageDestroy(Request $request)
+    {
+        $konservasi = conservation_management::where('coi_id', $request->delete_id);
+
+        if (!is_null($konservasi->first()->file)) {
+            if (file_exists(public_path('/file/convertion') . $konservasi->first()->file)) {
+                unlink(public_path('/file/convertion') . $konservasi->first()->file); //menghapus file lama
+            }
+        }
+
+        $delete = $konservasi->update([
+            'desc' => '-',
+            'item' => 'tidak',
+            'file' => null,
+            'category'  => null
+        ]);
+        if ($delete) {
+            return redirect()->route('konservasi_usage.index')->with('success', 'Data audit Konservasi berhasil dihapus.!');
+        }
     }
 }

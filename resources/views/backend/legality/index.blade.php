@@ -30,11 +30,8 @@ $cekYear = App\Models\infrastructure_legality::where('post_by', $post_by)->where
                         class="form-control selectpicker form-control-user @error('user') is-invalid @enderror"
                         name="year">
                         <option disabled selected>---Pilih Tahun---</option>
-                        @if ($year_legalitas->isEmpty())
-                        <option selected>{{$year}}</option>
-                        @endif
                         @if (is_null($cekYear))
-                            <option selected value="{{$now_year}}">{{$now_year}}</option>
+                        <option selected value="{{$now_year}}">{{$now_year}}</option>
                         @endif
                         @foreach ($year_legalitas as $data)
                         <option value="{{$data->year}}" @if(Request::has('year'))
@@ -55,6 +52,8 @@ $cekYear = App\Models\infrastructure_legality::where('post_by', $post_by)->where
         </form>
     </div>
     @if ($legality->IsNotEmpty())
+    <h4 class="font-weight-bold text-center py-2">Audit Pemakaian Energi Departemen {{$name}} Tahun
+        {{Request::has('year') ? Request::get('year') : $year}}</h4>
     <div class="out p-4">
         <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
             <thead>
@@ -75,8 +74,9 @@ $cekYear = App\Models\infrastructure_legality::where('post_by', $post_by)->where
                 <tr>
                     <td>{{$key+1}}</td>
                     <td>{{$data->items->item}}</td>
-                    <td> <a class="table-action btn btn-primary mr-2" href="{{asset('file/legalitas/nidi/'.$data->NDI)}}"
-                            target="_blank"><i class="fas fa-download"></i>
+                    <td> <a class="table-action btn btn-primary mr-2"
+                            href="{{asset('file/legalitas/nidi/'.$data->NDI)}}" target="_blank"><i
+                                class="fas fa-download"></i>
                             Download
                         </a>
                     </td>
@@ -113,6 +113,10 @@ $cekYear = App\Models\infrastructure_legality::where('post_by', $post_by)->where
                             href="{{route('legalitas_edit',[$data->il_id, $data->post_by])}}" title="Edit">
                             <i class="fas fa-pen"></i>
                         </a>
+                        <button class="table-action btn btn-danger delete-btn mr-2" data-toggle="tooltip" title="Delete"
+                            value="{{$data->il_id}}">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
                 @endforeach
@@ -125,13 +129,16 @@ $cekYear = App\Models\infrastructure_legality::where('post_by', $post_by)->where
         <div class="card">
             <div class="card-body">
                 <div class="konservasi">
-                    <h4 class="font-weight-bold text-center mt-5">LEGALITAS INFRASTRUKTUR TAHUN
+                    <h4 class="font-weight-bold text-center mt-5">AUDIT LEGALITAS INFRASTRUKTUR DEPARTEMEN
+                        {{strtoupper($name)}} TAHUN
                         {{Request::has('year') ? Request::get('year') : $year}}</h4>
                     <p class="text-center" style="color: red">Upload Dokumen Legalitas Infrastruktur format
                         (jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx) Max Size 20Mb </p>
                     <input type="text" hidden name="post_by" value="{{$post_by}}">
                     <input type="text" hidden name="year"
                         value="{{Request::has('year') ? Request::get('year') : $year}}" id="year">
+
+                    @if ($items->isNotEmpty())
                     @foreach ($items as $key=>$item)
                     <input type="text" hidden name="item_id[{{$key}}]" value="{{$item->ili_id}}">
                     <div class="pb-5">
@@ -206,6 +213,12 @@ $cekYear = App\Models\infrastructure_legality::where('post_by', $post_by)->where
                         </div>
                     </div>
                     @endforeach
+                    @else
+                    <div class="align-items-center bg-light p-3 border-secondary rounded">
+                        <span class="">Oops!</span><br>
+                        <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Item Legalitas</p>
+                    </div>
+                    @endif
                 </div>
             </div>
             <div class="card-footer text-right border-0">
@@ -215,7 +228,7 @@ $cekYear = App\Models\infrastructure_legality::where('post_by', $post_by)->where
     </form>
     @endif
 </x-page-index>
-{{-- @include('backend.infrastruktur.modal') --}}
+@include('backend.legality.modal')
 @endsection
 
 @push('scripts')

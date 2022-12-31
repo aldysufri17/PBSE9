@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\building;
 use App\Models\infrastructure_quantity;
+use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,11 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class InfrastrukturController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         if (Auth::user()->section_id == 128) {
@@ -33,11 +29,6 @@ class InfrastrukturController extends Controller
         return view('backend.infrastruktur.index', compact('infrastruktur'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $post_by = Auth::user()->user_id;
@@ -46,12 +37,6 @@ class InfrastrukturController extends Controller
         return view('backend.infrastruktur.add', compact('building', 'year', 'post_by'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -88,12 +73,6 @@ class InfrastrukturController extends Controller
         return redirect()->route('infrastruktur.index')->with('success', 'Data audit Infrastruktur Tahun ' . $request->year . ' berhasil disimpan.!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $infrastruktur = infrastructure_quantity::where('post_by', $id)
@@ -105,36 +84,12 @@ class InfrastrukturController extends Controller
         return view('backend.infrastruktur.show_admin', compact('infrastruktur'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($year, $post_by)
     {
         $building = building::where('post_by', $post_by)->paginate(5);
         return view('backend.infrastruktur.add', compact('building', 'year', 'post_by'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request, $id)
     {
         $id = $request->delete_id;
@@ -198,5 +153,13 @@ class InfrastrukturController extends Controller
             'output'  => $output,
             'cekNull'  => $cekNull
         ]);
+    }
+
+    public function roomAjax(Request $request)
+    {
+        $room_id = $request->select;
+
+        $room = Room::where('building_id', $room_id)->get();
+        return response()->json($room);
     }
 }

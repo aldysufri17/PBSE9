@@ -140,6 +140,10 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                             href="{{route('konservasi_usage.edit',[$data->cm_id,$post_by])}}" title="Edit">
                             <i class="fas fa-pen"></i>
                         </a>
+                        <button class="table-action btn btn-danger delete-btn mr-2" data-toggle="tooltip" title="Delete"
+                            value="{{$data->cm_id}}">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
                 @endforeach
@@ -156,8 +160,9 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                     <input type="text" hidden name="post_by" value="{{$post_by}}">
                     <input type="text" hidden name="year"
                         value="{{Request::has('year') ? Request::get('year') : $year}}" id="year">
-                    <input type="text" hidden name="month" value="{{Request::has('month') ? Request::get('month') : $month}}"
-                        id="month">
+                    <input type="text" hidden name="month"
+                        value="{{Request::has('month') ? Request::get('month') : $month}}" id="month">
+                    @if ($konservasi_item->IsNotEmpty())
                     @foreach ($konservasi_item as $key=>$item)
                     <input type="text" hidden name="category[]" value="{{$item->category}}">
                     <input type="text" hidden name="coi_id[]" value="{{$item->coi_id}}">
@@ -202,6 +207,12 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                         </div>
                     </div>
                     @endforeach
+                    @else
+                    <div class="align-items-center bg-light p-3 border-secondary rounded">
+                        <span class="">Oops!</span><br>
+                        <p><i class="fas fa-info-circle"></i> Belum Terdapat Data Item Konservasi</p>
+                    </div>
+                    @endif
                 </div>
             </div>
             <div class="card-footer text-right border-0">
@@ -211,7 +222,7 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
     </form>
     @endif
 </x-page-index>
-{{-- @include('backend.infrastruktur.modal') --}}
+@include('backend.konservasi.usage.modal')
 @endsection
 
 @push('scripts')

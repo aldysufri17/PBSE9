@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfrastrukturController;
 use App\Http\Controllers\KonservasiContoller;
 use App\Http\Controllers\LegalityController;
+use App\Http\Controllers\MeasurementController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -83,6 +84,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/delete', [LegalityController::class, 'deleteItem'])->name('delete_legalitas.item');
     });
 
+    Route::resource('measurement', MeasurementController::class);
+    Route::get('/measurement/{id}/{post_by}', [MeasurementController::class, 'edit'])->name('measurement_edit');
+    Route::get('admin/measurement', [MeasurementController::class, 'indexAdmin'])->name('measurement.index_admin');
 
 
     // energi_usage
@@ -116,13 +120,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('konservasi-input', [KonservasiContoller::class, 'konservasiInput'])->name('konservasi.input');
     Route::get('/konservasi-edit/{id}/{post_by}', [KonservasiContoller::class, 'Konservasiedit'])->name('konservasi_usage.edit');
     Route::post('/konservasi-update/{id}', [KonservasiContoller::class, 'Konservasiupdate'])->name('konservasi_usage.update');
-
-
-
-
-
-
-
+    Route::delete('/konservasi-destroy', [KonservasiContoller::class, 'konservasiUsageDestroy'])->name('konservasi_usage.destroy');
 
     Route::get('konservasi-usage-years/{id}', [KonservasiContoller::class, 'konservasiusageYears'])->name('konservasi_usage.years');
     Route::get('konservasi-usage-show-years/{id}/{year}', [KonservasiContoller::class, 'konservasiusageShowYears'])->name('konservasi_usage.show_year');

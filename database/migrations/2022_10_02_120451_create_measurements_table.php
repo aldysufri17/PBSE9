@@ -15,19 +15,17 @@ return new class extends Migration
     {
         Schema::create('measurements', function (Blueprint $table) {
             $table->id('m_id');
-            $table->unsignedBigInteger('section_id');
             $table->json('daya_aktif'); //RST Total
             $table->json('daya_reaktif');
             $table->json('daya_semu');
-            $table->json('tegangan_satu_fasa');//Vrst
+            $table->json('tegangan_satu_fasa'); //Vrst
             $table->json('tegangan_tiga_fasa');
             $table->json('tegangan_tidak_seimbang');
-            $table->json('arus');//RST Netral
-            $table->float('Frekuensi');
-            $table->float('Harmonisa_arus');
-            $table->float('Harmonisa_tegangan');
-            $table->float('Faktor Daya');
-            $table->date('date');
+            $table->json('arus'); //RST Netral
+            $table->float('frekuensi');
+            $table->float('harmonisa_arus');
+            $table->float('harmonisa_tegangan');
+            $table->float('faktor_daya');
             $table->timestamps();
             $table->unsignedBigInteger('post_by')->nullable();
             $table->softDeletes();

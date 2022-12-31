@@ -247,6 +247,14 @@ class LegalityController extends Controller
         redirect()->back()->with('success', 'Legalitas Infrastruktur' . $year . 'Berhasil diubah.');
     }
 
+    public function destroy(Request $request, $id)
+    {
+        $delete = infrastructure_legality::where('il_id', $request->delete_id)->delete();
+        if ($delete) {
+            return redirect()->route('legalitas.index')->with('success', 'Data audit Legalitas berhasil dihapus.!');
+        }
+    }
+
     public function indexItem()
     {
         $items = infrastucture_legality_items::all();

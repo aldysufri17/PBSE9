@@ -32,6 +32,7 @@
                     <li><a class="nav-link" href="{{route('infrastruktur.index')}}">Penggunaan Infrastruktur</a></li>
                     <li><a class="nav-link" href="{{route('energy-usage.index')}}">Penggunaan Energi</a></li>
                     <li><a class="nav-link" href="{{route('konservasi_usage.index')}}">Konservasi Energi</a></li>
+                    <li><a class="nav-link" href="{{route('measurement.index')}}">Kualitas Daya</a></li>
                 </ul>
             </li>
             @else
@@ -43,6 +44,7 @@
                     <li><a class="nav-link" href="{{route('infrastruktur.index')}}">Penggunaan Infrastruktur</a></li>
                     <li><a class="nav-link" href="{{route('energy-usage.index_admin')}}">Penggunaan Energi</a></li>
                     <li><a class="nav-link" href="{{route('konservasi_usage.index_admin')}}">Konservasi Energi</a></li>
+                    <li><a class="nav-link" href="{{route('measurement.index_admin')}}">Kualitas Daya</a></li>
                 </ul>
             </li>
             @endif
