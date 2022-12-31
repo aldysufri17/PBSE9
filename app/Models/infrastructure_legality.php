@@ -19,4 +19,9 @@ class infrastructure_legality extends Model
     {
         return $this->belongsTo(infrastructure::class, 'is_id');
     }
+
+    public function items()
+    {
+        return $this->belongsTo(infrastucture_legality_items::class, 'ili_id');
+    }
 }

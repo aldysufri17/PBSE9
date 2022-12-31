@@ -15,14 +15,15 @@ return new class extends Migration
     {
         Schema::create('infrastructure_legalities', function (Blueprint $table) {
             $table->id('il_id');
-            $table->unsignedBigInteger('is_id');
+            // $table->unsignedBigInteger('is_id');
+            $table->unsignedBigInteger('ili_id');
             $table->string('NDI');
             $table->string('SLO');
             $table->string('IJIN_OPERASI');
             $table->string('TTB');
             $table->string('SOP_OPERASI');
             $table->string('SOP_PELIHARA');
-            $table->date('date');
+            // $table->date('date');
             $table->timestamps();
             $table->unsignedBigInteger('post_by')->nullable();
             $table->softDeletes();

@@ -174,15 +174,6 @@
                                     <span class="text-danger">{{$message}}</span>
                                     @enderror
                                 </div>
-                                <div class="col">
-                                    <span class="font-weight-bold">Total Daya</span>
-                                    <input required type="number" placeholder="Total Daya"
-                                        class="form-control form-control-user @error('total') is-invalid @enderror" name="total[]"
-                                        value="">
-                                    @error('total')
-                                    <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
                                 <button class="btn btn-success btn-add" type="button">Tambah</button>
                             </div>
                             `);

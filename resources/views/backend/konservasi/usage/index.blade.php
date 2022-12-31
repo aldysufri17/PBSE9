@@ -188,7 +188,7 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                                 <label><span style="color:red;">&#8226; </span><span
                                         class="font-weight-bold">Keterangan</span></label>
                                 <textarea class="form-control @error('deskripsi') @enderror"
-                                    placeholder="Keterangan Pengelolaan Konservasi" name="desc[]" rows="5"
+                                    placeholder="Keterangan Pengelolaan Konservasi" name="desc[{{$key}}]" rows="5"
                                     style="height:10%;"></textarea>
                             </div>
                             <div class="mb-3 mt-3 mb-sm-0">

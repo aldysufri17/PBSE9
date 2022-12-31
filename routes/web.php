@@ -8,6 +8,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfrastrukturController;
 use App\Http\Controllers\KonservasiContoller;
+use App\Http\Controllers\LegalityController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -51,10 +52,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Building
     Route::resource('civitas', CivitasController::class);
-    Route::get('/civitas/detail_admin/{id}/{post_by}', [CivitasController::class, 'detailAdmin'])->name('civitas.detailAdmin');
-    Route::get('/civitas/show/{year}/{post_by}', [CivitasController::class, 'show'])->name('civitas.show');
-    Route::get('/civitas/history/{year}/{post_by}', [CivitasController::class, 'history'])->name('civitas.history');
-
+    Route::group(['prefix' => 'civitas'], function () {
+        Route::get('/detail_admin/{id}/{post_by}', [CivitasController::class, 'detailAdmin'])->name('civitas.detailAdmin');
+        Route::get('/show/{year}/{post_by}', [CivitasController::class, 'show'])->name('civitas.show');
+        Route::get('/history/{year}/{post_by}', [CivitasController::class, 'history'])->name('civitas.history');
+    });
 
     // Infrastruktur
     Route::resource('infrastruktur', InfrastrukturController::class);
@@ -65,6 +67,21 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('energy-usage', EnergyUsageController::class);
     Route::get('admin/energy-usage', [EnergyUsageController::class, 'indexAdmin'])->name('energy-usage.index_admin');
     Route::get('/energy-usage/{id}/{post_by}', [EnergyUsageController::class, 'edit'])->name('energy-usage.edit');
+
+    // Infrastruktur Legalitas
+    Route::resource('legalitas', LegalityController::class);
+    Route::get('admin/legalitas', [LegalityController::class, 'indexAdmin'])->name('legalitas.index_admin');
+
+
+    Route::group(['prefix' => 'legalitas-item'], function () {
+        Route::get('/{id}/{post_by}', [LegalityController::class, 'edit'])->name('legalitas_edit');
+        Route::get('/', [LegalityController::class, 'indexItem'])->name('index_legalitas.item');
+        Route::get('/create', [LegalityController::class, 'createItem'])->name('create_legalitas.item');
+        Route::post('/store', [LegalityController::class, 'storeItem'])->name('store_legalitas.item');
+        Route::get('/edit/{id}', [LegalityController::class, 'editItem'])->name('edit_legalitas.item');
+        Route::post('/update/{id}', [LegalityController::class, 'updateItem'])->name('update_legalitas.item');
+        Route::post('/delete', [LegalityController::class, 'deleteItem'])->name('delete_legalitas.item');
+    });
 
 
 

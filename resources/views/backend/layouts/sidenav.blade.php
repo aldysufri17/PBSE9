@@ -18,7 +18,7 @@
                         <li><a class="nav-link" href="{{route('section.index')}}">Daftar Section</a></li>
                         <li><a class="nav-link" href="{{route('user.index')}}">Daftar Departemen</a></li>
                         <li><a class="nav-link" href="{{route('energy.index')}}">Jenis Energi</a></li>
-                        {{-- <li><a class="nav-link" href="{{route('infrastruktur.index')}}">Infrastruktur</a></li> --}}
+                        <li><a class="nav-link" href="{{route('index_legalitas.item')}}">Item Legalitas Infrastruktur</a></li>
                         <li><a class="nav-link" href="{{route('konservasi.index')}}">Konservasi Energi</a></li>
                     @endif
                 </ul>
@@ -28,6 +28,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Audit Input</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('civitas.index')}}">Civitas Akademika</a></li>
+                    <li><a class="nav-link" href="{{route('legalitas.index')}}">Legalitas Infrastruktur</a></li>
                     <li><a class="nav-link" href="{{route('infrastruktur.index')}}">Penggunaan Infrastruktur</a></li>
                     <li><a class="nav-link" href="{{route('energy-usage.index')}}">Penggunaan Energi</a></li>
                     <li><a class="nav-link" href="{{route('konservasi_usage.index')}}">Konservasi Energi</a></li>
@@ -38,6 +39,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Rekap Audit</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{route('civitas.index')}}">Civitas Akademika</a></li>
+                    <li><a class="nav-link" href="{{route('legalitas.index_admin')}}">Legalitas Infrastruktur</a></li>
                     <li><a class="nav-link" href="{{route('infrastruktur.index')}}">Penggunaan Infrastruktur</a></li>
                     <li><a class="nav-link" href="{{route('energy-usage.index_admin')}}">Penggunaan Energi</a></li>
                     <li><a class="nav-link" href="{{route('konservasi_usage.index_admin')}}">Konservasi Energi</a></li>
