@@ -3,6 +3,14 @@
 @section('content')
 @php
 $name = App\Models\User::where('user_id',$post_by)->value('name');
+
+$year = App\Models\measurement::where('post_by', $post_by)
+->select(DB::raw('YEAR(created_at) year'))
+->groupBy('year')
+->get();
+
+$now_year = Carbon\Carbon::now()->format('Y');
+$cekYear = App\Models\measurement::where('post_by', $post_by)->whereYear('created_at', $now_year)->first();
 @endphp
 <section class="section">
     <div class="section-header">

@@ -2,11 +2,11 @@
 @section('title','Daftar Kualitas Daya')
 @section('content')
 <x-page-index title="Kualitas Daya" buttonLabel="Tambah Kualitas Daya" routeCreate="">
-    @if ($legality->IsNotEmpty())
+    @if ($measurement->IsNotEmpty())
     <div class="d-sm-flex align-items-center mb-4">
-        <a href="#" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
+        <!--<a href="#" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
             <i class="fas fa-file-csv"></i> Export CSV
-        </a>
+        </a>-->
     </div>
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($legality as $key=>$data)
+            @foreach ($measurement as $key=>$data)
             <tr>
                 @php
                 $name = App\Models\User::where('user_id', $data->post_by)->value('name');

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MExport;
 use App\Models\measurement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MeasurementController extends Controller
 {
@@ -31,7 +33,7 @@ class MeasurementController extends Controller
 
     public function indexAdmin()
     {
-        $legality = measurement::select('post_by')
+        $measurement = measurement::select('post_by')
             ->groupBy('post_by')
             ->get();
         return view('backend.measurement.index_admin', compact('measurement'));
@@ -134,10 +136,10 @@ class MeasurementController extends Controller
     public function edit($id, $post_by)
     {
         $measurement = measurement::where('m_id', $id)->first();
+        dd($measurement);
         $year = $measurement->created_at->format('Y');
         return view('backend.measurement.edit', compact('measurement', 'post_by', 'year'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -241,5 +243,11 @@ class MeasurementController extends Controller
         if ($delete) {
             return redirect()->route('measurement.index')->with('success', 'Data audit Kualitas Daya berhasil dihapus.!');
         }
+    }
+
+    public function export($year=null, $id)
+    {
+        $fileName = date('Y-m-d') . '_' . 'Kualitas daya' . '.xlsx';
+        return Excel::download(new MExport($id, $year), $fileName);
     }
 }

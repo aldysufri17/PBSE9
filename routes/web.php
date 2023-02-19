@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/detail_admin/{id}/{post_by}', [CivitasController::class, 'detailAdmin'])->name('civitas.detailAdmin');
         Route::get('/show/{year}/{post_by}', [CivitasController::class, 'show'])->name('civitas.show');
         Route::get('/history/{year}/{post_by}', [CivitasController::class, 'history'])->name('civitas.history');
-        Route::get('/export-csv/{id}/{year}', [CivitasController::class, 'export'])->name('civitas.export');
+        Route::get('/export-csv/{post_by}/{year}', [CivitasController::class, 'export'])->name('civitas.export');
     });
 
     // Infrastruktur
@@ -85,10 +85,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/delete', [LegalityController::class, 'deleteItem'])->name('delete_legalitas.item');
     });
 
+    //Kualitas daya / MEASUREMENT
     Route::resource('measurement', MeasurementController::class);
     Route::get('/measurement/{id}/{post_by}', [MeasurementController::class, 'edit'])->name('measurement_edit');
     Route::get('admin/measurement', [MeasurementController::class, 'indexAdmin'])->name('measurement.index_admin');
-
+    //Route::get('measurement/export-csv/{id}/{year}', [MeasurementController::class, 'export'])->name('measurement.export');
+    Route::get('/measurement/export-csv/{id}/{post_by}', [MeasurementController::class, 'export'])->name('measurement.export');
 
     // energi_usage
     Route::get('energi-usage', [EnergyController::class, 'enegiusageIndex'])->name('energi_usage.index');
