@@ -8,11 +8,11 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
     buttonLabel="Tambah Civitas Akademik" routeCreate="{{auth()->user()->section_id == 128 ? '':'civitas.create'}}">
     @if (auth()->user()->section_id != 128)
     @if ($civitas->IsNotEmpty())
-    <div class="d-sm-flex align-items-center mb-4">
+    <!--<div class="d-sm-flex align-items-center mb-4">
         <a href="#" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
             <i class="fas fa-file-csv"></i> Export CSV
         </a>
-    </div>
+    </div>-->
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
@@ -34,6 +34,9 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                         mr-2" data-toggle="tooltip" title="Detail"><i class="fas fa-eye"></i></a>
                     <a href="{{route('civitas.history',[$data->year,$data->post_by])}}" class="table-action btn btn-warning
                             mr-2" data-toggle="tooltip" title="History"><i class="fas fa-clock"></i></a>
+                    <a href="{{route('civitas.export', [$year,$data->post_by])}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
+                        <i class="fas fa-file-csv"></i> Export
+                    </a>
                 </td>
             </tr>
             @endforeach

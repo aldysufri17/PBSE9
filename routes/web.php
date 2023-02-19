@@ -51,12 +51,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('building', BuildingController::class);
     Route::get('/building/detail_admin/{id}', [BuildingController::class, 'showAdmin'])->name('building.show_admin');
 
-    // Building
+    // Civitas
     Route::resource('civitas', CivitasController::class);
     Route::group(['prefix' => 'civitas'], function () {
         Route::get('/detail_admin/{id}/{post_by}', [CivitasController::class, 'detailAdmin'])->name('civitas.detailAdmin');
         Route::get('/show/{year}/{post_by}', [CivitasController::class, 'show'])->name('civitas.show');
         Route::get('/history/{year}/{post_by}', [CivitasController::class, 'history'])->name('civitas.history');
+        Route::get('/export-csv/{id}/{year}', [CivitasController::class, 'export'])->name('civitas.export');
     });
 
     // Infrastruktur

@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use App\Exports\ACExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class CivitasController extends Controller
 {
     /**
@@ -183,5 +186,11 @@ class CivitasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export($year, $id)
+    {
+        $fileName = date('Y-m-d') . '_' . 'Akademika' . '.xlsx';
+        return Excel::download(new ACExport($id, $year), $fileName);
     }
 }
