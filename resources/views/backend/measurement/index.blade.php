@@ -163,7 +163,10 @@ $cekYear = App\Models\measurement::where('post_by', $post_by)->whereYear('create
                     <td><span class="font-weight-bold">{{$data->harmonisa_tegangan}}</span></td>
                     <td><span class="font-weight-bold">{{$data->faktor_daya}}</span></td>
                     <td>
-                        
+                        <a class="table-action btn btn-primary mr-2"
+                            href="{{route('measurement.edit', [$data->m_id, $data->post_by])}}" title="Edit">
+                            <i class="fas fa-pen"></i>
+                        </a>
                         <button class="table-action btn btn-danger delete-btn mr-2" data-toggle="tooltip" title="Delete"
                             value="{{$data->m_id}}">
                             <i class="fas fa-trash"></i>
