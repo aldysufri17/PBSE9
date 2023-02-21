@@ -249,5 +249,6 @@ class MeasurementController extends Controller
     {
         $fileName = date('Y-m-d') . '_' . 'Kualitas daya' . '.xlsx';
         return Excel::download(new MExport($year), $fileName);
+        //return redirect()->route('measurement.index');
     }
 }

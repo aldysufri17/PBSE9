@@ -80,6 +80,7 @@ $cekYear = App\Models\measurement::where('post_by', $post_by)->whereYear('create
                 $tiga_fasa = array_values(json_decode($data->tegangan_tiga_fasa, true));
                 $unbalance = array_values(json_decode($data->tegangan_tidak_seimbang, true));
                 $arus = array_values(json_decode($data->arus, true));
+                $year = $data->created_at->format('Y');
                 @endphp
                 <tr>
                     <td>
@@ -163,15 +164,12 @@ $cekYear = App\Models\measurement::where('post_by', $post_by)->whereYear('create
                     <td><span class="font-weight-bold">{{$data->harmonisa_tegangan}}</span></td>
                     <td><span class="font-weight-bold">{{$data->faktor_daya}}</span></td>
                     <td>
-                        <!--<a class="table-action btn btn-primary mr-2"
-                            href="{{route('measurement_edit', [$data->m_id, $data->post_by])}}" title="Edit">
-                            <i class="fas fa-pen"></i>
-                        </a>-->
+                        
                         <button class="table-action btn btn-danger delete-btn mr-2" data-toggle="tooltip" title="Delete"
                             value="{{$data->m_id}}">
                             <i class="fas fa-trash"></i>
                         </button>
-                        <a href="{{route('measurement.export', [$data->m_id, $data->post_by])}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
+                        <a href="{{route('measurement.export', [$data->created_at->format('Y')])}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
                             <i class="fas fa-file-csv"></i> Export
                         </a>
                     </td>
