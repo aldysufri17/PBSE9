@@ -233,7 +233,11 @@ class MeasurementController extends Controller
         ]);
 
         measurement::where('m_id', $id)->delete();
-        return redirect()->route('measurement.index')->with('success', 'Kualitas Daya Tahun' . $year . 'Berhasil disimpan.');
+        if (Auth::user()->section_id == 128) {
+            return redirect()->route('measurement.index_admin')->with('success', 'Kualitas Daya Tahun' . $year . 'Berhasil disimpan.');
+        } else {
+            return redirect()->route('measurement.index')->with('success', 'Kualitas Daya Tahun' . $year . 'Berhasil disimpan.');
+        }
     }
 
     public function destroy(Request $request, $id)
