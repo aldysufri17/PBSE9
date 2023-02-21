@@ -14,10 +14,9 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class MExport implements FromCollection, WithHeadings, WithTitle, WithMapping, WithEvents
 {
-    function __construct($id = null, $post_by = null, $year = null, $data = null,)
+    function __construct($year = null, $id=null, $data = null)
     {
         $this->id = $id;
-        $this->post_by = $post_by;
         $this->year = $year;
         $this->iterator = 1;
     }
@@ -163,7 +162,6 @@ class MExport implements FromCollection, WithHeadings, WithTitle, WithMapping, W
             'm.faktor_daya'
         )
             //->whereRaw('ac.post_by = ?', $this->id)
-            ->where('post_by', $this->post_by)
             ->whereRaw('YEAR(m.created_at) = ?', $this->year)
             //->whereRaw('iq.section_id = ?', $this->section)
             //->whereRaw('YEAR(iq.created_at) = ?', $this->year)
