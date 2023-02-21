@@ -17,7 +17,6 @@ $year_measurement = App\Models\measurement::where('post_by', $post_by)
 $now_year = Carbon\Carbon::now()->format('Y');
 $cekYear = App\Models\measurement::where('post_by', $post_by)->whereYear('created_at', $now_year)->first();
 @endphp
-
 @section('content')
 <x-page-index title="{{auth()->user()->section_id != 128 ? 'Kualitas Daya '. $name : 'Departemen'}}"
     buttonLabel="Tambah Data" routeCreate="">
@@ -33,11 +32,11 @@ $cekYear = App\Models\measurement::where('post_by', $post_by)->whereYear('create
                         @if (is_null($cekYear))
                         <option selected value="{{$now_year}}">{{$now_year}}</option>
                         @endif
-                        @foreach ($year_measurement as $data)
-                        <option value="{{$data->year}}" @if(Request::has('year'))
-                            {{Request::get('year') == $data->year ? 'selected':''}} @else
-                            {{ $year == $data->year ? 'selected':''}} @endif>
-                            {{ $data->year }}</option>
+                        @foreach ($year_measurement as $item)
+                        <option value="{{$item->year}}" @if(Request::has('year'))
+                            {{Request::get('year') == $item->year ? 'selected':''}} @else
+                            {{ $year == $item->year ? 'selected':''}} @endif>
+                            {{ $item->year }}</option>
                         @endforeach
                     </select>
                     @error('name')
@@ -171,7 +170,7 @@ $cekYear = App\Models\measurement::where('post_by', $post_by)->whereYear('create
                             value="{{$data->m_id}}">
                             <i class="fas fa-trash"></i>
                         </button>
-                        <a href="{{route('measurement.export', [$data->m_id, $data->post_by])}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
+                        <a href="{{route('measurement.export', [$data->post_by,$year])}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
                             <i class="fas fa-file-csv"></i> Export
                         </a>
                     </td>
