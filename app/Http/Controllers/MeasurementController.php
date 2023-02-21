@@ -136,7 +136,6 @@ class MeasurementController extends Controller
     public function edit($id, $post_by)
     {
         $measurement = measurement::where('m_id', $id)->first();
-        dd($measurement);
         $year = $measurement->created_at->format('Y');
         return view('backend.measurement.edit', compact('measurement', 'post_by', 'year'));
     }
