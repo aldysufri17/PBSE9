@@ -245,9 +245,9 @@ class MeasurementController extends Controller
         }
     }
 
-    public function export($year=null, $id)
+    public function export($year)
     {
         $fileName = date('Y-m-d') . '_' . 'Kualitas daya' . '.xlsx';
-        return Excel::download(new MExport($id, $year), $fileName);
+        return Excel::download(new MExport($year), $fileName);
     }
 }
