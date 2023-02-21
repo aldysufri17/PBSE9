@@ -168,7 +168,7 @@ $cekYear = App\Models\measurement::where('post_by', $post_by)->whereYear('create
                             value="{{$data->m_id}}">
                             <i class="fas fa-trash"></i>
                         </button>
-                        <a href="{{route('measurement.export', [$data->post_by,$year])}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
+                        <a href="{{route('measurement.export', [$year])}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
                             <i class="fas fa-file-csv"></i> Export
                         </a>
                     </td>

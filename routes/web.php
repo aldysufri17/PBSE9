@@ -87,11 +87,10 @@ Route::middleware(['auth'])->group(function () {
 
     //Kualitas daya / MEASUREMENT
     Route::resource('measurement', MeasurementController::class);
-    Route::get('/measurement/export-csv/{year}', [MeasurementController::class, 'export'])->name('measurement.export');
     Route::get('/measurement/{id}/{post_by}', [MeasurementController::class, 'edit'])->name('measurement.edit');
     Route::get('admin/measurement', [MeasurementController::class, 'indexAdmin'])->name('measurement.index_admin');
     //Route::get('measurement/export-csv/{id}/{year}', [MeasurementController::class, 'export'])->name('measurement.export');
-    Route::get('/measurement/export-csv/{post_by}/{year}', [MeasurementController::class, 'export'])->name('measurement.export');
+    Route::get('/measurement/export-csv/{year}', [MeasurementController::class, 'export'])->name('measurement.export');
 
     // energi_usage
     Route::get('energi-usage', [EnergyController::class, 'enegiusageIndex'])->name('energi_usage.index');
