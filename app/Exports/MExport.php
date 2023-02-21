@@ -16,6 +16,7 @@ class MExport implements FromCollection, WithHeadings, WithTitle, WithMapping, W
 {
     function __construct($id = null, $post_by = null, $year = null, $data = null,)
     {
+
         $this->id = $id;
         $this->post_by = $post_by;
         $this->year = $year;
