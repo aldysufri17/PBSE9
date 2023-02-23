@@ -52,8 +52,8 @@ $cekYear = App\Models\infrastructure_legality::where('post_by', $post_by)->where
         </form>
     </div>
     @if ($legality->IsNotEmpty())
-    <h4 class="font-weight-bold text-center py-2">Audit Pemakaian Energi Departemen {{$name}} Tahun
-        {{Request::has('year') ? Request::get('year') : $year}}</h4>
+    <h4 class="font-weight-bold text-center py-2">Audit Pemakaian Energi Departemen {{App\Models\User::where('user_id',$post_by)->value('name');}} Tahun
+        {{Request::has('year') ? Request::get('year') : $year}}</h4> <!-- FIX NAME NOT DETECT?-->
     <div class="out p-4">
         <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
             <thead>

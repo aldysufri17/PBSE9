@@ -12,12 +12,12 @@ class IQExportFile implements FromCollection, WithHeadings, WithTitle, WithMappi
 {
     protected $year, $month;
 
-    function __construct($id, $year=null, $month=null, $data=null, $section=null) {
+    function __construct($id, $year=null, $getsec=null) {
         $this->id = $id;
         $this->year = $year;
-        $this->month = $month;
-        $this->data = $data;
-        $this->section = $section;
+        /*$this->month = $month;
+        $this->data = $data;*/
+        $this->section = $getsec;
         $this->iterator = 1;
     }
 
@@ -45,8 +45,7 @@ class IQExportFile implements FromCollection, WithHeadings, WithTitle, WithMappi
 
     public function title(): string
     {
-        $section = 'A';
-       return $section;
+        return $this->section;
     }
 
     /**
@@ -54,18 +53,23 @@ class IQExportFile implements FromCollection, WithHeadings, WithTitle, WithMappi
     */
     public function collection()
     {
-        $data = $this->data;
-        if($data == null){
-            $data = DB::table('infrastructure_quantities as iq')->select('iq.section_id', 'iq.building_id', 'iq.room_id', 'iq.name', 'iq.capacity', 'iq.quantity', 'iq.total')
-            ->join('rooms AS r', 'iq.room_id', '=', 'r.room_id')
-            ->join('buildings as b', 'b.building_id', '=', 'iq.building_id')
-            ->join('sections as s', 's.section_id', '=', 'iq.section_id')
-            ->whereRaw('iq.post_by = ?', $this->id)
+        //$data = $this->data;
+        //if($data == null){
+        $data = DB::table('infrastructure_quantities as iq')->select('iq.section_id', 'iq.building_id', 'iq.room_id', 'iq.name', 'iq.capacity', 'iq.quantity', 'iq.total')
+        ->join('rooms AS r', 'iq.room_id', '=', 'r.room_id')
+        ->join('buildings as b', 'b.building_id', '=', 'iq.building_id')
+        ->join('sections as s', 's.section_id', '=', 'iq.section_id')
+        ->whereRaw('iq.post_by = ?', $this->id)
             //->whereRaw('iq.section_id = ?', $this->section)
-            //->whereRaw('YEAR(iq.created_at) = ?', $this->year)
+        ->whereRaw('YEAR(iq.created_at) = ?', $this->year)
             //->whereRaw('MONTH(iq.created_at) = ?', $this->month)
-            ->whereRaw('iq.created_at IS NOT NULL')->get();
-        }
+        ->whereRaw('iq.created_at IS NOT NULL')
+        ->orderBy('iq.section_id')
+        ->orderBy('iq.building_id')
+        ->orderBy('iq.room_id')
+        ->get();
+        //dd($data);
+        //}
         return $data;
     }
 }

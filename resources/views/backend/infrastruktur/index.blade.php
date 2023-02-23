@@ -34,6 +34,9 @@
                         </button>
                         <input type="text" hidden value="{{$data->year}}" id="year">
                     </div>
+                    <a href="{{route('infrastruktur.export', [$data->post_by,$data->year,])}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </a>
                 </td>
             </tr>
             @endforeach

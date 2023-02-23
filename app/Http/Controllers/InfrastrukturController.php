@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IQExportFile;
 use App\Models\building;
 use App\Models\infrastructure_quantity;
 use App\Models\Room;
+use App\Models\section;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InfrastrukturController extends Controller
 {
@@ -161,5 +165,14 @@ class InfrastrukturController extends Controller
 
         $room = Room::where('building_id', $room_id)->get();
         return response()->json($room);
+    }
+
+    public function export($id, $year)
+    {
+        $depar = User::whereuser_id($id)->value("name");
+        $sect = User::whereuser_id($id)->value("section_id");
+        $section = Section::wheresection_id($sect)->value("name");
+        $fileName = date('Y-m-d') . '_Penggunaan Infrastruktur_' . $depar. '_' . $year . '.xlsx';
+        return Excel::download(new IQExportFile($id, $year, $section),  $fileName);
     }
 }

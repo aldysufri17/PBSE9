@@ -136,7 +136,7 @@ class LegalityController extends Controller
                 'created_at'        => $dt->toDateTimeString()
             ]);
         }
-        redirect()->route('legalitas.index')->with('success', 'Legalitas Infrastruktur' . $year . 'Berhasil disimpan.');
+        redirect()->route('legalitas.index')->with('success', 'Legalitas Infrastruktur' . $year . 'Berhasil disimpan.'); //Error ga ngeredirect
     }
 
     public function edit($id, $post_by)

@@ -64,6 +64,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('infrastruktur', InfrastrukturController::class);
     Route::get('/infrastruktur/{post_by}/{year}', [InfrastrukturController::class, 'edit'])->name('infrastruktur.edit');
     Route::get('/room/infrastruktur/ajax', [InfrastrukturController::class, 'roomInfrastrukturAjax'])->name('roomInfrastruktur.ajax');
+    Route::get('/infrastruktur/export-csv/{post_by}/{year}', [InfrastrukturController::class, 'export'])->name('infrastruktur.export');
+
 
     // Energy Usage
     Route::resource('energy-usage', EnergyUsageController::class);
@@ -74,13 +76,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('legalitas', LegalityController::class);
     Route::get('admin/legalitas', [LegalityController::class, 'indexAdmin'])->name('legalitas.index_admin');
 
-
     Route::group(['prefix' => 'legalitas-item'], function () {
-        Route::get('/{id}/{post_by}', [LegalityController::class, 'edit'])->name('legalitas_edit');
+        Route::get('/edit/{id}', [LegalityController::class, 'editItem'])->name('edit_legalitas.item'); // ERROR
+        Route::get('/{id}/{post_by}', [LegalityController::class, 'edit'])->name('legalitas_edit'); // ERROR
         Route::get('/', [LegalityController::class, 'indexItem'])->name('index_legalitas.item');
         Route::get('/create', [LegalityController::class, 'createItem'])->name('create_legalitas.item');
         Route::post('/store', [LegalityController::class, 'storeItem'])->name('store_legalitas.item');
-        Route::get('/edit/{id}', [LegalityController::class, 'editItem'])->name('edit_legalitas.item');
+        
         Route::post('/update/{id}', [LegalityController::class, 'updateItem'])->name('update_legalitas.item');
         Route::post('/delete', [LegalityController::class, 'deleteItem'])->name('delete_legalitas.item');
     });
@@ -91,7 +93,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/measurement/{id}/{post_by}', [MeasurementController::class, 'edit'])->name('measurement.edit');
     Route::get('admin/measurement', [MeasurementController::class, 'indexAdmin'])->name('measurement.index_admin');
     //Route::get('measurement/export-csv/{id}/{year}', [MeasurementController::class, 'export'])->name('measurement.export');
-    Route::get('/measurement/export-csv/{year}', [MeasurementController::class, 'export'])->name('measurement.export');
+    //Route::get('/measurement/export-csv/{year}', [MeasurementController::class, 'export'])->name('measurement.export');
 
     // energi_usage
     Route::get('energi-usage', [EnergyController::class, 'enegiusageIndex'])->name('energi_usage.index');
