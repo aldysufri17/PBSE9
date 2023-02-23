@@ -71,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('energy-usage', EnergyUsageController::class);
     Route::get('admin/energy-usage', [EnergyUsageController::class, 'indexAdmin'])->name('energy-usage.index_admin');
     Route::get('/energy-usage/{id}/{post_by}', [EnergyUsageController::class, 'edit'])->name('energy-usage.edit');
+    Route::get('energi-usage/export-csv/{id}/{year}/{month}/{building}', [EnergyUsageController::class, 'export'])->name('energy.export');
 
     // Infrastruktur Legalitas
     Route::resource('legalitas', LegalityController::class);
@@ -100,8 +101,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('energi-usage-years/{id}', [EnergyController::class, 'enegiusageYears'])->name('energi_usage.years');
     Route::get('energi-usage-month/{id}/{year}', [EnergyController::class, 'enegiusageMonth'])->name('energi_usage.month');
     Route::get('energi-usage/show/{id}/{year}/{month}', [EnergyController::class, 'enegiusageShow'])->name('energi_usage.show');
-    Route::get('energi-usage/export-csv/{id}/{year}', [EnergyController::class, 'export'])->name('energy.exportall');
-    Route::get('energi-usage/export-csv/{id}/{year}/{month}', [EnergyController::class, 'export'])->name('energy.export');
+    
+    //Route::get('energi-usage/export-csv/{id}/{year}/{month}', [EnergyController::class, 'export'])->name('energy.export');
 
     // Infrastruktur
     Route::resource('infrastruktur', InfrastrukturController::class);

@@ -4,9 +4,9 @@
 <x-page-index title="Penggunaan Energi" buttonLabel="Tambah Penggunaan Energi" routeCreate="">
     @if ($usage->IsNotEmpty())
     <div class="d-sm-flex align-items-center mb-4">
-        <a href="#" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
+        <!--<a href="#" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
             <i class="fas fa-file-csv"></i> Export CSV
-        </a>
+        </a>-->
     </div>
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>

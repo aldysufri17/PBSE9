@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\EUExport;
-use App\Exports\EUExportMonth;
+//use App\Exports\EUExport;
+//use App\Exports\EUExportMonth;
 use App\Models\Energy;
 use App\Models\energy_usage;
 use DateTime;
@@ -146,15 +146,5 @@ class EnergyController extends Controller
             ->whereMonth('created_at', '=', $month)
             ->get();
         return view('backend.energy.usage.show', compact('usage', 'monthName', 'year'));
-    }
-
-    public function export($id, $year, $month=null)
-    {
-        $fileName = date('Y-m-d') . '_' . 'Data Pengguna' . '.xlsx';
-        if ($month==null){
-            return Excel::download(new EUExport($id, $year), $fileName);
-        }else{
-            return Excel::download(new EUExportMonth($id, $year, $month),  $fileName);
-        }
     }
 }

@@ -2,51 +2,71 @@
 
 namespace App\Exports;
 
-use App\Models\energy_usage;
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithMultipleSheets;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithTitle;
+use Illuminate\Support\Facades\DB;
 
-class EUExport implements WithMultipleSheets
+class EUExport implements FromCollection, WithHeadings, WithTitle, WithMapping
 {
-    use Exportable;
-
     protected $year, $month;
 
-    function __construct($id, $year, $month=null) {
+    function __construct($id, $year=null, $month=null, $building=null) {
         $this->id = $id;
         $this->year = $year;
         $this->month = $month;
+        //$this->data = $data;
+        $this->building = $building;
+        $this->iterator = 0;
     }
 
-    /*public function headings(): array
+    public function map($mydata): array
+    {
+        $this->iterator++;
+        return [
+            $this->iterator,
+            DB::table('energies')->select('name')->whereRaw('energy_id = ?', $mydata->energy_id)->value('name'),
+            $mydata->usage,
+            $mydata->cost,
+            $mydata->start_date,
+            $mydata->end_date,
+
+        ];
+    }
+
+    public function headings(): array
     {
         return [
-            ['No', 'Nama', 'Penggunaan', 'Satuan', 'Biaya', 'Tanggal Awal', 'Tanggal Akhir']
+            ['No', 'Energi', 'Nilai', 'Biaya', 'Tanggal Awal', 'Tanggal Akhir']
         ];
-    }*/
+    }
+
+    public function title(): string
+    {
+        return $this->building;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function sheets(): array
+    public function collection()
     {
-        $sheets = [];
-
-        for ($month = 1; $month <= 12; $month++) {
-            $data = energy_usage::select('energy_usages.eu_id', 'E.name', 'energy_usages.usage', 'E.unit', 'energy_usages.cost', 'energy_usages.start_date', 'energy_usages.end_date')
-            ->join('Energies AS E', 'E.energy_id', '=', 'energy_usages.energy_id')
-            ->whereRaw('energy_usages.post_by = ?', $this->id)
-            ->whereRaw('YEAR(energy_usages.created_at) = ?', $this->year)
-            ->whereRaw('MONTH(energy_usages.created_at) = ?', $month)
-            ->get();
-            //dd(count($data));
-            if (count($data)<=0){
-                continue;
-            }else{
-                $sheets[] = new EUExportMonth($this->id, $this->year, $month, $data);
-            }
-        }
-
-        return $sheets;
+        //$data = $this->data;
+        //if($data == null){
+        $data = DB::table('energy_usages as eu')->select('eu.energy_id', 'eu.building_id', 'eu.usage', 'eu.cost', 
+        'eu.start_date', 'eu.end_date', 'eu.post_by')
+        ->join('energies AS e', 'e.energy_id', '=', 'eu.energy_id')
+        ->join('buildings as b', 'b.building_id', '=', 'eu.building_id')
+        ->whereRaw('eu.post_by = ?', $this->id)
+        ->whereRaw('YEAR(eu.created_at) = ?', $this->year)
+        ->whereRaw('MONTH(eu.created_at) = ?', $this->month)
+        ->whereRaw('eu.created_at IS NOT NULL')
+        ->orderBy('eu.energy_id')
+        ->orderBy('eu.building_id')
+        ->get();
+        //dd($data);
+        //}
+        return $data;
     }
 }

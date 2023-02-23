@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use App\Exports\EUExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class EnergyUsageController extends Controller
 {
     /**
@@ -210,5 +213,12 @@ class EnergyUsageController extends Controller
         $tes = energy_usage::where('eu_id', $id)->delete();
 
         return redirect()->back()->with('success', 'Data berhasil dihapus.!');
+    }
+
+    public function export($id, $year=null, $month=null, $building=null)
+    {
+        $depar = User::whereuser_id($id)->value("name");
+        $fileName = date('Y-m-d') . '_Data Penggunaan Energi_'. $depar . '_' . $year. '_' . $month. '.xlsx';
+        return Excel::download(new EUExport($id, $year, $month, $building), $fileName);
     }
 }

@@ -18,9 +18,18 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
 @if ($building->isNotEmpty())
 @if ($usage->isNotEmpty())
 <div class="d-sm-flex align-items-center mb-4">
-    <a href="#" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
+    <!--<a href="#" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
+        <i class="fas fa-file-csv"></i> Export CSV
+    </a>-->
+    @php
+        $year_export = Request::has('year') ? Request::get('year') : Carbon\Carbon::now()->format('Y');
+        $month_export = Request::has('month') ? Request::get('month') : Carbon\Carbon::now()->format('m');
+        $building_export = Request::has('building') ? Request::get('building') : $building->first()->building_id;
+    @endphp
+    <a href="{{route('energy.export', [$post_by,$year_export,$month_export,$building_export])}}" target="_blank" class="btn btn-sm btn-warning" title="unduh csv">
         <i class="fas fa-file-csv"></i> Export CSV
     </a>
+
 </div>
 @endif
 <div class="search">
