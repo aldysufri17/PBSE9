@@ -19,11 +19,12 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
 
     <div class="section-body">
         <div class="card my-5">
-            <form action="{{route('legalitas.update',$legality->il_id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('legalitas.update', $legality->il_id)}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <input type="text" name="ili_id" value="{{$legality->ili_id}}" hidden>
                 <input type="text" name="year" value="{{$year}}" hidden>
+                <input type="text" name="post_by" value="{{$legality->post_by}}" hidden>
                 <div class="card">
                     <div class="card-body">
                         <div class="konservasi">
@@ -47,7 +48,7 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                                                     Download
                                                 </a>
                                             </div>
-                                            <input type="file" required
+                                            <input type="file"
                                                 class="form-control form-control-user @error('nidi') is-invalid @enderror"
                                                 name="nidi">
                                             @error('nidi')
@@ -65,7 +66,7 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                                                     Download
                                                 </a>
                                             </div>
-                                            <input type="file" required
+                                            <input type="file"
                                                 class="form-control form-control-user @error('slo') is-invalid @enderror"
                                                 name="slo" value="">
                                             @error('slo')
@@ -83,7 +84,7 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                                                     Download
                                                 </a>
                                             </div>
-                                            <input type="file" required
+                                            <input type="file"
                                                 class="form-control form-control-user @error('io') is-invalid @enderror"
                                                 name="io" value="">
                                             @error('ioem')
@@ -104,7 +105,7 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                                                     Download
                                                 </a>
                                             </div>
-                                            <input type="file" required
+                                            <input type="file"
                                                 class="form-control form-control-user @error('ttb') is-invalid @enderror"
                                                 name="ttb" value="">
                                             @error('ttb')
@@ -122,7 +123,7 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                                                     Download
                                                 </a>
                                             </div>
-                                            <input type="file" required
+                                            <input type="file"
                                                 class="form-control form-control-user @error('sopo') is-invalid @enderror"
                                                 name="sopo" value="">
                                             @error('sopo')
@@ -140,7 +141,7 @@ $name = App\Models\User::where('user_id',$post_by)->value('name');
                                                     Download
                                                 </a>
                                             </div>
-                                            <input type="file" required
+                                            <input type="file"
                                                 class="form-control form-control-user @error('sopm') is-invalid @enderror"
                                                 name="sopm" value="">
                                             @error('sopm')

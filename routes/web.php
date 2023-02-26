@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
     // Civitas
     Route::resource('civitas', CivitasController::class);
     Route::group(['prefix' => 'civitas'], function () {
-        Route::get('/detail_admin/{id}/{post_by}', [CivitasController::class, 'detailAdmin'])->name('civitas.detailAdmin');
+        Route::get('/detail_admin/{year}/{post_by}', [CivitasController::class, 'detailAdmin'])->name('civitas.detailAdmin');
         Route::get('/show/{year}/{post_by}', [CivitasController::class, 'show'])->name('civitas.show');
         Route::get('/history/{year}/{post_by}', [CivitasController::class, 'history'])->name('civitas.history');
         Route::get('/export-csv/{post_by}/{year}', [CivitasController::class, 'export'])->name('civitas.export');
@@ -78,12 +78,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/legalitas', [LegalityController::class, 'indexAdmin'])->name('legalitas.index_admin');
 
     Route::group(['prefix' => 'legalitas-item'], function () {
-        Route::get('/edit/{id}', [LegalityController::class, 'editItem'])->name('edit_legalitas.item'); // ERROR
-        Route::get('/{id}/{post_by}', [LegalityController::class, 'edit'])->name('legalitas_edit'); // ERROR
+        Route::get('/edit/{id}', [LegalityController::class, 'editItem'])->name('edit_legalitas.item'); // ERROR //ISO
+        Route::get('/{id}/{post_by}', [LegalityController::class, 'edit'])->name('legalitas_edit'); // ERROR //ISO
         Route::get('/', [LegalityController::class, 'indexItem'])->name('index_legalitas.item');
         Route::get('/create', [LegalityController::class, 'createItem'])->name('create_legalitas.item');
         Route::post('/store', [LegalityController::class, 'storeItem'])->name('store_legalitas.item');
-        
+
         Route::post('/update/{id}', [LegalityController::class, 'updateItem'])->name('update_legalitas.item');
         Route::post('/delete', [LegalityController::class, 'deleteItem'])->name('delete_legalitas.item');
     });
@@ -101,7 +101,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('energi-usage-years/{id}', [EnergyController::class, 'enegiusageYears'])->name('energi_usage.years');
     Route::get('energi-usage-month/{id}/{year}', [EnergyController::class, 'enegiusageMonth'])->name('energi_usage.month');
     Route::get('energi-usage/show/{id}/{year}/{month}', [EnergyController::class, 'enegiusageShow'])->name('energi_usage.show');
-    
+
     //Route::get('energi-usage/export-csv/{id}/{year}/{month}', [EnergyController::class, 'export'])->name('energy.export');
 
     // Infrastruktur
@@ -140,24 +140,24 @@ Route::middleware(['auth'])->group(function () {
     // Route::group(['middleware' => UserMiddleware::class], function () {
 
     // Route::post('audit-store', [FrontendController::class, 'auditStore'])->name('audit.store');
-    Route::post('infrastruktur-input', [FrontendController::class, 'infrastrukturInput'])->name('infrastruktur.input');
-    Route::post('pemakaian-input', [FrontendController::class, 'pemakaianInput'])->name('pemakaian.input');
+    // Route::post('infrastruktur-input', [FrontendController::class, 'infrastrukturInput'])->name('infrastruktur.input');
+    // Route::post('pemakaian-input', [FrontendController::class, 'pemakaianInput'])->name('pemakaian.input');
     // Route::post('konservasi-input', [FrontendController::class, 'konservasiInput'])->name('konservasi.input');
     // Route::get('civitas-akademika', [FrontendController::class, 'inputCivitas'])->name('input.civitas');
     // Route::post('civitas-akademika/store', [FrontendController::class, 'civitasStore'])->name('civitas.store');
-    Route::post('tahunan-store', [FrontendController::class, 'tahunanStore'])->name('tahunan.store');
+    // Route::post('tahunan-store', [FrontendController::class, 'tahunanStore'])->name('tahunan.store');
 
     // Gedung
-    Route::get('Building-Add', [FrontendController::class, 'buildingAdd'])->name('building.add');
+    // Route::get('Building-Add', [FrontendController::class, 'buildingAdd'])->name('building.add');
     // Route::post('Building-Store', [FrontendController::class, 'buildingStore'])->name('building.store');
-    Route::get('Building-Detail/{building_id}', [FrontendController::class, 'buildingDetail'])->name('building.detail');
+    // Route::get('Building-Detail/{building_id}', [FrontendController::class, 'buildingDetail'])->name('building.detail');
     Route::get('/room/delete', [FrontendController::class, 'deleteroom']);
     Route::get('/room/ajax', [FrontendController::class, 'roomAjax'])->name('room.ajax');
     // Route::post('Building-Update/{building_id}', [FrontendController::class, 'buildingUpdate'])->name('building.update');
-    Route::get('Building-Delete/{building_id}', [FrontendController::class, 'buildingDelete'])->name('building.delete');
+    // Route::get('Building-Delete/{building_id}', [FrontendController::class, 'buildingDelete'])->name('building.delete');
 
     // Infrastruktur
-    Route::post('infrastruktur-edit/update', [FrontendController::class, 'updateInfrastrukturInput'])->name('updateInfrastruktur.input');
-    Route::get('/infras/delete', [FrontendController::class, 'deleteinfras']);
+    // Route::post('infrastruktur-edit/update', [FrontendController::class, 'updateInfrastrukturInput'])->name('updateInfrastruktur.input');
+    // Route::get('/infras/delete', [FrontendController::class, 'deleteinfras']);
     // });
 });

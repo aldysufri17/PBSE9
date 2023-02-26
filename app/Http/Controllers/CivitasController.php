@@ -137,12 +137,12 @@ class CivitasController extends Controller
         }
     }
 
-    public function detailAdmin($id, $post_by)
+    public function detailAdmin($year, $post_by)
     {
         $civitas = academic_community::where('post_by', $post_by)
-            ->whereYear('created_at', '=', $id)
+            ->whereYear('created_at', '=', $year)
             ->first();
-        return view('backend.civitas.add', compact('id', 'civitas', 'post_by'));
+        return view('backend.civitas.add', compact('year', 'civitas', 'post_by'));
     }
 
     /**

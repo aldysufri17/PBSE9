@@ -149,22 +149,24 @@ class LegalityController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nidi'      => 'required|mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
-            'slo'       => 'required|mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
-            'io'        => 'required|mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
-            'ttb'       => 'required|mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
-            'sopo'      => 'required|mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
-            'sopm'      => 'required|mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
+            'nidi'      => 'mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
+            'slo'       => 'mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
+            'io'        => 'mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
+            'ttb'       => 'mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
+            'sopo'      => 'mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
+            'sopm'      => 'mimes:jpeg,png,jpg,svg,pdf,doc,csv,xlsx,xls,docx|max:20000',
         ]);
 
         // legalitas
         $item_name = infrastucture_legality_items::where('ili_id', $request->ili_id)->value('item');
-        $user_name = User::where('user_id', $post_by)->value('name');
+        $user_name = User::where('user_id', $request->post_by)->value('name');
         $legality = infrastructure_legality::where('il_id', $id)->first();
         $year = $request->year;
 
+        $inf = infrastructure_legality::find($id);
+
         // NIDI
-        $nidi_name = null;
+        // $nidi_name = null;
         if ($request->has('nidi')) {
             if (file_exists(public_path('file/legalitas/nidi') . $legality->NDI)) {
                 unlink(public_path('file/legalitas/nidi') . $legality->NDI); //menghapus file lama
@@ -173,10 +175,11 @@ class LegalityController extends Controller
             $nidi_name = date('Y-m-d') . '-' . 'NIDI' . "-" . $item_name . "-" . $user_name . "." . $nidi->getClientOriginalExtension();
             $destination = 'file/legalitas/nidi';
             $nidi->move($destination, $nidi_name);
+            $inf->NDI = $nidi_name;
         }
 
         // SLO
-        $slo_name = null;
+        // $slo_name = null;
         if ($request->has('slo')) {
             if (file_exists(public_path('file/legalitas/nidi') . $legality->SLO)) {
                 unlink(public_path('file/legalitas/slo') . $legality->SLO); //menghapus file lama
@@ -185,10 +188,11 @@ class LegalityController extends Controller
             $slo_name = date('Y-m-d') . '-' . 'SLO' . "-" . $item_name . "-" . $user_name . "." . $slo->getClientOriginalExtension();
             $destination = 'file/legalitas/slo';
             $slo->move($destination, $slo_name);
+            $inf->SLO = $slo_name;
         }
 
         // io
-        $io_name = null;
+        // $io_name = null;
         if ($request->has('io')) {
             if (file_exists(public_path('file/legalitas/nidi') . $legality->IJIN_OPERASI)) {
                 unlink(public_path('file/legalitas/ijin_operasi') . $legality->IJIN_OPERASI); //menghapus file lama
@@ -197,10 +201,11 @@ class LegalityController extends Controller
             $io_name = date('Y-m-d') . '-' . 'IJIN_OPERASI' . "-" . $item_name . "-" . $user_name . "." . $io->getClientOriginalExtension();
             $destination = 'file/legalitas/ijin_operasi';
             $io->move($destination, $io_name);
+            $inf->IJIN_OPERASI = $oi_name;
         }
 
         // ttb
-        $ttb_name = null;
+        // $ttb_name = null;
         if ($request->has('ttb')) {
             if (file_exists(public_path('file/legalitas/ttb') . $legality->TTB)) {
                 unlink(public_path('file/legalitas/ttb') . $legality->TTB); //menghapus file lama
@@ -209,10 +214,11 @@ class LegalityController extends Controller
             $ttb_name = date('Y-m-d') . '-' . 'TTB' . "-" . $item_name . "-" . $user_name . "." . $ttb->getClientOriginalExtension();
             $destination = 'file/legalitas/ttb';
             $ttb->move($destination, $ttb_name);
+            $inf->TTB = $ttb_name;
         }
 
         // sopo
-        $sopo_name = null;
+        // $sopo_name = null;
         if ($request->has('sopo')) {
             if (file_exists(public_path('file/legalitas/sop_operasi') . $legality->SOP_OPERASI)) {
                 unlink(public_path('file/legalitas/sop_operasi') . $legality->SOP_OPERASI); //menghapus file lama
@@ -221,10 +227,11 @@ class LegalityController extends Controller
             $sopo_name = date('Y-m-d') . '-' . 'SOP_OPERASI' . "-" . $item_name . "-" . $user_name . "." . $sopo->getClientOriginalExtension();
             $destination = 'file/legalitas/sop_operasi';
             $sopo->move($destination, $sopo_name);
+            $inf->SOP_OPERASI = $sopo_name;
         }
 
         // SOPM
-        $sopm_name = null;
+        // $sopm_name = null;
         if ($request->has('sopm')) {
             if (file_exists(public_path('file/legalitas/sop_pemeliharaan') . $legality->SOP_PELIHARA)) {
                 unlink(public_path('file/legalitas/sop_pemeliharaan') . $legality->SOP_PELIHARA); //menghapus file lama
@@ -233,18 +240,12 @@ class LegalityController extends Controller
             $sopm_name = date('Y-m-d') . '-' . 'SOP_PEMELIHARAAN' . "-" . $item_name . "-" . $user_name . "." . $sopm->getClientOriginalExtension();
             $destination = 'file/legalitas/sop_pemeliharaan';
             $sopm->move($destination, $sopm_name);
+            $inf->SOP_PELIHARA = $sopm_name;
         }
 
-        infrastructure_legality::where('il_id', $id)->update([
-            'NDI'               => $nidi_name,
-            'SLO'               => $slo_name,
-            'IJIN_OPERASI'      => $io_name,
-            'TTB'               => $ttb_name,
-            'SOP_OPERASI'       => $sopo_name,
-            'SOP_PELIHARA'      => $sopm_name,
-        ]);
+        $inf->save();
 
-        redirect()->back()->with('success', 'Legalitas Infrastruktur' . $year . 'Berhasil diubah.');
+        return redirect()->route('legalitas.index')->with('success', 'Legalitas Infrastruktur ' . $year . ' Berhasil diubah.');
     }
 
     public function destroy(Request $request, $id)
